@@ -5,10 +5,8 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import hotel.classes.Quarto;
 import hotel.classes.Locacao;
 import hotel.classes.DAO.ClienteDAO;
-import hotel.classes.DAO.QuartoDAO;
 import hotel.classes.DAO.LocacaoDAO;
 import hotel.telas.cadastro.TelaCadastroLocacao;
 
@@ -24,11 +22,8 @@ public class RegraCadastroLocacao {
 		long fkCliente = tela.getClienteSelecionado().getId();
 		Date entrada = tela.getDataEntrada();
 		Date saida = tela.getDataSaida();
-		Quarto quarto;
 		try {
-			QuartoDAO qdao = new QuartoDAO();
-			quarto = qdao.selecionarQuartoDisponivel(entrada, saida);
-			Locacao reserva = new Locacao(fkCliente, quarto.getId(), entrada.toLocalDate(), saida.toLocalDate(), (long) 1);
+			Locacao reserva = new Locacao(fkCliente, entrada.toLocalDate(), saida.toLocalDate(), (long) 1);
 
 			LocacaoDAO reservaDao = new LocacaoDAO();
 			reservaDao.inserir(reserva);
@@ -44,11 +39,8 @@ public class RegraCadastroLocacao {
 		long fkCliente = tela.getClienteSelecionado().getId();
 		Date entrada = tela.getDataEntrada();
 		Date saida = tela.getDataSaida();
-		Quarto quarto;
 		try {
-			QuartoDAO qdao = new QuartoDAO();
-			quarto = qdao.selecionarQuartoDisponivel(entrada, saida);
-			Locacao reserva = new Locacao(id, fkCliente, quarto.getId(), entrada.toLocalDate(), saida.toLocalDate(), (long) 1);
+			Locacao reserva = new Locacao(id, fkCliente, entrada.toLocalDate(), saida.toLocalDate(), (long) 1);
 
 			LocacaoDAO reservaDao = new LocacaoDAO();
 			reservaDao.alterar(reserva);

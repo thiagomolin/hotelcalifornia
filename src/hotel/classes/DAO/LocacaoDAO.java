@@ -17,15 +17,14 @@ public class LocacaoDAO extends DAO {
 	}
 
 	public void inserir(Locacao locacao) throws SQLException, ClassNotFoundException {
-		String sqlQuery = "INSERT INTO locacao(fk_cliente, fk_quarto, dt_entrada, dt_saida, fk_status) VALUES (?,?,?,?,?)";
+		String sqlQuery = "INSERT INTO locacao(fk_cliente, dt_entrada, dt_saida, fk_status) VALUES (?,?,?,?)";
 
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
 			stmt.setLong(1, locacao.getFkCliente());
-			stmt.setLong(2, locacao.getFkQuarto());
-			stmt.setDate(3, locacao.getDtEntradaSQL());
-			stmt.setDate(4, locacao.getDtSaidaSQL());
-			stmt.setLong(5, locacao.getFkStatus());
+			stmt.setDate(2, locacao.getDtEntradaSQL());
+			stmt.setDate(3, locacao.getDtSaidaSQL());
+			stmt.setLong(4, locacao.getFkStatus());
 
 			stmt.executeUpdate();
 
@@ -37,16 +36,15 @@ public class LocacaoDAO extends DAO {
 	}
 
 	public void alterar(Locacao locacao) throws SQLException, ClassNotFoundException {
-		String sqlQuery = "UPDATE locacao SET fk_cliente = ?, fk_quarto = ?, dt_entrada = ?, dt_saida = ?, fk_status = ? WHERE id = ";
+		String sqlQuery = "UPDATE locacao SET fk_cliente = ?, dt_entrada = ?, dt_saida = ?, fk_status = ? WHERE id = ?";
 
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
 			stmt.setLong(1, locacao.getFkCliente());
-			stmt.setLong(2, locacao.getFkQuarto());
-			stmt.setDate(3, locacao.getDtEntradaSQL());
-			stmt.setDate(4, locacao.getDtSaidaSQL());
-			stmt.setLong(5, locacao.getFkStatus());
-			stmt.setLong(6, locacao.getId());
+			stmt.setDate(2, locacao.getDtEntradaSQL());
+			stmt.setDate(3, locacao.getDtSaidaSQL());
+			stmt.setLong(4, locacao.getFkStatus());
+			stmt.setLong(5, locacao.getId());
 
 			stmt.executeUpdate();
 
@@ -134,8 +132,7 @@ public class LocacaoDAO extends DAO {
 		LocalDate entrada = resultSet.getDate("dt_entrada").toLocalDate();
 		LocalDate saida = resultSet.getDate("dt_saida").toLocalDate();
 
-		Locacao r = new Locacao(resultSet.getLong("id"), resultSet.getLong("fk_cliente"),
-				resultSet.getLong("fk_quarto"), entrada, saida, resultSet.getLong("fk_status"));
+		Locacao r = new Locacao(resultSet.getLong("id"), resultSet.getLong("fk_cliente"), entrada, saida, resultSet.getLong("fk_status"));
 		return r;
 	}
 

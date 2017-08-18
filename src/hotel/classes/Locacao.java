@@ -8,23 +8,20 @@ public class Locacao {
 	
 	private long id;
 	private long fkCliente;
-	private long fkQuarto;
 	private long fkStatus;
 	private LocalDate dtSaida;
 	private LocalDate dtEntrada;
 
-	public Locacao(long id, long fkCliente, long fkQuarto, LocalDate dtEntrada, LocalDate dtSaida, long fkStatus) {
+	public Locacao(long id, long fkCliente, LocalDate dtEntrada, LocalDate dtSaida, long fkStatus) {
 		this.id = id;
 		this.fkCliente = fkCliente;
-		this.fkQuarto = fkQuarto;
 		this.dtSaida = dtSaida;
 		this.dtEntrada = dtEntrada;
 		this.fkStatus = fkStatus;
 	}
 
-	public Locacao(long fkCliente, long fkQuarto, LocalDate dtEntrada, LocalDate dtSaida, long fkStatus) {
+	public Locacao(long fkCliente, LocalDate dtEntrada, LocalDate dtSaida, long fkStatus) {
 		this.fkCliente = fkCliente;
-		this.fkQuarto = fkQuarto;
 		this.dtSaida = dtSaida;
 		this.dtEntrada = dtEntrada;
 		this.fkStatus = fkStatus;
@@ -44,14 +41,6 @@ public class Locacao {
 
 	public void setFkCliente(long fkCliente) {
 		this.fkCliente = fkCliente;
-	}
-
-	public long getFkQuarto() {
-		return fkQuarto;
-	}
-
-	public void setFkQuarto(long fkQuarto) {
-		this.fkQuarto = fkQuarto;
 	}
 
 	public LocalDate getDtSaida() {
