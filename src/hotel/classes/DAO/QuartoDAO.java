@@ -25,7 +25,7 @@ public class QuartoDAO extends DAO {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
 			stmt.setString(1, quarto.getNrQuarto());
 			stmt.setLong(2, quarto.getFkTipoQuarto());
-			stmt.setBoolean(5, quarto.isDisponivel());
+			stmt.setBoolean(3, quarto.isDisponivel());
 			
 			stmt.executeUpdate();
 
@@ -106,18 +106,23 @@ public class QuartoDAO extends DAO {
 		}
 	}
 	
-	public Quarto selecionarQuartoDisponivel(Date entrada, Date saida) {
-		String sqlQuery = "SELECT * FROM quarto WHERE quarto.id NOT IN "
-				+ "(SELECT quarto.id FROM quarto INNER JOIN reserva ON quarto.id = reserva.fk_quarto "
-				+ "WHERE ((? > dt_saida) OR ((? < dt_saida) "
-				+ "AND (? < dt_entrada))) AND fk_status = 1)"
-				+ " AND  quarto.vf_disponivel = 1";
+	public Quarto selecionarQuartoDisponivel(Date entrada, Date saida, long fkTipoDeQuarto) {
+		String sqlQuery = "SELECT quarto.id FROM quarto " + 
+						  "LEFT JOIN reserva ON reserva.fk_quarto = quarto.id " + 
+						  "WHERE quarto.id " + 
+						  "NOT IN (" + 
+						  "SELECT reserva.fk_quarto FROM reserva " + 
+						  "WHERE NOT( (? <= reserva.dt_entrada) OR (? >= reserva.dt_saida) ) " + 
+						  ") " + 
+						  "AND quarto.vf_disponivel = true " + 
+						  "AND quarto.fk_tipo_quarto = ?";
 		
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
-			stmt.setDate(1, entrada);
+			stmt.setDate(1, saida);
 			stmt.setDate(2, entrada);
-			stmt.setDate(3, saida);
+			stmt.setLong(3, fkTipoDeQuarto);
+			
 			ResultSet rs = stmt.executeQuery();
 			
 			if (rs.next()) {
@@ -157,7 +162,7 @@ public class QuartoDAO extends DAO {
 	}
 
 	private Quarto parser(ResultSet resultSet) throws SQLException {
-		Quarto q = new Quarto(resultSet.getLong("id"), resultSet.getString("nr_quarto"),resultSet.getLong("fk_tipo_quarto"),resultSet.getLong("fk_reserva"),resultSet.getLong("fk_locacao"), resultSet.getBoolean("vf_disponivel"));
+		Quarto q = new Quarto(resultSet.getLong("id"), resultSet.getString("nr_quarto"),resultSet.getLong("fk_tipo_quarto"), resultSet.getBoolean("vf_disponivel"));
 		return q;
 	}
 

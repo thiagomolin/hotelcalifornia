@@ -8,18 +8,8 @@ public class Quarto {
 	long id;
 	String nrDoQuarto;
 	long fkTipoQuarto;
-	long fkReserva;
-	long fkLocacao;
 	boolean disponivel;
 
-	public Quarto(long id, String nrDoQuarto, long fkTipoQuarto, long fkReserva, long fkLocacao, boolean disponivel) {
-		this.id = id;
-		this.nrDoQuarto = nrDoQuarto;
-		this.fkTipoQuarto = fkTipoQuarto;
-		this.fkReserva = fkReserva;
-		this.fkLocacao = fkLocacao;
-		this.disponivel = disponivel;
-	}
 	public Quarto(long id, String nrDoQuarto, long fkTipoQuarto, boolean disponivel) {
 		this.id = id;
 		this.nrDoQuarto = nrDoQuarto;
@@ -72,22 +62,6 @@ public class Quarto {
 
 	public void setFkTipoQuarto(long fkTipoQuarto) {
 		this.fkTipoQuarto = fkTipoQuarto;
-	}
-
-	public long getFkReserva() {
-		return fkReserva;
-	}
-
-	public void setFkReserva(long fkReserva) {
-		this.fkReserva = fkReserva;
-	}
-
-	public long getFkLocacao() {
-		return fkLocacao;
-	}
-
-	public void setFkLocacao(long fkLocacao) {
-		this.fkLocacao = fkLocacao;
 	}
 
 	public String getNrDoQuarto() {
