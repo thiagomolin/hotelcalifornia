@@ -3,6 +3,7 @@ package hotel.telas.cadastro;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -17,12 +18,14 @@ import com.toedter.calendar.JDateChooser;
 
 import hotel.classes.Cliente;
 import hotel.classes.Locacao;
+import hotel.classes.Reserva;
 import hotel.classes.DAO.ClienteDAO;
 import hotel.classes.DAO.LocacaoDAO;
 import hotel.regras.cadastro.RegraCadastroLocacao;
 import hotel.telas.consulta.ETipos;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.main.TelaPrincipal;
+import hotel.util.UtilDatas;
 
 public class TelaCadastroLocacao extends Tela {
 	private static final long serialVersionUID = 1L;
@@ -42,9 +45,12 @@ public class TelaCadastroLocacao extends Tela {
 	private TelaPrincipal telaPrincipal;
 
 	private JComboBox<Object> comboBoxCliente;
+	private JComboBox<Object> comboBoxReserva;
 
 	private JDateChooser dateSaida;
 	private JDateChooser dateEntrada;
+	private JLabel lblReservaseExistir;
+	private JButton buttonConsultaReserva;
 
 	public TelaCadastroLocacao(TelaPrincipal telaPrincipal) {
 		super();
@@ -179,8 +185,9 @@ public class TelaCadastroLocacao extends Tela {
 		JLabel label_3 = new JLabel("Data Saida");
 		label_3.setBounds(53, 209, 70, 14);
 		getContentPane().add(label_3);
-		
+
 		buttonConsultaCliente = new JButton("...");
+		buttonConsultaCliente.setEnabled(false);
 		buttonConsultaCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				consultar(ETipos.Cliente);
@@ -188,6 +195,20 @@ public class TelaCadastroLocacao extends Tela {
 		});
 		buttonConsultaCliente.setBounds(278, 123, 18, 23);
 		getContentPane().add(buttonConsultaCliente);
+		
+		comboBoxReserva = new JComboBox<Object>();
+		comboBoxReserva.setEnabled(false);
+		comboBoxReserva.setBounds(138, 253, 129, 20);
+		getContentPane().add(comboBoxReserva);
+		
+		lblReservaseExistir = new JLabel("Reserva (se existir)");
+		lblReservaseExistir.setBounds(10, 256, 113, 14);
+		getContentPane().add(lblReservaseExistir);
+		
+		buttonConsultaReserva = new JButton("...");
+		buttonConsultaReserva.setEnabled(false);
+		buttonConsultaReserva.setBounds(278, 252, 18, 23);
+		getContentPane().add(buttonConsultaReserva);
 
 	}
 	// LAYOUT
@@ -339,8 +360,8 @@ public class TelaCadastroLocacao extends Tela {
 	}
 
 	public void setConsulta(Long id) {
-		
-	}	
+
+	}
 
 	public void setConsulta(Long id, ETipos tipo) {
 		if (tipo == ETipos.Locacao) {
@@ -359,7 +380,14 @@ public class TelaCadastroLocacao extends Tela {
 
 	// Validação de formulário
 	protected boolean isFormularioValido() {
+		LocalDate entrada = UtilDatas.dateToLocalDate(dateEntrada.getDate());
+		LocalDate saida = UtilDatas.dateToLocalDate(dateSaida.getDate());
 		boolean valido = true;
+		valido = (dateEntrada.getDate() == null) ? false : valido;
+		valido = (dateSaida.getDate() == null) ? false : valido;
+		valido = (entrada.equals(saida)) ? false : valido;
+		valido = (entrada.isAfter(saida)) ? false : valido;
+		valido = (entrada.isBefore(LocalDate.now()) && entrada.equals(LocalDate.now())) ? false : valido;
 		return valido;
 	}
 	// Validação de formulário
@@ -367,6 +395,14 @@ public class TelaCadastroLocacao extends Tela {
 	// GETTERS AND SETTERS
 	public void setClienteSelecionado(Cliente cliente) {
 		comboBoxCliente.getModel().setSelectedItem(cliente);
+	}
+	
+	public void setReservaSelecionado(Reserva reserva) {
+		comboBoxReserva.getModel().setSelectedItem(reserva);
+	}
+	
+	public Reserva getReservaSelecionado() {
+		return (Reserva) comboBoxReserva.getModel().getSelectedItem();
 	}
 
 	public java.sql.Date getDataEntrada() {

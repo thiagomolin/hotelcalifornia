@@ -386,6 +386,7 @@ public class TelaCadastroReserva extends Tela {
 		valido = (dateSaida.getDate() == null) ? false : valido;
 		valido = (entrada.equals(saida))? false : valido;
 		valido = (entrada.isAfter(saida))? false : valido;
+		valido = (entrada.isBefore(LocalDate.now()) && entrada.equals(LocalDate.now()))? false : valido;
 		return valido;
 	}
 	// Validação de formulário
