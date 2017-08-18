@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Reserva {
 	private long id;
-	private String nomeCliente;
+	private String nmCliente;
 	private String nrCpf;
 	private LocalDate dtSaida;
 	private LocalDate dtEntrada;
@@ -14,7 +14,7 @@ public class Reserva {
 
 	public Reserva(long id, String nmCliente, String nrCpf, LocalDate dtEntrada, LocalDate dtSaida, long fkStatus) {
 		this.id = id;
-		this.nomeCliente = nmCliente;
+		this.nmCliente = nmCliente;
 		this.nrCpf = nrCpf;
 		this.dtSaida = dtSaida;
 		this.dtEntrada = dtEntrada;
@@ -22,7 +22,7 @@ public class Reserva {
 	}
 
 	public Reserva(String nmCliente, String nrCpf, LocalDate dtEntrada, LocalDate dtSaida, long fkStatus) {
-		this.nomeCliente = nmCliente;
+		this.nmCliente = nmCliente;
 		this.nrCpf = nrCpf;
 		this.dtSaida = dtSaida;
 		this.dtEntrada = dtEntrada;
@@ -38,11 +38,11 @@ public class Reserva {
 	}
 
 	public String getNomeCliente() {
-		return nomeCliente;
+		return nmCliente;
 	}
 
 	public void setFkCliente(String fkCliente) {
-		this.nomeCliente = fkCliente;
+		this.nmCliente = fkCliente;
 	}
 
 	public LocalDate getDtSaida() {
@@ -88,12 +88,12 @@ public class Reserva {
 	public static List<String> getCampos() {
 		List<String> lista = new ArrayList<String>();
 		lista.add("Nome do Cliente");
-		lista.add("Numero do Quarto");
+		lista.add("CPF");
 		return lista;
 	}
 
 	public String toString() {
-		return String.valueOf(id);
+		return String.valueOf(id) + " " + nmCliente;
 	}
 
 }
