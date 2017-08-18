@@ -79,6 +79,8 @@ public class RegraCadastroReserva {
 		try {
 			StatusDAO sdao = new StatusDAO();
 			tela.setSelectedComboBoxStatus(sdao.selecionar(reserva.getFkStatus()));
+			tela.setTextFieldCliente(reserva.getNomeCliente());
+			tela.setTextFieldCpf(reserva.getNrCpf());
 		} catch (ClassNotFoundException | SQLException e) {
 		}
 		tela.setDataEntrada(reserva.getDtEntradaSQL());

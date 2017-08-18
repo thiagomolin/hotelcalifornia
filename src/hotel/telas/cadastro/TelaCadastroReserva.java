@@ -24,6 +24,7 @@ import hotel.regras.cadastro.RegraCadastroReserva;
 import hotel.telas.consulta.ETipos;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.main.TelaPrincipal;
+import hotel.util.UtilCpf;
 
 public class TelaCadastroReserva extends Tela {
 	private static final long serialVersionUID = 1L;
@@ -234,8 +235,13 @@ public class TelaCadastroReserva extends Tela {
 	}
 
 	protected void mostrar() {
-		regraReserva.mostrarReserva();
-		habilitaCamposEditar();
+		try {
+			if (getReservaSelecionado() != null) {
+				regraReserva.mostrarReserva();
+				habilitaCamposEditar();
+			}
+		} catch (Exception e) {
+		}
 	}
 
 	protected void novo() {
@@ -248,6 +254,7 @@ public class TelaCadastroReserva extends Tela {
 		buttonExcluir.setEnabled(false);
 		buttonIncluir.setEnabled(true);
 		buttonCancelar.setEnabled(true);
+		comboBoxStatus.setEnabled(true);
 		comboBoxCodigo.setEnabled(false);
 		buttonNovo.setEnabled(false);
 		buttonConsulta.setEnabled(false);
@@ -309,10 +316,13 @@ public class TelaCadastroReserva extends Tela {
 	private void inicializarComponentes() {
 		buttonAlterar.setEnabled(false);
 		dateEntrada.setEnabled(false);
+		textFieldCliente.setEnabled(false);
+		textFieldCpf.setEnabled(false);
 		dateSaida.setEnabled(false);
 		buttonExcluir.setEnabled(false);
 		buttonIncluir.setEnabled(false);
 		buttonCancelar.setEnabled(false);
+		comboBoxStatus.setEnabled(false);
 		comboBoxCodigo.getModel().setSelectedItem(null);
 		buttonMostrar.setEnabled(true);
 	}
@@ -326,6 +336,7 @@ public class TelaCadastroReserva extends Tela {
 		buttonExcluir.setEnabled(true);
 		buttonIncluir.setEnabled(false);
 		buttonCancelar.setEnabled(true);
+		comboBoxStatus.setEnabled(true);
 		comboBoxCodigo.setEnabled(false);
 		buttonNovo.setEnabled(false);
 		buttonConsulta.setEnabled(false);
@@ -335,7 +346,9 @@ public class TelaCadastroReserva extends Tela {
 	protected void desabilitaCampos() {
 		buttonAlterar.setEnabled(false);
 		textFieldCliente.setEnabled(false);
+		textFieldCliente.setText("");
 		textFieldCpf.setEnabled(false);
+		textFieldCpf.setText("");
 		dateEntrada.setEnabled(false);
 		dateSaida.setEnabled(false);
 		buttonAlterar.setEnabled(false);
@@ -362,6 +375,11 @@ public class TelaCadastroReserva extends Tela {
 	// Validação de formulário
 	protected boolean isFormularioValido() {
 		boolean valido = true;
+		valido = (textFieldCliente.getText().isEmpty() && textFieldCpf.getText().isEmpty()) ? false : valido;
+		valido = (!textFieldCpf.getText().isEmpty() && !UtilCpf.isCpfValido(textFieldCpf.getText())) ? false : valido;
+		valido = (getSelectedComboBoxStatus() == null) ? false : valido;
+		valido = (dateEntrada.getDate() == null) ? false : valido;
+		valido = (dateSaida.getDate() == null) ? false : valido;
 		return valido;
 	}
 	// Validação de formulário
