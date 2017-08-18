@@ -96,7 +96,8 @@ public class QuartoDAO extends DAO {
 	}
 
 	public ResultSet listar() throws SQLException, ClassNotFoundException {
-		String sqlQuery = "SELECT * FROM quarto ORDER BY id";
+		String sqlQuery = "SELECT quarto.id, quarto.nr_quarto, quarto_tipo.ds_tipo_quarto, quarto.vf_disponivel "
+				+ "FROM quarto INNER JOIN quarto_tipo ON quarto_tipo.id = quarto.fk_tipo_quarto";
 
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);

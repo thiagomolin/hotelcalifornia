@@ -417,10 +417,6 @@ public class TelaCadastroFornecedor extends Tela {
 		});
 	}
 	
-	public void setConsulta(Long id){
-		regraFornecedor.selecionarPorId(id);
-		habilitaCamposEditar();
-	}
 	//Métodos de manipulação de componentes 
 	
 	
@@ -531,8 +527,8 @@ public class TelaCadastroFornecedor extends Tela {
 
 	@Override
 	public void setConsulta(Long id, ETipos tipo) {
-		// TODO Auto-generated method stub
-		
+		regraFornecedor.selecionarPorId(id);
+		habilitaCamposEditar();
 	}
 
 }

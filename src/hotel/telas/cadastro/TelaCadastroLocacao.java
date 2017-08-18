@@ -338,10 +338,6 @@ public class TelaCadastroLocacao extends Tela {
 		comboBoxCodigo.setSelectedItem(null);
 	}
 
-	public void setConsulta(Long id) {
-		
-	}	
-
 	public void setConsulta(Long id, ETipos tipo) {
 		if (tipo == ETipos.Locacao) {
 			regraLocacao.selecionarPorId(id);

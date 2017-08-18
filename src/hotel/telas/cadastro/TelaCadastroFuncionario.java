@@ -356,7 +356,6 @@ public class TelaCadastroFuncionario extends Tela {
 		UtilCombobox.inicializarComboBoxCidade(comboBoxCidade, getEstadoSelecionado().getId());
 	}
 	
-
 	private void inicializarComboBoxCargo() {
 		
 	}	
@@ -441,11 +440,7 @@ public class TelaCadastroFuncionario extends Tela {
 			}
 		});
 	}
-	
-	public void setConsulta(Long id){
-		regraFuncionario.selecionarPorId(id);
-		habilitaCamposEditar();
-	}
+
 	//Métodos de manipulação de componentes 
 	
 	
@@ -563,8 +558,8 @@ public class TelaCadastroFuncionario extends Tela {
 
 	@Override
 	public void setConsulta(Long id, ETipos tipo) {
-		// TODO Auto-generated method stub
-		
+		regraFuncionario.selecionarPorId(id);
+		habilitaCamposEditar();
 	}
 }
 

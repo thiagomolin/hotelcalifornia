@@ -267,7 +267,6 @@ public class TelaConsultaGeral extends JFrame {
 		}
 
 		if ((telaCadastro != null) && linhaSelecionada >= 0) {
-			telaCadastro.setConsulta(linhaSelecionada);
 			telaCadastro.setConsulta(linhaSelecionada, tipoSelecionado);
 
 			this.dispose();
@@ -283,14 +282,13 @@ public class TelaConsultaGeral extends JFrame {
 				return false;
 			}
 		};
-		
 		if (tipoSelecionado == ETipos.Quarto) {
 			for (int i = 0; i < tableModel.getRowCount(); i++) {
-				boolean b = (boolean) tableModel.getValueAt(i, 2);
+				boolean b = (boolean) tableModel.getValueAt(i, 3);
 				if (b) {
-					tableModel.setValueAt("Disponível", i, 2);
+					tableModel.setValueAt("Disponível", i, 3);
 				} else {
-					tableModel.setValueAt("Indisponível", i, 2);
+					tableModel.setValueAt("Indisponível", i, 3);
 				}
 			}
 		}

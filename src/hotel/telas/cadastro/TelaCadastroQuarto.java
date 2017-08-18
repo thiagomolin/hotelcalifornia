@@ -337,10 +337,6 @@ public class TelaCadastroQuarto extends Tela {
 		desabilitaCampos();
 	}
 
-	public void setConsulta(Long id) {
-		regraQuarto.selecionarPorId(id);
-		habilitaCamposEditar();
-	}
 	// Métodos de manipulação de componentes
 
 	// Validação de formulário
@@ -394,7 +390,8 @@ public class TelaCadastroQuarto extends Tela {
 
 	@Override
 	public void setConsulta(Long id, ETipos tipo) {
-
+		regraQuarto.selecionarPorId(id);
+		habilitaCamposEditar();
 	}
 
 	public void setTipoQuarto(TipoDeQuarto  tipoDeQuarto) {
