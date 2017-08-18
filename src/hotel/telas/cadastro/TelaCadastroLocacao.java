@@ -37,6 +37,7 @@ public class TelaCadastroLocacao extends Tela {
 	private JButton buttonNovo;
 	private JButton buttonConsulta;
 	private JButton buttonMostrar;
+	private JButton buttonConsultaCliente;
 
 	private TelaPrincipal telaPrincipal;
 
@@ -136,7 +137,7 @@ public class TelaCadastroLocacao extends Tela {
 		buttonConsulta = new JButton("...");
 		buttonConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				consultar();
+				consultar(ETipos.Locacao);
 			}
 		});
 		buttonConsulta.setBounds(252, 58, 18, 23);
@@ -160,7 +161,7 @@ public class TelaCadastroLocacao extends Tela {
 		getContentPane().add(label);
 
 		comboBoxCliente = new JComboBox<Object>();
-		comboBoxCliente.setBounds(138, 124, 181, 20);
+		comboBoxCliente.setBounds(138, 124, 129, 20);
 		getContentPane().add(comboBoxCliente);
 
 		JLabel label_2 = new JLabel("Data Entrada");
@@ -178,6 +179,15 @@ public class TelaCadastroLocacao extends Tela {
 		JLabel label_3 = new JLabel("Data Saida");
 		label_3.setBounds(53, 209, 70, 14);
 		getContentPane().add(label_3);
+		
+		buttonConsultaCliente = new JButton("...");
+		buttonConsultaCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				consultar(ETipos.Cliente);
+			}
+		});
+		buttonConsultaCliente.setBounds(278, 123, 18, 23);
+		getContentPane().add(buttonConsultaCliente);
 
 	}
 	// LAYOUT
@@ -216,6 +226,7 @@ public class TelaCadastroLocacao extends Tela {
 	protected void novo() {
 		comboBoxCodigo.setEnabled(true);
 		dateEntrada.setEnabled(true);
+		buttonConsultaCliente.setEnabled(true);
 		comboBoxCliente.setEnabled(true);
 		dateSaida.setEnabled(true);
 		buttonAlterar.setEnabled(false);
@@ -244,8 +255,8 @@ public class TelaCadastroLocacao extends Tela {
 		}
 	}
 
-	protected void consultar() {
-		TelaConsultaGeral telaConsulta = new TelaConsultaGeral(ETipos.Locacao, this);
+	protected void consultar(ETipos tipo) {
+		TelaConsultaGeral telaConsulta = new TelaConsultaGeral(tipo, this);
 		telaConsulta.setVisible(true);
 	}
 
@@ -293,9 +304,10 @@ public class TelaCadastroLocacao extends Tela {
 	}
 
 	protected void habilitaCamposEditar() {
-		comboBoxCliente.setEnabled(true);
-		dateEntrada.setEnabled(true);
+		comboBoxCliente.setEnabled(false);
+		dateEntrada.setEnabled(false);
 		dateSaida.setEnabled(true);
+		buttonConsultaCliente.setEnabled(false);
 		buttonAlterar.setEnabled(true);
 		buttonExcluir.setEnabled(true);
 		buttonIncluir.setEnabled(false);
@@ -327,8 +339,21 @@ public class TelaCadastroLocacao extends Tela {
 	}
 
 	public void setConsulta(Long id) {
-		regraLocacao.selecionarPorId(id);
-		habilitaCamposEditar();
+		
+	}	
+
+	public void setConsulta(Long id, ETipos tipo) {
+		if (tipo == ETipos.Locacao) {
+			regraLocacao.selecionarPorId(id);
+			habilitaCamposEditar();
+		} else if (tipo == ETipos.Cliente) {
+			try {
+				ClienteDAO c = new ClienteDAO();
+				setClienteSelecionado(c.selecionar(id));
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	// Métodos de manipulação de componentes
 
@@ -374,9 +399,4 @@ public class TelaCadastroLocacao extends Tela {
 
 	// GETTERS AND SETTERS
 
-	@Override
-	public void setConsulta(Long id, ETipos tipo) {
-		// TODO Auto-generated method stub
-
-	}
 }

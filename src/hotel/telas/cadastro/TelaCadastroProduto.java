@@ -40,14 +40,14 @@ public class TelaCadastroProduto extends Tela {
 	private JButton buttonConsulta;
 	private JButton buttonConsultaFornecedor;
 	private JButton buttonMostrar;
-	
+
 	private JCheckBox chckbxConsumivel;
-	
+
 	private TelaPrincipal telaPrincipal;
 	private JTextField textFieldVlrCompra;
 	private JTextField textFieldVlrVenda;
 	private JLabel lblConsumvel;
-	
+
 	public TelaCadastroProduto(TelaPrincipal telaPrincipal) {
 		super();
 		setTitle("Cadastro Produto");
@@ -82,7 +82,7 @@ public class TelaCadastroProduto extends Tela {
 		buttonAlterar = new JButton("Alterar");
 		buttonAlterar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				alterar();	
+				alterar();
 			}
 		});
 		buttonAlterar.setBounds(29, 164, 89, 23);
@@ -142,7 +142,7 @@ public class TelaCadastroProduto extends Tela {
 
 		buttonConsulta = new JButton("...");
 		buttonConsulta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {	
+			public void actionPerformed(ActionEvent e) {
 				consultar(ETipos.Produto);
 			}
 		});
@@ -166,43 +166,43 @@ public class TelaCadastroProduto extends Tela {
 		textFieldProduto.setBounds(120, 122, 181, 20);
 		getContentPane().add(textFieldProduto);
 		textFieldProduto.setColumns(10);
-		
+
 		JLabel lblVlrCompra = new JLabel("Vlr. Compra");
 		lblVlrCompra.setBounds(31, 154, 74, 14);
 		getContentPane().add(lblVlrCompra);
-		
+
 		textFieldVlrCompra = new JTextField();
 		textFieldVlrCompra.setEnabled(false);
 		textFieldVlrCompra.setColumns(10);
 		textFieldVlrCompra.setBounds(120, 153, 181, 20);
 		getContentPane().add(textFieldVlrCompra);
-		
+
 		JLabel lblVlrVenda = new JLabel("Vlr. Venda");
 		lblVlrVenda.setBounds(31, 185, 74, 14);
 		getContentPane().add(lblVlrVenda);
-		
+
 		textFieldVlrVenda = new JTextField();
 		textFieldVlrVenda.setEnabled(false);
 		textFieldVlrVenda.setColumns(10);
 		textFieldVlrVenda.setBounds(120, 184, 181, 20);
 		getContentPane().add(textFieldVlrVenda);
-		
+
 		lblConsumvel = new JLabel("Consumível");
 		lblConsumvel.setBounds(31, 264, 74, 14);
 		getContentPane().add(lblConsumvel);
-		
+
 		chckbxConsumivel = new JCheckBox("");
 		chckbxConsumivel.setBounds(120, 260, 97, 23);
 		getContentPane().add(chckbxConsumivel);
-		
+
 		comboBoxFornecedor = new JComboBox<Object>();
 		comboBoxFornecedor.setBounds(120, 216, 181, 20);
 		getContentPane().add(comboBoxFornecedor);
-		
+
 		JLabel lblFornecedor = new JLabel("Fornecedor");
 		lblFornecedor.setBounds(31, 219, 74, 14);
 		getContentPane().add(lblFornecedor);
-		
+
 		buttonConsultaFornecedor = new JButton("...");
 		buttonConsultaFornecedor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -236,22 +236,22 @@ public class TelaCadastroProduto extends Tela {
 		limpaCampos();
 		inicializarComboBoxCodigo();
 	}
-	
+
 	protected void cancelar() {
 		limpaCampos();
 	}
-	
+
 	protected void mostrar() {
 		regraProduto.mostrarProduto();
-		habilitaCamposEditar();		
+		habilitaCamposEditar();
 	}
-	
+
 	protected void novo() {
 		textFieldProduto.setEnabled(true);
 		textFieldVlrCompra.setEnabled(true);
 		chckbxConsumivel.setEnabled(true);
 		textFieldVlrVenda.setEnabled(true);
-		buttonConsultaFornecedor.setEnabled(true);	
+		buttonConsultaFornecedor.setEnabled(true);
 		buttonAlterar.setEnabled(false);
 		buttonExcluir.setEnabled(false);
 		buttonIncluir.setEnabled(true);
@@ -281,15 +281,14 @@ public class TelaCadastroProduto extends Tela {
 
 	protected void consultar(ETipos tipo) {
 		TelaConsultaGeral telaConsulta = new TelaConsultaGeral(tipo, this);
-		telaConsulta.setVisible(true);	
+		telaConsulta.setVisible(true);
 	}
 
 	protected void sair() {
 		telaPrincipal.fecharTela(this);
 	}
 	// Eventos de botões
-	
-	
+
 	// Eventos de ComboBox
 	public void inicializarComboBoxCodigo() {
 		try {
@@ -301,7 +300,7 @@ public class TelaCadastroProduto extends Tela {
 			ex.printStackTrace();
 		}
 	}
-	
+
 	public void inicializarComboBoxFornecedor() {
 		try {
 			FornecedorDAO f = new FornecedorDAO();
@@ -314,14 +313,12 @@ public class TelaCadastroProduto extends Tela {
 		}
 	}
 	// Eventos de ComboBox
-	
-	
-	
-	//Métodos de manipulação de componentes 
+
+	// Métodos de manipulação de componentes
 	private void inicializarComponentes() {
 		textFieldProduto.setEnabled(false);
 		chckbxConsumivel.setEnabled(false);
-		buttonConsultaFornecedor.setEnabled(false);	
+		buttonConsultaFornecedor.setEnabled(false);
 		comboBoxFornecedor.setEnabled(false);
 		buttonAlterar.setEnabled(false);
 		buttonExcluir.setEnabled(false);
@@ -335,7 +332,7 @@ public class TelaCadastroProduto extends Tela {
 		textFieldProduto.setEnabled(true);
 		textFieldVlrCompra.setEnabled(true);
 		chckbxConsumivel.setEnabled(true);
-		buttonConsultaFornecedor.setEnabled(true);	
+		buttonConsultaFornecedor.setEnabled(true);
 		comboBoxFornecedor.setEnabled(true);
 		textFieldVlrVenda.setEnabled(true);
 		buttonAlterar.setEnabled(true);
@@ -352,7 +349,7 @@ public class TelaCadastroProduto extends Tela {
 		textFieldProduto.setEnabled(false);
 		textFieldVlrCompra.setEnabled(false);
 		chckbxConsumivel.setEnabled(false);
-		buttonConsultaFornecedor.setEnabled(false);		
+		buttonConsultaFornecedor.setEnabled(false);
 		comboBoxFornecedor.setEnabled(false);
 		textFieldVlrVenda.setEnabled(false);
 		chckbxConsumivel.setEnabled(false);
@@ -373,17 +370,16 @@ public class TelaCadastroProduto extends Tela {
 		this.setTextFieldVlrCompra(0);
 		this.setTextFieldVlrVenda(0);
 	}
-	
-	public void setConsulta(Long id){
-		
+
+	public void setConsulta(Long id) {
+
 	}
-	
+
 	public void setConsulta(Long id, ETipos tipo) {
-		if(tipo == ETipos.Produto) {
+		if (tipo == ETipos.Produto) {
 			regraProduto.selecionarPorId(id);
-			habilitaCamposEditar();			
-		}
-		else if(tipo == ETipos.Fornecedor) {
+			habilitaCamposEditar();
+		} else if (tipo == ETipos.Fornecedor) {
 			try {
 				FornecedorDAO f = new FornecedorDAO();
 				comboBoxFornecedor.getModel().setSelectedItem(f.selecionar(id));
@@ -393,11 +389,9 @@ public class TelaCadastroProduto extends Tela {
 			}
 		}
 	}
-	//Métodos de manipulação de componentes 
-	
-	
-	
-	//Validação de formulário
+	// Métodos de manipulação de componentes
+
+	// Validação de formulário
 	protected boolean isFormularioValido() {
 		boolean valido = true;
 		valido = (textFieldProduto.getText().isEmpty()) ? false : valido;
@@ -406,9 +400,8 @@ public class TelaCadastroProduto extends Tela {
 
 		return valido;
 	}
-	//Validação de formulário
-	
-	
+	// Validação de formulário
+
 	// GETTERS AND SETTERS
 	public String getNome() {
 		return textFieldProduto.getText();
@@ -417,19 +410,19 @@ public class TelaCadastroProduto extends Tela {
 	public float getVlrCompra() {
 		return Float.parseFloat(textFieldVlrCompra.getText());
 	}
-	
+
 	public float getVlrVenda() {
 		return Float.parseFloat(textFieldVlrVenda.getText());
 	}
-	
+
 	public boolean isConsumivel() {
 		return chckbxConsumivel.isSelected();
 	}
-	
+
 	public Fornecedor getFornecedorSelecionado() {
 		return ((Fornecedor) comboBoxFornecedor.getSelectedItem());
 	}
-	
+
 	public Produto getProdutoSelecionado() {
 		return ((Produto) comboBoxCodigo.getSelectedItem());
 	}
@@ -437,27 +430,25 @@ public class TelaCadastroProduto extends Tela {
 	public void setTextFieldNome(String text) {
 		this.textFieldProduto.setText(text);
 	}
-	
+
 	public void setTextFieldVlrCompra(float vlr) {
 		this.textFieldVlrCompra.setText(Float.toString(vlr));
 	}
-	
+
 	public void setTextFieldVlrVenda(float vlr) {
 		this.textFieldVlrVenda.setText(Float.toString(vlr));
 	}
-	
+
 	public void setCheckBoxConsumivel(boolean bool) {
 		chckbxConsumivel.setSelected(bool);
 	}
-	
+
 	public void setSelectedComboBoxCodigo(Produto produto) {
 		this.comboBoxCodigo.getModel().setSelectedItem(produto);
 	}
-	
+
 	public void setSelectedComboBoxFornecedor(Fornecedor fornecedor) {
 		this.comboBoxFornecedor.getModel().setSelectedItem(fornecedor);
 	}
 
-	
 }
-
