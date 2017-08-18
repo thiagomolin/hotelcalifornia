@@ -418,11 +418,7 @@ public class TelaCadastroCliente extends Tela {
 			}
 		});
 	}
-	
-	public void setConsulta(Long id){
-		regraCliente.selecionarPorId(id);
-		habilitaCamposEditar();
-	}
+
 	//Métodos de manipulação de componentes 
 	
 	
@@ -533,8 +529,8 @@ public class TelaCadastroCliente extends Tela {
 
 	@Override
 	public void setConsulta(Long id, ETipos tipo) {
-		// TODO Auto-generated method stub
-		
+		regraCliente.selecionarPorId(id);
+		habilitaCamposEditar();
 	}
 
 }

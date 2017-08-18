@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import hotel.classes.Quarto;
 import hotel.classes.DAO.QuartoDAO;
+import hotel.classes.DAO.TipoDeQuartoDAO;
 import hotel.telas.cadastro.TelaCadastroQuarto;
 
 public class RegraCadastroQuarto {
@@ -19,8 +20,8 @@ public class RegraCadastroQuarto {
 	public void incluirQuarto() {
 		String nrQuarto = tela.getNumeroQuarto();
 		boolean stQuarto = tela.isDisponivel();
-
-		Quarto quarto = new Quarto(nrQuarto, stQuarto);
+		long fkTipoQuarto = tela.getTipoQuartoSelecionado().getId();
+		Quarto quarto = new Quarto(nrQuarto, fkTipoQuarto, stQuarto);
 		try {
 			QuartoDAO quartoDao = new QuartoDAO();
 			quartoDao.inserir(quarto);
@@ -33,8 +34,9 @@ public class RegraCadastroQuarto {
 	public void alterarQuarto() {
 		long idQuarto = tela.getQuartoSelecionado().getId();
 		String nrQuarto = tela.getNumeroQuarto();
+		long fkTipoQuarto = tela.getTipoQuartoSelecionado().getId();
 		boolean stQuarto = tela.isDisponivel();
-		Quarto quarto = new Quarto(idQuarto, nrQuarto, stQuarto);
+		Quarto quarto = new Quarto(idQuarto, nrQuarto, fkTipoQuarto, stQuarto);
 		try {
 			QuartoDAO quartoDao = new QuartoDAO();
 			quartoDao.alterar(quarto);
@@ -66,7 +68,14 @@ public class RegraCadastroQuarto {
 		Quarto quarto = tela.getQuartoSelecionado();
 		tela.setNumeroQuarto(quarto.getNrQuarto());
 		tela.setDisponivel(quarto.isDisponivel());
-
+		try {
+			TipoDeQuartoDAO tipoDeQuartoDao = new TipoDeQuartoDAO();
+			tela.setTipoQuarto(tipoDeQuartoDao.listarPorID(quarto.getFkTipoQuarto()));
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	public void selecionarPorId(Long id) {

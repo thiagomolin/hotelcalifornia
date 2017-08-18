@@ -19,13 +19,14 @@ public class QuartoDAO extends DAO {
 	}
 
 	public void inserir(Quarto quarto) throws SQLException, ClassNotFoundException {
-		String sqlQuery = "INSERT INTO quarto (nr_quarto, vf_disponivel) VALUES (?, ?)";
+		String sqlQuery = "INSERT INTO quarto (nr_quarto, fk_tipo_quarto, vf_disponivel) VALUES (?, ?, ?)";
 
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
 			stmt.setString(1, quarto.getNrQuarto());
-			stmt.setBoolean(2, quarto.isDisponivel());
-
+			stmt.setLong(2, quarto.getFkTipoQuarto());
+			stmt.setBoolean(5, quarto.isDisponivel());
+			
 			stmt.executeUpdate();
 
 			this.conexao.commit();
@@ -36,13 +37,14 @@ public class QuartoDAO extends DAO {
 	}
 
 	public void alterar(Quarto quarto) throws SQLException, ClassNotFoundException {
-		String sqlQuery = "UPDATE quarto SET nr_quarto = ?, vf_disponivel = ? WHERE id = ?";
+		String sqlQuery = "UPDATE quarto SET nr_quarto = ?, fk_tipo_quarto = ?, vf_disponivel = ? WHERE id = ?";
 
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
 			stmt.setString(1, quarto.getNrQuarto());
-			stmt.setBoolean(2, quarto.isDisponivel());
-			stmt.setLong(3, quarto.getId());
+			stmt.setLong(2, quarto.getFkTipoQuarto());
+			stmt.setBoolean(3, quarto.isDisponivel());
+			stmt.setLong(4, quarto.getId());
 
 			stmt.executeUpdate();
 
@@ -91,7 +93,8 @@ public class QuartoDAO extends DAO {
 	}
 
 	public ResultSet listar() throws SQLException, ClassNotFoundException {
-		String sqlQuery = "SELECT * FROM quarto ORDER BY id";
+		String sqlQuery = "SELECT quarto.id, quarto.nr_quarto, quarto_tipo.ds_tipo_quarto, quarto.vf_disponivel "
+				+ "FROM quarto INNER JOIN quarto_tipo ON quarto_tipo.id = quarto.fk_tipo_quarto";
 
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
@@ -135,7 +138,7 @@ public class QuartoDAO extends DAO {
 	}
 
 	public List<Quarto> getLista() throws SQLException, ClassNotFoundException {
-		String sqlQuery = "SELECT * FROM quarto ORDER BY id";
+		String sqlQuery = "SELECT * FROM quarto ORDER BY nr_quarto";
 
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
@@ -154,8 +157,7 @@ public class QuartoDAO extends DAO {
 	}
 
 	private Quarto parser(ResultSet resultSet) throws SQLException {
-		Quarto q = new Quarto(resultSet.getLong("id"), resultSet.getString("nr_quarto"),
-				resultSet.getBoolean("vf_disponivel"));
+		Quarto q = new Quarto(resultSet.getLong("id"), resultSet.getString("nr_quarto"),resultSet.getLong("fk_tipo_quarto"),resultSet.getLong("fk_reserva"),resultSet.getLong("fk_locacao"), resultSet.getBoolean("vf_disponivel"));
 		return q;
 	}
 
@@ -164,6 +166,7 @@ public class QuartoDAO extends DAO {
 		Vector<String> lista = new Vector<String>();
 		lista.add("ID");
 		lista.add("Numero do Quarto");
+		lista.add("Tipo de Quarto");
 		lista.add("Disponibilidade");
 		
 		return lista;

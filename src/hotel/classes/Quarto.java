@@ -7,16 +7,29 @@ public class Quarto {
 
 	long id;
 	String nrDoQuarto;
+	long fkTipoQuarto;
+	long fkReserva;
+	long fkLocacao;
 	boolean disponivel;
 
-	public Quarto(long id, String nrDoQuarto, boolean disponivel) {
+	public Quarto(long id, String nrDoQuarto, long fkTipoQuarto, long fkReserva, long fkLocacao, boolean disponivel) {
 		this.id = id;
 		this.nrDoQuarto = nrDoQuarto;
+		this.fkTipoQuarto = fkTipoQuarto;
+		this.fkReserva = fkReserva;
+		this.fkLocacao = fkLocacao;
+		this.disponivel = disponivel;
+	}
+	public Quarto(long id, String nrDoQuarto, long fkTipoQuarto, boolean disponivel) {
+		this.id = id;
+		this.nrDoQuarto = nrDoQuarto;
+		this.fkTipoQuarto = fkTipoQuarto;
 		this.disponivel = disponivel;
 	}
 
-	public Quarto(String nrDoQuarto, boolean disponivel) {
+	public Quarto(String nrDoQuarto, long fkTipoQuarto, boolean disponivel) {
 		this.nrDoQuarto = nrDoQuarto;
+		this.fkTipoQuarto = fkTipoQuarto;
 		this.disponivel = disponivel;
 	}
 
@@ -51,6 +64,33 @@ public class Quarto {
 	}
 
 	public String toString() {
+		return nrDoQuarto;
+	}
+	public long getFkTipoQuarto() {
+		return fkTipoQuarto;
+	}
+
+	public void setFkTipoQuarto(long fkTipoQuarto) {
+		this.fkTipoQuarto = fkTipoQuarto;
+	}
+
+	public long getFkReserva() {
+		return fkReserva;
+	}
+
+	public void setFkReserva(long fkReserva) {
+		this.fkReserva = fkReserva;
+	}
+
+	public long getFkLocacao() {
+		return fkLocacao;
+	}
+
+	public void setFkLocacao(long fkLocacao) {
+		this.fkLocacao = fkLocacao;
+	}
+
+	public String getNrDoQuarto() {
 		return nrDoQuarto;
 	}
 }
