@@ -5,12 +5,12 @@ import java.util.List;
 
 public class Produto {
 
-	long id;
-	String dsProduto;
-	float nrValorCompra;
-	float nrValorVenda;
-	boolean consumivel;
-	long fkFornecedor;
+	private long id;
+	private String dsProduto;
+	private float nrValorCompra;
+	private float nrValorVenda;
+	private boolean consumivel;
+	private long fkFornecedor;
 
 	public Produto(String dsProduto, long fkFornecedor, float nrValorCompra, float nrValorVenda, boolean consumivel) {
 		this.dsProduto = dsProduto;

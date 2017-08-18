@@ -5,15 +5,15 @@ import java.util.List;
 
 public class Fornecedor {
 
-	long id;
-	String nmFornecedor;
-	String nrCnpj;
-	String nrTelefone;
-	String dsEmail;
-	String dsEndereco;
-	long fkCidade;
-	long fkEstado;
-	long fkPais;
+	private long id;
+	private String nmFornecedor;
+	private String nrCnpj;
+	private String nrTelefone;
+	private String dsEmail;
+	private String dsEndereco;
+	private long fkCidade;
+	private long fkEstado;
+	private long fkPais;
 
 	public Fornecedor(String nmFornecedor, String nrCnpj, String nrTelefone, String dsEmail, String dsEndereco,
 			long fkCidade, long fkEstado, long fkPais) {

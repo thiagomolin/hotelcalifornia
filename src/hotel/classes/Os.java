@@ -2,8 +2,8 @@ package hotel.classes;
 
 public class Os {
 	
-	long id, fkFuncionario, fkQuarto, fkServico;
-	String dsServico;
+	private long id, fkFuncionario, fkQuarto, fkServico;
+	private String dsServico;
 	
 	
 	public Os(long id, long fkFuncionario, long fkQuarto, long fkServico, String dsServico) {

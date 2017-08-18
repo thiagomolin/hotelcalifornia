@@ -3,12 +3,13 @@ package hotel.classes;
 import java.time.LocalDate;
 
 public class MovimentoEstoque {
-	long id;
-	long fkProduto;
-	long fkUsuario;
-	long fkTipoMovimento;
-	int nrQuantidade;
-	LocalDate dtAtual;
+	
+	private long id;
+	private long fkProduto;
+	private long fkUsuario;
+	private long fkTipoMovimento;
+	private int nrQuantidade;
+	private LocalDate dtAtual;
 	
 	public MovimentoEstoque(long id, long fkProduto, long fkUsuario, long fkTipoMovimento, int nrQuantidade,
 			LocalDate dtAtual) {

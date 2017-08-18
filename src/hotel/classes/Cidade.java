@@ -2,8 +2,8 @@ package hotel.classes;
 
 public class Cidade {
 
-	long id;
-	String dsCidade;
+	private long id;
+	private String dsCidade;
 
 	public Cidade(long id, String dsCidade) {
 		this.id = id;

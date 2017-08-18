@@ -101,7 +101,7 @@ public class TelaConsultaGeral extends JFrame {
 			}
 		});
 		comboBoxTipo.setModel(new DefaultComboBoxModel<ETipos>(new ETipos[] { ETipos.Cliente, ETipos.Fornecedor,
-				ETipos.Funcionario, ETipos.Reserva, ETipos.Produto, ETipos.Quarto }));
+				ETipos.Funcionario, ETipos.Reserva, ETipos.Locacao, ETipos.Produto, ETipos.Quarto }));
 		comboBoxTipo.setBounds(45, 11, 183, 20);
 		panel_1.add(comboBoxTipo);
 

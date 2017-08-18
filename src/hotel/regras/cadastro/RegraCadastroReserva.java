@@ -21,7 +21,7 @@ public class RegraCadastroReserva {
 	}
 
 	public void incluirReserva() {
-		long fkCliente = tela.getClienteSelecionado().getId();
+		String nome = tela.getNome();
 		Date entrada = tela.getDataEntrada();
 		Date saida = tela.getDataSaida();
 		Quarto quarto;

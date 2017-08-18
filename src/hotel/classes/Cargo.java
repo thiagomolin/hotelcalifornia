@@ -2,8 +2,8 @@ package hotel.classes;
 
 public class Cargo {
 	
-	long id;
-	String dsCargo;
+	private long id;
+	private String dsCargo;
 	
 	
 	public Cargo(long id, String dsCargo) {

@@ -2,9 +2,9 @@ package hotel.classes;
 
 public class Estado {
 
-	long id;
-	long fkPais;
-	String dsEstado;
+	private long id;
+	private long fkPais;
+	private String dsEstado;
 	
 	public Estado(long id, long fkPais, String dsEstado) {
 		this.id = id;

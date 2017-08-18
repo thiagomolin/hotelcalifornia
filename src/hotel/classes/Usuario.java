@@ -2,9 +2,9 @@ package hotel.classes;
 
 public class Usuario {
 	
-	long id;
-	String dsUsuario, dsSenha;
-	boolean admin;
+	private long id;
+	private String dsUsuario, dsSenha;
+	private boolean admin;
 	
 	
 	public Usuario(long id, String dsUsuario, String dsSenha, boolean admin) {
