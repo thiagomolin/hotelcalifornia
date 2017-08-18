@@ -14,9 +14,10 @@ import javax.swing.JTabbedPane;
 import hotel.telas.cadastro.TelaCadastroCliente;
 import hotel.telas.cadastro.TelaCadastroFornecedor;
 import hotel.telas.cadastro.TelaCadastroFuncionario;
+import hotel.telas.cadastro.TelaCadastroLocacao;
 import hotel.telas.cadastro.TelaCadastroProduto;
 import hotel.telas.cadastro.TelaCadastroQuarto;
-import hotel.telas.cadastro.TelaCadastroLocacao;
+import hotel.telas.cadastro.TelaCadastroReserva;
 import hotel.telas.consulta.ETipos;
 import hotel.telas.consulta.TelaConsultaGeral;
 
@@ -123,7 +124,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmGerenciarLocacao = new JMenuItem("Gerenciar");
 		mntmGerenciarLocacao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				criarTela(ETipos.Reserva);
+				criarTela(ETipos.Locacao);
 			}
 		});
 		mnLocacao.add(mntmGerenciarLocacao);
@@ -135,6 +136,11 @@ public class TelaPrincipal extends JFrame {
 		menuBar.add(mnReserva);
 		
 		JMenuItem mntmGerenciarReserva = new JMenuItem("Gerenciar");
+		mntmGerenciarReserva.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				criarTela(ETipos.Reserva);				
+			}
+		});
 		mnReserva.add(mntmGerenciarReserva);
 		
 		JMenuItem mntmConsultarReserva = new JMenuItem("Consultar");
@@ -192,11 +198,15 @@ public class TelaPrincipal extends JFrame {
 			TelaCadastroQuarto tela = new TelaCadastroQuarto(this);
 			tabbedPane.addTab("Cadastro Quarto", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
-		} else if (tipoTela == ETipos.Reserva) {
+		} else if (tipoTela == ETipos.Locacao) {
 			TelaCadastroLocacao tela = new TelaCadastroLocacao(this);
+			tabbedPane.addTab("Cadastro Locação", null, tela, null);
+			tabbedPane.setSelectedComponent(tela);
+		} else if (tipoTela == ETipos.Reserva) {
+			TelaCadastroReserva tela = new TelaCadastroReserva(this);
 			tabbedPane.addTab("Cadastro Reserva", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
-		} else if (tipoTela == ETipos.Consulta) {
+		}else if (tipoTela == ETipos.Consulta) {
 			new TelaConsultaGeral().setVisible(true);
 		}
 	}
