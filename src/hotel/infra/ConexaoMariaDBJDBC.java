@@ -19,7 +19,7 @@ public class ConexaoMariaDBJDBC implements ConexaoJDBC {
             Logger.getLogger(ConexaoMariaDBJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        this.connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/hotelcalifornia", "root", "123456");
+        this.connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/hotelcalifornia", "root", "");
         this.connection.setAutoCommit(false);
     }
 

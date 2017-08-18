@@ -165,12 +165,20 @@ public class TelaCadastroQuarto extends Tela {
 		textFieldNumeroQuarto.setColumns(10);
 
 		JLabel lblDisponvel = new JLabel("Disponível ");
-		lblDisponvel.setBounds(10, 165, 95, 14);
+		lblDisponvel.setBounds(10, 223, 95, 14);
 		getContentPane().add(lblDisponvel);
 
 		checkBoxDisponivel = new JCheckBox("");
-		checkBoxDisponivel.setBounds(120, 161, 97, 23);
+		checkBoxDisponivel.setBounds(120, 219, 97, 23);
 		getContentPane().add(checkBoxDisponivel);
+		
+		JComboBox<Object> comboBoxTipoQuarto = new JComboBox<Object>();
+		comboBoxTipoQuarto.setBounds(120, 165, 181, 20);
+		getContentPane().add(comboBoxTipoQuarto);
+		
+		JLabel lblTipoDeQuarto = new JLabel("Tipo de Quarto");
+		lblTipoDeQuarto.setBounds(10, 168, 95, 14);
+		getContentPane().add(lblTipoDeQuarto);
 
 	}
 	// LAYOUT
@@ -352,5 +360,4 @@ public class TelaCadastroQuarto extends Tela {
 		// TODO Auto-generated method stub
 		
 	}
-
 }
