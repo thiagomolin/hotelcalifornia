@@ -107,7 +107,7 @@ public class QuartoDAO extends DAO {
 	}
 	
 	public Quarto selecionarQuartoDisponivel(Date entrada, Date saida, long fkTipoDeQuarto) {
-		String sqlQuery = "SELECT quarto.id FROM quarto " + 
+		String sqlQuery = "SELECT quarto.id, quarto.nr_quarto, quarto.fk_tipo_quarto, quarto.vf_disponivel FROM quarto " + 
 						  "LEFT JOIN reserva ON reserva.fk_quarto = quarto.id " + 
 						  "WHERE quarto.id " + 
 						  "NOT IN (" + 

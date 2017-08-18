@@ -17,15 +17,16 @@ public class ReservaDAO extends DAO {
 	}
 
 	public void inserir(Reserva reserva) throws SQLException, ClassNotFoundException {
-		String sqlQuery = "INSERT INTO reserva(nm_cliente, nr_cpf, dt_entrada, dt_saida, fk_status) VALUES (?,?,?,?,?)";
+		String sqlQuery = "INSERT INTO reserva(nm_cliente, nr_cpf, fk_quarto, dt_entrada, dt_saida, fk_status) VALUES (?,?,?,?,?,?)";
 
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
 			stmt.setString(1, reserva.getNomeCliente());
 			stmt.setString(2, reserva.getNrCpf());
-			stmt.setDate(3, reserva.getDtEntradaSQL());
-			stmt.setDate(4, reserva.getDtSaidaSQL());
-			stmt.setLong(5, reserva.getFkStatus());
+			stmt.setLong(3, reserva.getFkQuarto());
+			stmt.setDate(4, reserva.getDtEntradaSQL());
+			stmt.setDate(5, reserva.getDtSaidaSQL());
+			stmt.setLong(6, reserva.getFkStatus());
 
 			stmt.executeUpdate();
 
@@ -107,7 +108,25 @@ public class ReservaDAO extends DAO {
 			throw e;
 		}
 	}
+	
+	public void alterarStatusReserva(long id, long status) throws SQLException {
+		String sqlQuery = "UPDATE reserva SET fk_status = ? WHERE id = ?";
 
+		try {
+			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+			stmt.setLong(1, id);
+			stmt.setLong(2, status);
+
+			stmt.executeUpdate();
+			
+
+			this.conexao.commit();
+		} catch (SQLException e) {
+			this.conexao.rollback();
+			throw e;
+		}
+	}
+	
 	public List<Reserva> getLista() throws SQLException, ClassNotFoundException {
 		String sqlQuery = "SELECT * FROM reserva ORDER BY id";
 
@@ -132,7 +151,7 @@ public class ReservaDAO extends DAO {
 		LocalDate saida = resultSet.getDate("dt_saida").toLocalDate();
 
 		Reserva r = new Reserva(resultSet.getLong("id"), resultSet.getString("nm_cliente"),
-				resultSet.getString("nr_cpf"), entrada, saida, resultSet.getLong("fk_status"));
+				resultSet.getString("nr_cpf"), resultSet.getLong("fk_quarto"), entrada, saida, resultSet.getLong("fk_status"));
 		return r;
 	}
 

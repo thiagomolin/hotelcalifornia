@@ -8,22 +8,25 @@ public class Reserva {
 	private long id;
 	private String nmCliente;
 	private String nrCpf;
+	private long fkQuarto;
 	private LocalDate dtSaida;
 	private LocalDate dtEntrada;
 	private long fkStatus;
 
-	public Reserva(long id, String nmCliente, String nrCpf, LocalDate dtEntrada, LocalDate dtSaida, long fkStatus) {
+	public Reserva(long id, String nmCliente, String nrCpf, long fkQuarto, LocalDate dtEntrada, LocalDate dtSaida, long fkStatus) {
 		this.id = id;
 		this.nmCliente = nmCliente;
 		this.nrCpf = nrCpf;
+		this.setFkQuarto(fkQuarto);
 		this.dtSaida = dtSaida;
 		this.dtEntrada = dtEntrada;
 		this.fkStatus = fkStatus;
 	}
 
-	public Reserva(String nmCliente, String nrCpf, LocalDate dtEntrada, LocalDate dtSaida, long fkStatus) {
+	public Reserva(String nmCliente, String nrCpf, long fkQuarto, LocalDate dtEntrada, LocalDate dtSaida, long fkStatus) {
 		this.nmCliente = nmCliente;
 		this.nrCpf = nrCpf;
+		this.setFkQuarto(fkQuarto);
 		this.dtSaida = dtSaida;
 		this.dtEntrada = dtEntrada;
 		this.fkStatus = fkStatus;
@@ -67,6 +70,14 @@ public class Reserva {
 
 	public LocalDate getDtEntrada() {
 		return dtEntrada;
+	}
+
+	public long getFkQuarto() {
+		return fkQuarto;
+	}
+
+	public void setFkQuarto(long fkQuarto) {
+		this.fkQuarto = fkQuarto;
 	}
 
 	public java.sql.Date getDtEntradaSQL() {

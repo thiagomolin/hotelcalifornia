@@ -9,4 +9,8 @@ public class UtilDatas {
 		return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();		
 	}
 	
+	public static java.sql.Date dateToSQLDate(java.util.Date date){		
+		return new java.sql.Date(date.getTime());
+	}
+	
 }

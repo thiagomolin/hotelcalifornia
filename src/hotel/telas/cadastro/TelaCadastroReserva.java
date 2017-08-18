@@ -19,8 +19,10 @@ import com.toedter.calendar.JDateChooser;
 
 import hotel.classes.Reserva;
 import hotel.classes.Status;
+import hotel.classes.TipoDeQuarto;
 import hotel.classes.DAO.ReservaDAO;
 import hotel.classes.DAO.StatusDAO;
+import hotel.classes.DAO.TipoDeQuartoDAO;
 import hotel.regras.cadastro.RegraCadastroReserva;
 import hotel.telas.consulta.ETipos;
 import hotel.telas.consulta.TelaConsultaGeral;
@@ -33,6 +35,7 @@ public class TelaCadastroReserva extends Tela {
 
 	private JComboBox<Object> comboBoxCodigo;
 	private JComboBox<Object> comboBoxStatus;
+	private JComboBox<Object> comboBoxTipoQuarto;
 
 	private RegraCadastroReserva regraReserva;
 
@@ -50,6 +53,7 @@ public class TelaCadastroReserva extends Tela {
 	private JDateChooser dateEntrada;
 	private JTextField textFieldCliente;
 	private JTextField textFieldCpf;
+	private JLabel lblTipoDeQuarto;
 
 	public TelaCadastroReserva(TelaPrincipal telaPrincipal) {
 		super();
@@ -58,6 +62,7 @@ public class TelaCadastroReserva extends Tela {
 		inicializarLayoutEEventos();
 		inicializarComboBoxCodigo();
 		inicializarComboBoxStatus();
+		inicializarComboBoxTipoQuarto();
 		inicializarComponentes();
 		this.telaPrincipal = telaPrincipal;
 	}
@@ -166,19 +171,19 @@ public class TelaCadastroReserva extends Tela {
 		getContentPane().add(labelCliente);
 
 		JLabel label_2 = new JLabel("Data Entrada");
-		label_2.setBounds(53, 257, 70, 14);
+		label_2.setBounds(53, 297, 70, 14);
 		getContentPane().add(label_2);
 
 		dateEntrada = new JDateChooser();
-		dateEntrada.setBounds(138, 257, 129, 20);
+		dateEntrada.setBounds(138, 297, 129, 20);
 		getContentPane().add(dateEntrada);
 
 		dateSaida = new JDateChooser();
-		dateSaida.setBounds(138, 298, 129, 20);
+		dateSaida.setBounds(138, 338, 129, 20);
 		getContentPane().add(dateSaida);
 
 		JLabel label_3 = new JLabel("Data Saida");
-		label_3.setBounds(53, 298, 70, 14);
+		label_3.setBounds(53, 338, 70, 14);
 		getContentPane().add(label_3);
 
 		textFieldCliente = new JTextField();
@@ -202,10 +207,19 @@ public class TelaCadastroReserva extends Tela {
 		comboBoxStatus = new JComboBox<Object>();
 		comboBoxStatus.setBounds(138, 218, 129, 20);
 		getContentPane().add(comboBoxStatus);
+		
+		comboBoxTipoQuarto = new JComboBox<Object>();
+		comboBoxTipoQuarto.setEnabled(false);
+		comboBoxTipoQuarto.setBounds(138, 260, 129, 20);
+		getContentPane().add(comboBoxTipoQuarto);
 
 		JLabel lblStatus = new JLabel("Status");
 		lblStatus.setBounds(53, 221, 70, 14);
 		getContentPane().add(lblStatus);
+		
+		lblTipoDeQuarto = new JLabel("Tipo Quarto");
+		lblTipoDeQuarto.setBounds(53, 263, 70, 14);
+		getContentPane().add(lblTipoDeQuarto);
 
 	}
 	// LAYOUT
@@ -290,11 +304,22 @@ public class TelaCadastroReserva extends Tela {
 	// Eventos de botões
 
 	// Eventos de ComboBox
-	public void inicializarComboBoxCodigo() {
+	private void inicializarComboBoxCodigo() {
 		try {
 			ReservaDAO cl = new ReservaDAO();
 			List<Reserva> reservas = cl.getLista();
 			comboBoxCodigo.setModel(new DefaultComboBoxModel<Object>(reservas.toArray()));
+		} catch (ClassNotFoundException | SQLException ex) {
+			ex.printStackTrace();
+			ex.printStackTrace();
+		}
+	}
+	
+	private void inicializarComboBoxTipoQuarto() {
+		try {
+			TipoDeQuartoDAO cl = new TipoDeQuartoDAO();
+			List<TipoDeQuarto> tipoQuarto = cl.getLista();
+			comboBoxTipoQuarto.setModel(new DefaultComboBoxModel<Object>(tipoQuarto.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
 			ex.printStackTrace();
 			ex.printStackTrace();
@@ -362,6 +387,8 @@ public class TelaCadastroReserva extends Tela {
 		buttonConsulta.setEnabled(true);
 		buttonMostrar.setEnabled(true);
 	}
+
+	
 
 	public void limpaCampos() {
 		desabilitaCampos();
@@ -434,6 +461,14 @@ public class TelaCadastroReserva extends Tela {
 
 	public void setSelectedComboBoxCodigo(Reserva reserva) {
 		this.comboBoxCodigo.getModel().setSelectedItem(reserva);
+	}
+	
+	public void setSelectedComboBoxCodigo(TipoDeQuarto quarto) {
+		this.comboBoxTipoQuarto.getModel().setSelectedItem(quarto);
+	}
+	
+	public TipoDeQuarto getTipoDeQuartoSelecionado() {
+		return ((TipoDeQuarto) comboBoxTipoQuarto.getModel().getSelectedItem());
 	}
 
 	public void setSelectedComboBoxStatus(Status status) {
