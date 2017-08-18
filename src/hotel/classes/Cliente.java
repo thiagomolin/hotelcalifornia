@@ -5,15 +5,15 @@ import java.util.List;
 
 public class Cliente{
 
-	long id;
-	String nmCliente;
-	String nrCpf;
-	String nrTelefone;
-	String dsEmail;
-	String dsEndereco;
-	long fkCidade;
-	long fkEstado;
-	long fkPais;
+	private long id;
+	private String nmCliente;
+	private String nrCpf;
+	private String nrTelefone;
+	private String dsEmail;
+	private String dsEndereco;
+	private long fkCidade;
+	private long fkEstado;
+	private long fkPais;
 
 	public Cliente(long id, String nmCliente, String nrCpf, String nrTelefone, String dsEmail, String dsEndereco, long fkCidade, long fkEstado, long fkPais) {
 

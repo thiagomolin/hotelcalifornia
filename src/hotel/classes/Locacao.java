@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Locacao {
-	long id;
-	long fkCliente;
-	long fkQuarto;
-	long fkStatus;
-	LocalDate dtSaida;
-	LocalDate dtEntrada;
+	
+	private long id;
+	private long fkCliente;
+	private long fkQuarto;
+	private long fkStatus;
+	private LocalDate dtSaida;
+	private LocalDate dtEntrada;
 
 	public Locacao(long id, long fkCliente, long fkQuarto, LocalDate dtEntrada, LocalDate dtSaida, long fkStatus) {
 		this.id = id;

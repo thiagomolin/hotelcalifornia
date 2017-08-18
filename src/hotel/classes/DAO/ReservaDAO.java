@@ -17,12 +17,12 @@ public class ReservaDAO extends DAO {
 	}
 
 	public void inserir(Reserva reserva) throws SQLException, ClassNotFoundException {
-		String sqlQuery = "INSERT INTO reserva(fk_cliente, fk_quarto, dt_entrada, dt_saida, fk_status) VALUES (?,?,?,?,?)";
+		String sqlQuery = "INSERT INTO reserva(nm_cliente, nr_cpf, dt_entrada, dt_saida, fk_status) VALUES (?,?,?,?,?)";
 
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
-			stmt.setLong(1, reserva.getFkCliente());
-			stmt.setLong(2, reserva.getFkQuarto());
+			stmt.setString(1, reserva.getNomeCliente());
+			stmt.setString(2, reserva.getNrCpf());
 			stmt.setDate(3, reserva.getDtEntradaSQL());
 			stmt.setDate(4, reserva.getDtSaidaSQL());
 			stmt.setLong(5, reserva.getFkStatus());
@@ -37,12 +37,12 @@ public class ReservaDAO extends DAO {
 	}
 
 	public void alterar(Reserva reserva) throws SQLException, ClassNotFoundException {
-		String sqlQuery = "UPDATE reserva SET fk_cliente = ?, fk_quarto = ?, dt_entrada = ?, dt_saida = ?, fk_status = ? WHERE id = ";
+		String sqlQuery = "UPDATE reserva SET nm_cliente = ?, nr_cpf = ?, dt_entrada = ?, dt_saida = ?, fk_status = ? WHERE id = ?";
 
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
-			stmt.setLong(1, reserva.getFkCliente());
-			stmt.setLong(2, reserva.getFkQuarto());
+			stmt.setString(1, reserva.getNomeCliente());
+			stmt.setString(2, reserva.getNrCpf());
 			stmt.setDate(3, reserva.getDtEntradaSQL());
 			stmt.setDate(4, reserva.getDtSaidaSQL());
 			stmt.setLong(5, reserva.getFkStatus());
@@ -95,11 +95,8 @@ public class ReservaDAO extends DAO {
 	}
 
 	public ResultSet listar() throws SQLException, ClassNotFoundException {
-		String sqlQuery = "SELECT reserva.id, cliente.nm_cliente, quarto.nr_quarto, reserva.dt_entrada, reserva.dt_saida, reserva_status.ds_status "
-						+ "FROM reserva "
-						+ "INNER JOIN cliente ON cliente.id = reserva.fk_cliente "
-						+ "INNER JOIN quarto ON quarto.id = reserva.fk_quarto "
-						+ "INNER JOIN reserva_status ON reserva_status.id = reserva.fk_status";
+		String sqlQuery = "SELECT *, ds_status FROM reserva "
+						+ "INNER JOIN status ON status.id = reserva.fk_status";
 
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
@@ -134,8 +131,8 @@ public class ReservaDAO extends DAO {
 		LocalDate entrada = resultSet.getDate("dt_entrada").toLocalDate();
 		LocalDate saida = resultSet.getDate("dt_saida").toLocalDate();
 
-		Reserva r = new Reserva(resultSet.getLong("id"), resultSet.getLong("fk_cliente"),
-				resultSet.getLong("fk_quarto"), entrada, saida, resultSet.getLong("fk_status"));
+		Reserva r = new Reserva(resultSet.getLong("id"), resultSet.getString("nm_cliente"),
+				resultSet.getString("nr_cpf"), entrada, saida, resultSet.getLong("fk_status"));
 		return r;
 	}
 
@@ -143,7 +140,7 @@ public class ReservaDAO extends DAO {
 		Vector<String> lista = new Vector<String>();
 		lista.add("ID");
 		lista.add("Cliente");
-		lista.add("Quarto");
+		lista.add("Cpf");
 		lista.add("Entrada");
 		lista.add("Saida");
 		lista.add("Status");

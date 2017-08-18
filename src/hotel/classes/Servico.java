@@ -2,8 +2,8 @@ package hotel.classes;
 
 public class Servico {
 	
-	long id;
-	String dsServico;
+	private long id;
+	private String dsServico;
 	
 	
 	

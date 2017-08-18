@@ -2,8 +2,8 @@ package hotel.classes;
 
 public class Pais {
 	
-	long id;
-	String dsPais;
+	private long id;
+	private String dsPais;
 	
 	
 	public Pais(long id, String dsPais) {

@@ -5,11 +5,9 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import hotel.classes.Quarto;
 import hotel.classes.Reserva;
-import hotel.classes.DAO.ClienteDAO;
-import hotel.classes.DAO.QuartoDAO;
 import hotel.classes.DAO.ReservaDAO;
+import hotel.classes.DAO.StatusDAO;
 import hotel.telas.cadastro.TelaCadastroReserva;
 
 public class RegraCadastroReserva {
@@ -21,40 +19,39 @@ public class RegraCadastroReserva {
 	}
 
 	public void incluirReserva() {
-		long fkCliente = tela.getClienteSelecionado().getId();
+		String nome = tela.getNome();
+		String cpf = tela.getCpf();
 		Date entrada = tela.getDataEntrada();
 		Date saida = tela.getDataSaida();
-		Quarto quarto;
+		long fkStatus = tela.getSelectedComboBoxStatus().getId();
 		try {
-			QuartoDAO qdao = new QuartoDAO();
-			quarto = qdao.selecionarQuartoDisponivel(entrada, saida);
-			Reserva reserva = new Reserva(fkCliente, quarto.getId(), entrada.toLocalDate(), saida.toLocalDate(), (long) 1);
+			Reserva reserva = new Reserva(nome, cpf, entrada.toLocalDate(), saida.toLocalDate(), fkStatus);
 
 			ReservaDAO reservaDao = new ReservaDAO();
 			reservaDao.inserir(reserva);
 			
-		} catch (ClassNotFoundException | SQLException e1) {
-			JOptionPane.showMessageDialog(null, "Erro no banco de dados, verifique a conexão e a senha, e tente novamente");
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
 		}
 
 	}
 
 	public void alterarReserva() {
 		long id = tela.getReservaSelecionado().getId();
-		long fkCliente = tela.getClienteSelecionado().getId();
+		String nome = tela.getNome();
+		String cpf = tela.getCpf();
 		Date entrada = tela.getDataEntrada();
 		Date saida = tela.getDataSaida();
-		Quarto quarto;
+		long fkStatus = tela.getSelectedComboBoxStatus().getId();
 		try {
-			QuartoDAO qdao = new QuartoDAO();
-			quarto = qdao.selecionarQuartoDisponivel(entrada, saida);
-			Reserva reserva = new Reserva(id, fkCliente, quarto.getId(), entrada.toLocalDate(), saida.toLocalDate(), (long) 1);
+			
+			Reserva reserva = new Reserva(id, nome, cpf, entrada.toLocalDate(), saida.toLocalDate(), fkStatus);
 
 			ReservaDAO reservaDao = new ReservaDAO();
 			reservaDao.alterar(reserva);
 			
-		} catch (ClassNotFoundException | SQLException e1) {
-			JOptionPane.showMessageDialog(null, "Erro no banco de dados, verifique a conexão e a senha, e tente novamente");
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -80,8 +77,10 @@ public class RegraCadastroReserva {
 	public void mostrarReserva() {//
 		Reserva reserva = tela.getReservaSelecionado();
 		try {
-			ClienteDAO cdao = new ClienteDAO();
-			tela.setClienteSelecionado(cdao.selecionar(reserva.getFkCliente()));
+			StatusDAO sdao = new StatusDAO();
+			tela.setSelectedComboBoxStatus(sdao.selecionar(reserva.getFkStatus()));
+			tela.setTextFieldCliente(reserva.getNomeCliente());
+			tela.setTextFieldCpf(reserva.getNrCpf());
 		} catch (ClassNotFoundException | SQLException e) {
 		}
 		tela.setDataEntrada(reserva.getDtEntradaSQL());

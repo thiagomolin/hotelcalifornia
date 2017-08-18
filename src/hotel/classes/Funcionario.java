@@ -5,16 +5,16 @@ import java.util.List;
 
 public class Funcionario {
 
-	long id;
-	String nmFuncionario;
-	String nrCpf;
-	String nrTelefone;
-	String dsEmail;
-	String dsEndereco;
-	long fkCidade;
-	long fkEstado;
-	long fkPais;
-	long fkCargo;
+	private long id;
+	private String nmFuncionario;
+	private String nrCpf;
+	private String nrTelefone;
+	private String dsEmail;
+	private String dsEndereco;
+	private long fkCidade;
+	private long fkEstado;
+	private long fkPais;
+	private long fkCargo;
 
 	public Funcionario(String nmFuncionario, long fkCargo, String nrCpf, String nrTelefone, String dsEmail, String dsEndereco,
 			long fkCidade, long fkEstado, long fkPais) {

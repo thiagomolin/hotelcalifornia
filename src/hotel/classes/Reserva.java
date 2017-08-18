@@ -5,25 +5,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Reserva {
-	long id;
-	long fkCliente;
-	long fkQuarto;
-	long fkStatus;
-	LocalDate dtSaida;
-	LocalDate dtEntrada;
+	private long id;
+	private String nmCliente;
+	private String nrCpf;
+	private LocalDate dtSaida;
+	private LocalDate dtEntrada;
+	private long fkStatus;
 
-	public Reserva(long id, long fkCliente, long fkQuarto, LocalDate dtEntrada, LocalDate dtSaida, long fkStatus) {
+	public Reserva(long id, String nmCliente, String nrCpf, LocalDate dtEntrada, LocalDate dtSaida, long fkStatus) {
 		this.id = id;
-		this.fkCliente = fkCliente;
-		this.fkQuarto = fkQuarto;
+		this.nmCliente = nmCliente;
+		this.nrCpf = nrCpf;
 		this.dtSaida = dtSaida;
 		this.dtEntrada = dtEntrada;
 		this.fkStatus = fkStatus;
 	}
 
-	public Reserva(long fkCliente, long fkQuarto, LocalDate dtEntrada, LocalDate dtSaida, long fkStatus) {
-		this.fkCliente = fkCliente;
-		this.fkQuarto = fkQuarto;
+	public Reserva(String nmCliente, String nrCpf, LocalDate dtEntrada, LocalDate dtSaida, long fkStatus) {
+		this.nmCliente = nmCliente;
+		this.nrCpf = nrCpf;
 		this.dtSaida = dtSaida;
 		this.dtEntrada = dtEntrada;
 		this.fkStatus = fkStatus;
@@ -37,24 +37,24 @@ public class Reserva {
 		this.id = id;
 	}
 
-	public long getFkCliente() {
-		return fkCliente;
+	public String getNomeCliente() {
+		return nmCliente;
 	}
 
-	public void setFkCliente(long fkCliente) {
-		this.fkCliente = fkCliente;
-	}
-
-	public long getFkQuarto() {
-		return fkQuarto;
-	}
-
-	public void setFkQuarto(long fkQuarto) {
-		this.fkQuarto = fkQuarto;
+	public void setFkCliente(String fkCliente) {
+		this.nmCliente = fkCliente;
 	}
 
 	public LocalDate getDtSaida() {
 		return dtSaida;
+	}
+
+	public String getNrCpf() {
+		return nrCpf;
+	}
+
+	public void setNrCpf(String nrCpf) {
+		this.nrCpf = nrCpf;
 	}
 
 	public java.sql.Date getDtSaidaSQL() {
@@ -88,12 +88,12 @@ public class Reserva {
 	public static List<String> getCampos() {
 		List<String> lista = new ArrayList<String>();
 		lista.add("Nome do Cliente");
-		lista.add("Numero do Quarto");
+		lista.add("CPF");
 		return lista;
 	}
 
 	public String toString() {
-		return String.valueOf(id);
+		return String.valueOf(id) + " " + nmCliente;
 	}
 
 }

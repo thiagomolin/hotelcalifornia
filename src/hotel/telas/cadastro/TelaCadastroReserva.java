@@ -11,23 +11,27 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
 import com.toedter.calendar.JDateChooser;
 
-import hotel.classes.Cliente;
 import hotel.classes.Reserva;
-import hotel.classes.DAO.ClienteDAO;
+import hotel.classes.Status;
 import hotel.classes.DAO.ReservaDAO;
+import hotel.classes.DAO.StatusDAO;
 import hotel.regras.cadastro.RegraCadastroReserva;
 import hotel.telas.consulta.ETipos;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.main.TelaPrincipal;
+import hotel.util.UtilCpf;
 
 public class TelaCadastroReserva extends Tela {
 	private static final long serialVersionUID = 1L;
 
 	private JComboBox<Object> comboBoxCodigo;
+	private JComboBox<Object> comboBoxStatus;
+
 	private RegraCadastroReserva regraReserva;
 
 	private JButton buttonIncluir;
@@ -40,10 +44,10 @@ public class TelaCadastroReserva extends Tela {
 
 	private TelaPrincipal telaPrincipal;
 
-	private JComboBox<Object> comboBoxCliente;
-
 	private JDateChooser dateSaida;
 	private JDateChooser dateEntrada;
+	private JTextField textFieldCliente;
+	private JTextField textFieldCpf;
 
 	public TelaCadastroReserva(TelaPrincipal telaPrincipal) {
 		super();
@@ -51,7 +55,7 @@ public class TelaCadastroReserva extends Tela {
 		regraReserva = new RegraCadastroReserva(this);
 		inicializarLayoutEEventos();
 		inicializarComboBoxCodigo();
-		inicializarComboBoxCliente();
+		inicializarComboBoxStatus();
 		inicializarComponentes();
 		this.telaPrincipal = telaPrincipal;
 	}
@@ -155,29 +159,51 @@ public class TelaCadastroReserva extends Tela {
 		lblCodReserva.setBounds(10, 62, 99, 14);
 		panel_1.add(lblCodReserva);
 
-		JLabel label = new JLabel("Cliente");
-		label.setBounds(53, 127, 46, 14);
-		getContentPane().add(label);
-
-		comboBoxCliente = new JComboBox<Object>();
-		comboBoxCliente.setBounds(138, 124, 181, 20);
-		getContentPane().add(comboBoxCliente);
+		JLabel labelCliente = new JLabel("Cliente");
+		labelCliente.setBounds(53, 127, 46, 14);
+		getContentPane().add(labelCliente);
 
 		JLabel label_2 = new JLabel("Data Entrada");
-		label_2.setBounds(53, 168, 70, 14);
+		label_2.setBounds(53, 257, 70, 14);
 		getContentPane().add(label_2);
 
 		dateEntrada = new JDateChooser();
-		dateEntrada.setBounds(138, 168, 129, 20);
+		dateEntrada.setBounds(138, 257, 129, 20);
 		getContentPane().add(dateEntrada);
 
 		dateSaida = new JDateChooser();
-		dateSaida.setBounds(138, 209, 129, 20);
+		dateSaida.setBounds(138, 298, 129, 20);
 		getContentPane().add(dateSaida);
 
 		JLabel label_3 = new JLabel("Data Saida");
-		label_3.setBounds(53, 209, 70, 14);
+		label_3.setBounds(53, 298, 70, 14);
 		getContentPane().add(label_3);
+
+		textFieldCliente = new JTextField();
+		textFieldCliente.setBounds(138, 124, 129, 20);
+		getContentPane().add(textFieldCliente);
+		textFieldCliente.setColumns(10);
+
+		textFieldCpf = new JTextField();
+		textFieldCpf.setColumns(10);
+		textFieldCpf.setBounds(138, 179, 129, 20);
+		getContentPane().add(textFieldCpf);
+
+		JLabel labelCpf = new JLabel("CPF");
+		labelCpf.setBounds(53, 182, 46, 14);
+		getContentPane().add(labelCpf);
+
+		JLabel lblEou = new JLabel("Ou");
+		lblEou.setBounds(53, 154, 46, 14);
+		getContentPane().add(lblEou);
+
+		comboBoxStatus = new JComboBox<Object>();
+		comboBoxStatus.setBounds(138, 218, 129, 20);
+		getContentPane().add(comboBoxStatus);
+
+		JLabel lblStatus = new JLabel("Status");
+		lblStatus.setBounds(53, 221, 70, 14);
+		getContentPane().add(lblStatus);
 
 	}
 	// LAYOUT
@@ -209,19 +235,26 @@ public class TelaCadastroReserva extends Tela {
 	}
 
 	protected void mostrar() {
-		regraReserva.mostrarReserva();
-		habilitaCamposEditar();
+		try {
+			if (getReservaSelecionado() != null) {
+				regraReserva.mostrarReserva();
+				habilitaCamposEditar();
+			}
+		} catch (Exception e) {
+		}
 	}
 
 	protected void novo() {
 		comboBoxCodigo.setEnabled(true);
 		dateEntrada.setEnabled(true);
-		comboBoxCliente.setEnabled(true);
+		textFieldCliente.setEnabled(true);
+		textFieldCpf.setEnabled(true);
 		dateSaida.setEnabled(true);
 		buttonAlterar.setEnabled(false);
 		buttonExcluir.setEnabled(false);
 		buttonIncluir.setEnabled(true);
 		buttonCancelar.setEnabled(true);
+		comboBoxStatus.setEnabled(true);
 		comboBoxCodigo.setEnabled(false);
 		buttonNovo.setEnabled(false);
 		buttonConsulta.setEnabled(false);
@@ -269,11 +302,11 @@ public class TelaCadastroReserva extends Tela {
 
 	// Métodos de manipulação de componentes
 
-	private void inicializarComboBoxCliente() {
+	private void inicializarComboBoxStatus() {
 		try {
-			ClienteDAO cl = new ClienteDAO();
-			List<Cliente> clientes = cl.getLista();
-			comboBoxCliente.setModel(new DefaultComboBoxModel<Object>(clientes.toArray()));
+			StatusDAO st = new StatusDAO();
+			List<Status> status = st.getLista();
+			comboBoxStatus.setModel(new DefaultComboBoxModel<Object>(status.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
 			ex.printStackTrace();
 			ex.printStackTrace();
@@ -282,24 +315,28 @@ public class TelaCadastroReserva extends Tela {
 
 	private void inicializarComponentes() {
 		buttonAlterar.setEnabled(false);
-		comboBoxCliente.setEnabled(false);
 		dateEntrada.setEnabled(false);
+		textFieldCliente.setEnabled(false);
+		textFieldCpf.setEnabled(false);
 		dateSaida.setEnabled(false);
 		buttonExcluir.setEnabled(false);
 		buttonIncluir.setEnabled(false);
 		buttonCancelar.setEnabled(false);
+		comboBoxStatus.setEnabled(false);
 		comboBoxCodigo.getModel().setSelectedItem(null);
 		buttonMostrar.setEnabled(true);
 	}
 
 	protected void habilitaCamposEditar() {
-		comboBoxCliente.setEnabled(true);
+		textFieldCliente.setEnabled(true);
+		textFieldCpf.setEnabled(true);
 		dateEntrada.setEnabled(true);
 		dateSaida.setEnabled(true);
 		buttonAlterar.setEnabled(true);
 		buttonExcluir.setEnabled(true);
 		buttonIncluir.setEnabled(false);
 		buttonCancelar.setEnabled(true);
+		comboBoxStatus.setEnabled(true);
 		comboBoxCodigo.setEnabled(false);
 		buttonNovo.setEnabled(false);
 		buttonConsulta.setEnabled(false);
@@ -308,7 +345,10 @@ public class TelaCadastroReserva extends Tela {
 
 	protected void desabilitaCampos() {
 		buttonAlterar.setEnabled(false);
-		comboBoxCliente.setEnabled(false);
+		textFieldCliente.setEnabled(false);
+		textFieldCliente.setText("");
+		textFieldCpf.setEnabled(false);
+		textFieldCpf.setText("");
 		dateEntrada.setEnabled(false);
 		dateSaida.setEnabled(false);
 		buttonAlterar.setEnabled(false);
@@ -335,13 +375,22 @@ public class TelaCadastroReserva extends Tela {
 	// Validação de formulário
 	protected boolean isFormularioValido() {
 		boolean valido = true;
+		valido = (textFieldCliente.getText().isEmpty() && textFieldCpf.getText().isEmpty()) ? false : valido;
+		valido = (!textFieldCpf.getText().isEmpty() && !UtilCpf.isCpfValido(textFieldCpf.getText())) ? false : valido;
+		valido = (getSelectedComboBoxStatus() == null) ? false : valido;
+		valido = (dateEntrada.getDate() == null) ? false : valido;
+		valido = (dateSaida.getDate() == null) ? false : valido;
 		return valido;
 	}
 	// Validação de formulário
 
 	// GETTERS AND SETTERS
-	public void setClienteSelecionado(Cliente cliente) {
-		comboBoxCliente.getModel().setSelectedItem(cliente);
+	public void setTextFieldCliente(String cliente) {
+		textFieldCliente.setText(cliente);
+	}
+
+	public void setTextFieldCpf(String cpf) {
+		textFieldCpf.setText(cpf);
 	}
 
 	public java.sql.Date getDataEntrada() {
@@ -360,23 +409,33 @@ public class TelaCadastroReserva extends Tela {
 		return new java.sql.Date(dateSaida.getDate().getTime());
 	}
 
-	public Cliente getClienteSelecionado() {
-		return (Cliente) comboBoxCliente.getModel().getSelectedItem();
+	public String getCpf() {
+		return textFieldCpf.getText();
+	}
+
+	public String getNome() {
+		return textFieldCliente.getText();
 	}
 
 	public Reserva getReservaSelecionado() {
-		return ((Reserva) comboBoxCodigo.getSelectedItem());
+		return ((Reserva) comboBoxCodigo.getModel().getSelectedItem());
+	}
+
+	public Status getSelectedComboBoxStatus() {
+		return (Status) comboBoxStatus.getModel().getSelectedItem();
 	}
 
 	public void setSelectedComboBoxCodigo(Reserva reserva) {
 		this.comboBoxCodigo.getModel().setSelectedItem(reserva);
 	}
 
+	public void setSelectedComboBoxStatus(Status status) {
+		this.comboBoxStatus.getModel().setSelectedItem(status);
+	}
+
 	// GETTERS AND SETTERS
 
-	@Override
 	public void setConsulta(Long id, ETipos tipo) {
-		// TODO Auto-generated method stub
 
 	}
 }
