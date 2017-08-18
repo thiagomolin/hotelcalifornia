@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -378,17 +377,15 @@ public class TelaCadastroReserva extends Tela {
 	// Validação de formulário
 	protected boolean isFormularioValido() {
 		LocalDate entrada = UtilDatas.dateToLocalDate(dateEntrada.getDate());
-		LocalDate saida = new LocalDate(dateSaida.getDate().getTime());
+		LocalDate saida = UtilDatas.dateToLocalDate(dateSaida.getDate());
 		boolean valido = true;
 		valido = (textFieldCliente.getText().isEmpty() && textFieldCpf.getText().isEmpty()) ? false : valido;
 		valido = (!textFieldCpf.getText().isEmpty() && !UtilCpf.isCpfValido(textFieldCpf.getText())) ? false : valido;
 		valido = (getSelectedComboBoxStatus() == null) ? false : valido;
 		valido = (dateEntrada.getDate() == null) ? false : valido;
 		valido = (dateSaida.getDate() == null) ? false : valido;
-		System.out.println(entrada);
-		System.out.println(saida);
 		valido = (entrada.equals(saida))? false : valido;
-		valido = (saida.after(entrada))? false : valido;
+		valido = (entrada.isAfter(saida))? false : valido;
 		return valido;
 	}
 	// Validação de formulário
