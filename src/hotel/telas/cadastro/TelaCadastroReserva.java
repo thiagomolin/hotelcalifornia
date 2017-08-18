@@ -16,10 +16,10 @@ import javax.swing.border.EtchedBorder;
 import com.toedter.calendar.JDateChooser;
 
 import hotel.classes.Cliente;
-import hotel.classes.Locacao;
+import hotel.classes.Reserva;
 import hotel.classes.DAO.ClienteDAO;
-import hotel.classes.DAO.LocacaoDAO;
-import hotel.regras.cadastro.RegraCadastroLocacao;
+import hotel.classes.DAO.ReservaDAO;
+import hotel.regras.cadastro.RegraCadastroReserva;
 import hotel.telas.consulta.ETipos;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.main.TelaPrincipal;
@@ -28,7 +28,7 @@ public class TelaCadastroReserva extends Tela {
 	private static final long serialVersionUID = 1L;
 
 	private JComboBox<Object> comboBoxCodigo;
-	private RegraCadastroLocacao regraLocacao;
+	private RegraCadastroReserva regraReserva;
 
 	private JButton buttonIncluir;
 	private JButton buttonExcluir;
@@ -47,8 +47,8 @@ public class TelaCadastroReserva extends Tela {
 
 	public TelaCadastroReserva(TelaPrincipal telaPrincipal) {
 		super();
-		setTitle("Cadastro Locacao");
-		regraLocacao = new RegraCadastroLocacao(this);
+		setTitle("Cadastro Reserva");
+		regraReserva = new RegraCadastroReserva(this);
 		inicializarLayoutEEventos();
 		inicializarComboBoxCodigo();
 		inicializarComboBoxCliente();
@@ -151,9 +151,9 @@ public class TelaCadastroReserva extends Tela {
 		buttonNovo.setBounds(280, 58, 89, 23);
 		panel_1.add(buttonNovo);
 
-		JLabel lblCodLocacao = new JLabel("Cod. Locacao");
-		lblCodLocacao.setBounds(10, 62, 99, 14);
-		panel_1.add(lblCodLocacao);
+		JLabel lblCodReserva = new JLabel("Cod. Reserva");
+		lblCodReserva.setBounds(10, 62, 99, 14);
+		panel_1.add(lblCodReserva);
 
 		JLabel label = new JLabel("Cliente");
 		label.setBounds(53, 127, 46, 14);
@@ -188,7 +188,7 @@ public class TelaCadastroReserva extends Tela {
 			int result = JOptionPane.showConfirmDialog(null, "Confirmar a inclusão?", "Confirmar",
 					JOptionPane.OK_CANCEL_OPTION);
 			if (JOptionPane.OK_OPTION == result) {
-				regraLocacao.incluirLocacao();
+				regraReserva.incluirReserva();
 				limpaCampos();
 				inicializarComboBoxCodigo();
 			}
@@ -199,7 +199,7 @@ public class TelaCadastroReserva extends Tela {
 	}
 
 	protected void excluir() {
-		regraLocacao.excluirLocacao();
+		regraReserva.excluirReserva();
 		limpaCampos();
 		inicializarComboBoxCodigo();
 	}
@@ -209,7 +209,7 @@ public class TelaCadastroReserva extends Tela {
 	}
 
 	protected void mostrar() {
-		regraLocacao.mostrarLocacao();
+		regraReserva.mostrarReserva();
 		habilitaCamposEditar();
 	}
 
@@ -233,7 +233,7 @@ public class TelaCadastroReserva extends Tela {
 			int result = JOptionPane.showConfirmDialog(null, "Confirmar a alteração?", "Confirmar",
 					JOptionPane.OK_CANCEL_OPTION);
 			if (JOptionPane.OK_OPTION == result) {
-				regraLocacao.alterarLocacao();
+				regraReserva.alterarReserva();
 				limpaCampos();
 				inicializarComboBoxCodigo();
 				comboBoxCodigo.getModel().setSelectedItem(null);
@@ -245,7 +245,7 @@ public class TelaCadastroReserva extends Tela {
 	}
 
 	protected void consultar() {
-		TelaConsultaGeral telaConsulta = new TelaConsultaGeral(ETipos.Locacao, this);
+		TelaConsultaGeral telaConsulta = new TelaConsultaGeral(ETipos.Reserva, this);
 		telaConsulta.setVisible(true);
 	}
 
@@ -257,9 +257,9 @@ public class TelaCadastroReserva extends Tela {
 	// Eventos de ComboBox
 	public void inicializarComboBoxCodigo() {
 		try {
-			LocacaoDAO cl = new LocacaoDAO();
-			List<Locacao> locacaos = cl.getLista();
-			comboBoxCodigo.setModel(new DefaultComboBoxModel<Object>(locacaos.toArray()));
+			ReservaDAO cl = new ReservaDAO();
+			List<Reserva> reservas = cl.getLista();
+			comboBoxCodigo.setModel(new DefaultComboBoxModel<Object>(reservas.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
 			ex.printStackTrace();
 			ex.printStackTrace();
@@ -327,7 +327,7 @@ public class TelaCadastroReserva extends Tela {
 	}
 
 	public void setConsulta(Long id) {
-		regraLocacao.selecionarPorId(id);
+		regraReserva.selecionarPorId(id);
 		habilitaCamposEditar();
 	}
 	// Métodos de manipulação de componentes
@@ -364,12 +364,12 @@ public class TelaCadastroReserva extends Tela {
 		return (Cliente) comboBoxCliente.getModel().getSelectedItem();
 	}
 
-	public Locacao getLocacaoSelecionado() {
-		return ((Locacao) comboBoxCodigo.getSelectedItem());
+	public Reserva getReservaSelecionado() {
+		return ((Reserva) comboBoxCodigo.getSelectedItem());
 	}
 
-	public void setSelectedComboBoxCodigo(Locacao locacao) {
-		this.comboBoxCodigo.getModel().setSelectedItem(locacao);
+	public void setSelectedComboBoxCodigo(Reserva reserva) {
+		this.comboBoxCodigo.getModel().setSelectedItem(reserva);
 	}
 
 	// GETTERS AND SETTERS
