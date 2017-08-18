@@ -1,0 +1,60 @@
+	JComboBox<Cliente> comboBoxCodigo;
+	JComboBox<Pais> comboBoxPais;
+	JComboBox<Estado> comboBoxEstado;
+	JComboBox<Cidade> comboBoxCidade;
+
+	
+	PaisDAO p;
+	EstadoDAO e;
+	CidadeDAO c;
+	List<Cliente> clientes;
+	List<Pais> paises;
+	List<Estado> estados;
+	List<Cidade> cidades;
+	
+	
+	
+		private void inicializarComboBoxPais() {		
+		try {
+			p = new PaisDAO();
+			paises = p.listar();
+			comboBoxPais.setModel(new DefaultComboBoxModel(paises.toArray()));
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+	private void inicializarComboBoxEstado() {
+
+		try {
+			e = new EstadoDAO();
+			estados = e.listarPorPais(((Pais)comboBoxPais.getSelectedItem()).getId());
+			comboBoxEstado.setModel(new DefaultComboBoxModel(estados.toArray()));
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+	private void inicializarComboBoxCidade() {
+
+		try {
+			c = new CidadeDAO();
+			cidades = c.listarPorEstado(((Estado)comboBoxEstado.getSelectedItem()).getId());
+			comboBoxCidade.setModel(new DefaultComboBoxModel(cidades.toArray()));
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
