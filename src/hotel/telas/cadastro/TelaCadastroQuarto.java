@@ -17,7 +17,9 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
 import hotel.classes.Quarto;
+import hotel.classes.TipoDeQuarto;
 import hotel.classes.DAO.QuartoDAO;
+import hotel.classes.DAO.TipoDeQuartoDAO;
 import hotel.regras.cadastro.RegraCadastroQuarto;
 import hotel.telas.consulta.ETipos;
 import hotel.telas.consulta.TelaConsultaGeral;
@@ -28,6 +30,7 @@ public class TelaCadastroQuarto extends Tela {
 	private JTextField textFieldNumeroQuarto;
 
 	private JComboBox<Object> comboBoxCodigo;
+	private JComboBox<Object> comboBoxTipoQuarto;
 	private RegraCadastroQuarto regraQuarto;
 
 	private JButton buttonIncluir;
@@ -46,6 +49,7 @@ public class TelaCadastroQuarto extends Tela {
 		regraQuarto = new RegraCadastroQuarto(this);
 		inicializarLayoutEEventos();
 		inicializarComboBoxCodigo();
+		inicializarComboBoxTipoQuarto();
 		inicializarComponentes();
 		this.telaPrincipal = telaPrincipal;
 	}
@@ -171,11 +175,11 @@ public class TelaCadastroQuarto extends Tela {
 		checkBoxDisponivel = new JCheckBox("");
 		checkBoxDisponivel.setBounds(120, 219, 97, 23);
 		getContentPane().add(checkBoxDisponivel);
-		
-		JComboBox<Object> comboBoxTipoQuarto = new JComboBox<Object>();
+
+		comboBoxTipoQuarto = new JComboBox<Object>();
 		comboBoxTipoQuarto.setBounds(120, 165, 181, 20);
 		getContentPane().add(comboBoxTipoQuarto);
-		
+
 		JLabel lblTipoDeQuarto = new JLabel("Tipo de Quarto");
 		lblTipoDeQuarto.setBounds(10, 168, 95, 14);
 		getContentPane().add(lblTipoDeQuarto);
@@ -210,8 +214,13 @@ public class TelaCadastroQuarto extends Tela {
 	}
 
 	protected void mostrar() {
-		regraQuarto.mostrarQuarto();
-		habilitaCamposEditar();
+		
+		try {
+			regraQuarto.mostrarQuarto();
+			habilitaCamposEditar();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Selecione um Quarto!");
+		}
 	}
 
 	protected void novo() {
@@ -222,6 +231,7 @@ public class TelaCadastroQuarto extends Tela {
 		buttonIncluir.setEnabled(true);
 		buttonCancelar.setEnabled(true);
 		comboBoxCodigo.setEnabled(false);
+		comboBoxTipoQuarto.setEnabled(true);
 		buttonNovo.setEnabled(false);
 		buttonConsulta.setEnabled(false);
 		buttonMostrar.setEnabled(false);
@@ -257,8 +267,19 @@ public class TelaCadastroQuarto extends Tela {
 	public void inicializarComboBoxCodigo() {
 		try {
 			QuartoDAO cl = new QuartoDAO();
-			List<Quarto> clientes = cl.getLista();
+			List<Quarto> clientes = cl.getLista();	
 			comboBoxCodigo.setModel(new DefaultComboBoxModel<Object>(clientes.toArray()));
+		} catch (ClassNotFoundException | SQLException ex) {
+			ex.printStackTrace();
+			ex.printStackTrace();
+		}
+	}
+	
+	public void inicializarComboBoxTipoQuarto() {
+		try {
+			TipoDeQuartoDAO cl = new TipoDeQuartoDAO();
+			List<TipoDeQuarto> tipoQuarto = cl.getLista();
+			comboBoxTipoQuarto.setModel(new DefaultComboBoxModel<Object>(tipoQuarto.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
 			ex.printStackTrace();
 			ex.printStackTrace();
@@ -274,10 +295,12 @@ public class TelaCadastroQuarto extends Tela {
 		buttonIncluir.setEnabled(false);
 		buttonCancelar.setEnabled(false);
 		comboBoxCodigo.getModel().setSelectedItem(null);
+		comboBoxTipoQuarto.getModel().setSelectedItem(null);
+		comboBoxTipoQuarto.setEnabled(false);
 		buttonMostrar.setEnabled(true);
 		checkBoxDisponivel.setEnabled(false);
 	}
-
+	
 	protected void habilitaCamposEditar() {
 		textFieldNumeroQuarto.setEnabled(true);
 		checkBoxDisponivel.setEnabled(true);
@@ -286,9 +309,11 @@ public class TelaCadastroQuarto extends Tela {
 		buttonIncluir.setEnabled(false);
 		buttonCancelar.setEnabled(true);
 		comboBoxCodigo.setEnabled(false);
+		comboBoxTipoQuarto.setEnabled(true);
 		buttonNovo.setEnabled(false);
 		buttonConsulta.setEnabled(false);
 		buttonMostrar.setEnabled(false);
+		
 	}
 
 	protected void desabilitaCampos() {
@@ -300,6 +325,9 @@ public class TelaCadastroQuarto extends Tela {
 		buttonIncluir.setEnabled(false);
 		buttonCancelar.setEnabled(false);
 		comboBoxCodigo.setEnabled(true);
+		comboBoxCodigo.getModel().setSelectedItem(null);
+		comboBoxTipoQuarto.getModel().setSelectedItem(null);
+		comboBoxTipoQuarto.setEnabled(false);
 		buttonNovo.setEnabled(true);
 		buttonConsulta.setEnabled(true);
 		buttonMostrar.setEnabled(true);
@@ -307,8 +335,6 @@ public class TelaCadastroQuarto extends Tela {
 
 	public void limpaCampos() {
 		desabilitaCampos();
-		comboBoxCodigo.setSelectedItem(null);
-
 	}
 
 	public void setConsulta(Long id) {
@@ -321,6 +347,21 @@ public class TelaCadastroQuarto extends Tela {
 	protected boolean isFormularioValido() {
 		boolean valido = true;
 		valido = (textFieldNumeroQuarto.getText().isEmpty()) ? false : valido;
+		valido = (comboBoxTipoQuarto.getModel().getSelectedItem() == null)? false: valido;
+		QuartoDAO cl;
+		try {
+			cl = new QuartoDAO();
+			List<Quarto> clientes = cl.getLista();	
+			for(int i = 0; i < clientes.size(); i++ ) {
+			 if((clientes.get(i).getNrQuarto().equals(textFieldNumeroQuarto.getText()))) {
+				JOptionPane.showMessageDialog(null, "Este quarto já existe!");
+				valido = false;
+			 }
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			
+		}
+
 		return valido;
 	}
 	// Validação de formulário
@@ -344,11 +385,7 @@ public class TelaCadastroQuarto extends Tela {
 	}
 
 	public void setDisponivel(boolean st) {
-		if (st) {
-			checkBoxDisponivel.setSelected(true);
-		} else {
-			checkBoxDisponivel.setSelected(false);
-		}
+		checkBoxDisponivel.setSelected(st);
 	}
 
 	public boolean isDisponivel() {
@@ -357,7 +394,14 @@ public class TelaCadastroQuarto extends Tela {
 
 	@Override
 	public void setConsulta(Long id, ETipos tipo) {
-		// TODO Auto-generated method stub
-		
+
+	}
+
+	public void setTipoQuarto(TipoDeQuarto  tipoDeQuarto) {
+		this.comboBoxTipoQuarto.getModel().setSelectedItem(tipoDeQuarto);
+	}
+
+	public TipoDeQuarto getTipoQuartoSelecionado() {
+		return ((TipoDeQuarto) comboBoxTipoQuarto.getSelectedItem());
 	}
 }
