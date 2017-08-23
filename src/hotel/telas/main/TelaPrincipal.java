@@ -20,6 +20,7 @@ import hotel.telas.cadastro.TelaCadastroQuarto;
 import hotel.telas.cadastro.TelaCadastroReserva;
 import hotel.telas.consulta.ETipos;
 import hotel.telas.consulta.TelaConsultaGeral;
+import hotel.telas.os.TelaOs;
 
 public class TelaPrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -111,6 +112,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmGerenciar = new JMenuItem("Gerenciar");
 		mntmGerenciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				criarTela(ETipos.Os);
 			}
 		});
 		mnOs.add(mntmGerenciar);
@@ -205,6 +207,10 @@ public class TelaPrincipal extends JFrame {
 		} else if (tipoTela == ETipos.Reserva) {
 			TelaCadastroReserva tela = new TelaCadastroReserva(this);
 			tabbedPane.addTab("Cadastro Reserva", null, tela, null);
+			tabbedPane.setSelectedComponent(tela);
+		}else if (tipoTela == ETipos.Os) {
+			TelaOs tela = new TelaOs(this);
+			tabbedPane.addTab("Gerenciar OS", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
 		}else if (tipoTela == ETipos.Consulta) {
 			new TelaConsultaGeral().setVisible(true);

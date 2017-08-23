@@ -1,7 +1,9 @@
 package hotel.telas.estoque;
 
-import java.awt.Font;
+import java.sql.SQLException;
+import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
@@ -9,6 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
+
+import hotel.classes.Fornecedor;
+import hotel.classes.DAO.FornecedorDAO;
 
 public class TelaEntradaEstoque extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -20,8 +25,12 @@ public class TelaEntradaEstoque extends JInternalFrame {
 
 	
 	public TelaEntradaEstoque() {
+		inicializarLayoutEEventos();
+	}
+	
+	private void inicializarLayoutEEventos() {
 		setClosable(true);
-		setTitle("Entrada no estoque por nota fiscal");
+		setTitle("Entrada no estoque por aquisição");
 		setBounds(100, 100, 540, 440);
 		getContentPane().setLayout(null);
 		
@@ -48,11 +57,6 @@ public class TelaEntradaEstoque extends JInternalFrame {
 		panel_1.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		panel_1.setBounds(0, 0, 380, 65);
 		getContentPane().add(panel_1);
-		
-		JLabel lblCadastroDeCliente = new JLabel("Entrada no estoque por nota fiscal");
-		lblCadastroDeCliente.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCadastroDeCliente.setBounds(10, 11, 307, 17);
-		panel_1.add(lblCadastroDeCliente);
 		
 		JLabel lblNome = new JLabel("Produto");
 		lblNome.setBounds(64, 123, 63, 14);
@@ -88,4 +92,18 @@ public class TelaEntradaEstoque extends JInternalFrame {
 		getContentPane().add(buttonSelecionarFornecedor);
 
 	}
+
+
+	public void inicializarComboBoxFornecedor() {
+		try {
+			FornecedorDAO cl = new FornecedorDAO();
+			List<Fornecedor> fornecedores = cl.getLista();
+			comboBoxFornecedor.setModel(new DefaultComboBoxModel<Object>(fornecedores.toArray()));
+		} catch (ClassNotFoundException | SQLException ex) {
+			ex.printStackTrace();
+			ex.printStackTrace();
+		}
+	}
+
+
 }

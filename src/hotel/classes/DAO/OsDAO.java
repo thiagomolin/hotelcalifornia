@@ -3,6 +3,8 @@ package hotel.classes.DAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import hotel.classes.Os;
@@ -89,7 +91,25 @@ public class OsDAO extends DAO {
 		
 		return null;
 	}
+	
+	public List<Os> getLista() throws SQLException, ClassNotFoundException {
+		String sqlQuery = "SELECT * FROM os ORDER BY id";
 
+		try {
+			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+			ResultSet rs = stmt.executeQuery();
+
+			List<Os> os = new ArrayList<>();
+
+			while (rs.next()) {
+				os.add(parser(rs));
+			}
+
+			return os;
+		} catch (SQLException e) {
+			throw e;
+		}
+	}
 	
 	 public ResultSet listar() throws SQLException, ClassNotFoundException {
 	        String sqlQuery = "SELECT * FROM Os ORDER BY id";

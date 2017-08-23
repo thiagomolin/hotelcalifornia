@@ -166,7 +166,9 @@ public class QuartoDAO extends DAO {
 		} catch (SQLException e) {
 			throw e;
 		}
-	}
+	}	
+
+	
 
 	private Quarto parser(ResultSet resultSet) throws SQLException {
 		Quarto q = new Quarto(resultSet.getLong("id"), resultSet.getString("nr_quarto"),resultSet.getLong("fk_tipo_quarto"), resultSet.getBoolean("vf_disponivel"));
@@ -183,6 +185,7 @@ public class QuartoDAO extends DAO {
 		
 		return lista;
 	}
+
 
 
 }
