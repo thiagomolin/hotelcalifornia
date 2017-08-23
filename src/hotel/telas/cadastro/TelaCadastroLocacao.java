@@ -22,7 +22,7 @@ import hotel.classes.Reserva;
 import hotel.classes.TipoDeQuarto;
 import hotel.classes.DAO.ClienteDAO;
 import hotel.classes.DAO.LocacaoDAO;
-import hotel.classes.DAO.TipoDeQuartoDAO;
+import hotel.classes.DAO.ReservaDAO;
 import hotel.regras.cadastro.RegraCadastroLocacao;
 import hotel.telas.consulta.ETipos;
 import hotel.telas.consulta.TelaConsultaGeral;
@@ -44,7 +44,6 @@ public class TelaCadastroLocacao extends Tela {
 	private JButton buttonConsulta;
 	private JButton buttonMostrar;
 	private JButton buttonConsultaCliente;
-	
 
 	private TelaPrincipal telaPrincipal;
 
@@ -54,7 +53,8 @@ public class TelaCadastroLocacao extends Tela {
 
 	private JDateChooser dateSaida;
 	private JDateChooser dateEntrada;
-	private JLabel lblReservaseExistir;
+	private JLabel lblReserva;
+	private JLabel lblTipoDeQuarto;
 	private JButton buttonConsultaReserva;
 
 	public TelaCadastroLocacao(TelaPrincipal telaPrincipal) {
@@ -65,6 +65,7 @@ public class TelaCadastroLocacao extends Tela {
 		inicializarComboBoxCodigo();
 		inicializarComboBoxCliente();
 		UtilCombobox.inicializarComboBoxTipoQuarto(comboBoxTipoDeQuarto);
+		inicializarComboBoxReserva();
 		inicializarComponentes();
 		this.telaPrincipal = telaPrincipal;
 	}
@@ -117,14 +118,14 @@ public class TelaCadastroLocacao extends Tela {
 		buttonCancelar.setBounds(29, 305, 89, 23);
 		panel.add(buttonCancelar);
 
-		JButton button_4 = new JButton("Sair");
-		button_4.addActionListener(new ActionListener() {
+		JButton buttonSair = new JButton("Sair");
+		buttonSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				sair();
 			}
 		});
-		button_4.setBounds(29, 365, 89, 23);
-		panel.add(button_4);
+		buttonSair.setBounds(29, 365, 89, 23);
+		panel.add(buttonSair);
 
 		buttonMostrar = new JButton("Mostrar");
 		buttonMostrar.addActionListener(new ActionListener() {
@@ -168,17 +169,17 @@ public class TelaCadastroLocacao extends Tela {
 		lblCodLocacao.setBounds(10, 62, 99, 14);
 		panel_1.add(lblCodLocacao);
 
-		JLabel label = new JLabel("Cliente");
-		label.setBounds(53, 152, 46, 14);
-		getContentPane().add(label);
+		JLabel lblCliente = new JLabel("Cliente");
+		lblCliente.setBounds(53, 152, 46, 14);
+		getContentPane().add(lblCliente);
 
 		comboBoxCliente = new JComboBox<Object>();
 		comboBoxCliente.setBounds(138, 149, 129, 20);
 		getContentPane().add(comboBoxCliente);
 
-		JLabel label_2 = new JLabel("Data Entrada");
-		label_2.setBounds(53, 231, 70, 14);
-		getContentPane().add(label_2);
+		JLabel lblDataEntrada = new JLabel("Data Entrada");
+		lblDataEntrada.setBounds(53, 231, 70, 14);
+		getContentPane().add(lblDataEntrada);
 
 		dateEntrada = new JDateChooser();
 		dateEntrada.setBounds(138, 231, 129, 20);
@@ -188,9 +189,9 @@ public class TelaCadastroLocacao extends Tela {
 		dateSaida.setBounds(138, 272, 129, 20);
 		getContentPane().add(dateSaida);
 
-		JLabel label_3 = new JLabel("Data Saida");
-		label_3.setBounds(53, 272, 70, 14);
-		getContentPane().add(label_3);
+		JLabel lblDataSaida = new JLabel("Data Saida");
+		lblDataSaida.setBounds(53, 272, 70, 14);
+		getContentPane().add(lblDataSaida);
 
 		buttonConsultaCliente = new JButton("...");
 		buttonConsultaCliente.setEnabled(false);
@@ -201,34 +202,34 @@ public class TelaCadastroLocacao extends Tela {
 		});
 		buttonConsultaCliente.setBounds(278, 148, 18, 23);
 		getContentPane().add(buttonConsultaCliente);
-		
+
 		comboBoxReserva = new JComboBox<Object>();
 		comboBoxReserva.setEnabled(false);
 		comboBoxReserva.setBounds(138, 104, 129, 20);
 		getContentPane().add(comboBoxReserva);
-		
-		lblReservaseExistir = new JLabel("Reserva (se existir)");
-		lblReservaseExistir.setBounds(10, 107, 113, 14);
-		getContentPane().add(lblReservaseExistir);
-		
+
+		lblReserva = new JLabel("Reserva (se existir)");
+		lblReserva.setBounds(10, 107, 113, 14);
+		getContentPane().add(lblReserva);
+
 		buttonConsultaReserva = new JButton("...");
+		buttonConsultaReserva.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				consultar(ETipos.Reserva);
+			}
+		});
 		buttonConsultaReserva.setEnabled(false);
 		buttonConsultaReserva.setBounds(278, 103, 18, 23);
 		getContentPane().add(buttonConsultaReserva);
-		
+
 		comboBoxTipoDeQuarto = new JComboBox<Object>();
 		comboBoxTipoDeQuarto.setEnabled(false);
 		comboBoxTipoDeQuarto.setBounds(138, 188, 129, 20);
 		getContentPane().add(comboBoxTipoDeQuarto);
-		
-		JLabel lblTipoDeQuarto = new JLabel("Tipo de Quarto");
+
+		lblTipoDeQuarto = new JLabel("Tipo de Quarto");
 		lblTipoDeQuarto.setBounds(46, 191, 77, 14);
 		getContentPane().add(lblTipoDeQuarto);
-		
-		JButton buttonConsultaTipoDeQuarto = new JButton("...");
-		buttonConsultaTipoDeQuarto.setEnabled(false);
-		buttonConsultaTipoDeQuarto.setBounds(278, 187, 18, 23);
-		getContentPane().add(buttonConsultaTipoDeQuarto);
 
 	}
 	// LAYOUT
@@ -265,19 +266,25 @@ public class TelaCadastroLocacao extends Tela {
 	}
 
 	protected void novo() {
-		comboBoxCodigo.setEnabled(true);
-		dateEntrada.setEnabled(true);
-		buttonConsultaCliente.setEnabled(true);
+		comboBoxTipoDeQuarto.setEnabled(true);
+		comboBoxReserva.setEnabled(true);
 		comboBoxCliente.setEnabled(true);
+		comboBoxCodigo.setEnabled(false);
+		dateEntrada.setEnabled(true);
 		dateSaida.setEnabled(true);
+		buttonConsultaCliente.setEnabled(true);
+		buttonConsultaReserva.setEnabled(true);
+		buttonConsulta.setEnabled(false);
 		buttonAlterar.setEnabled(false);
 		buttonExcluir.setEnabled(false);
 		buttonIncluir.setEnabled(true);
 		buttonCancelar.setEnabled(true);
-		comboBoxCodigo.setEnabled(false);
 		buttonNovo.setEnabled(false);
-		buttonConsulta.setEnabled(false);
 		buttonMostrar.setEnabled(false);
+		comboBoxCodigo.getModel().setSelectedItem(null);
+		comboBoxTipoDeQuarto.getModel().setSelectedItem(null);
+		comboBoxReserva.getModel().setSelectedItem(null);
+		comboBoxCliente.getModel().setSelectedItem(null);
 	}
 
 	protected void alterar() {
@@ -306,7 +313,22 @@ public class TelaCadastroLocacao extends Tela {
 	}
 	// Eventos de botões
 
+	// Combo Box
+	// Eventos de botões
+
 	// Eventos de ComboBox
+	public void inicializarComboBoxReserva() {
+		ReservaDAO rsv;
+		try {
+			rsv = new ReservaDAO();
+			List<Reserva> reservas = rsv.getLista();
+			comboBoxReserva.setModel(new DefaultComboBoxModel<Object>(reservas.toArray()));
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 
 	public void inicializarComboBoxCodigo() {
 		try {
@@ -318,9 +340,6 @@ public class TelaCadastroLocacao extends Tela {
 			ex.printStackTrace();
 		}
 	}
-	// Eventos de ComboBox
-
-	// Métodos de manipulação de componentes
 
 	private void inicializarComboBoxCliente() {
 		try {
@@ -332,21 +351,34 @@ public class TelaCadastroLocacao extends Tela {
 			ex.printStackTrace();
 		}
 	}
+	// Eventos de ComboBox
 
+	// Métodos de manipulação de componentes
+
+	// Combo Box
+
+	// Campos
 	private void inicializarComponentes() {
 		buttonAlterar.setEnabled(false);
 		comboBoxCliente.setEnabled(false);
+		comboBoxTipoDeQuarto.setEnabled(false);
+		comboBoxReserva.setEditable(false);
 		dateEntrada.setEnabled(false);
 		dateSaida.setEnabled(false);
 		buttonExcluir.setEnabled(false);
 		buttonIncluir.setEnabled(false);
 		buttonCancelar.setEnabled(false);
 		comboBoxCodigo.getModel().setSelectedItem(null);
+		comboBoxTipoDeQuarto.getModel().setSelectedItem(null);
+		comboBoxReserva.getModel().setSelectedItem(null);
+		comboBoxCliente.getModel().setSelectedItem(null);
 		buttonMostrar.setEnabled(true);
 	}
 
 	protected void habilitaCamposEditar() {
 		comboBoxCliente.setEnabled(false);
+		comboBoxTipoDeQuarto.setEnabled(true);
+		comboBoxReserva.setEditable(true);
 		dateEntrada.setEnabled(false);
 		dateSaida.setEnabled(true);
 		buttonConsultaCliente.setEnabled(false);
@@ -363,13 +395,15 @@ public class TelaCadastroLocacao extends Tela {
 	protected void desabilitaCampos() {
 		buttonAlterar.setEnabled(false);
 		comboBoxCliente.setEnabled(false);
+		comboBoxCodigo.setEnabled(true);
+		comboBoxTipoDeQuarto.setEnabled(false);
 		dateEntrada.setEnabled(false);
 		dateSaida.setEnabled(false);
 		buttonAlterar.setEnabled(false);
 		buttonExcluir.setEnabled(false);
 		buttonIncluir.setEnabled(false);
 		buttonCancelar.setEnabled(false);
-		comboBoxCodigo.setEnabled(true);
+		
 		buttonNovo.setEnabled(true);
 		buttonConsulta.setEnabled(true);
 		buttonMostrar.setEnabled(true);
@@ -377,13 +411,15 @@ public class TelaCadastroLocacao extends Tela {
 
 	public void limpaCampos() {
 		desabilitaCampos();
-		comboBoxCodigo.setSelectedItem(null);
+		comboBoxCodigo.getModel().setSelectedItem(null);
+		comboBoxTipoDeQuarto.getModel().setSelectedItem(null);
+		comboBoxReserva.getModel().setSelectedItem(null);
+		comboBoxCliente.getModel().setSelectedItem(null);
+		
 	}
+	// Campos
 
-	public void setConsulta(Long id) {
-
-	}
-
+// Getter and Setter
 	public void setConsulta(Long id, ETipos tipo) {
 		if (tipo == ETipos.Locacao) {
 			regraLocacao.selecionarPorId(id);
@@ -393,6 +429,14 @@ public class TelaCadastroLocacao extends Tela {
 				ClienteDAO c = new ClienteDAO();
 				setClienteSelecionado(c.selecionar(id));
 			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+			}
+		}else if(tipo == ETipos.Reserva) {
+			try {
+				ReservaDAO r = new ReservaDAO();
+				setReservaSelecionado(r.selecionar(id));
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -414,17 +458,6 @@ public class TelaCadastroLocacao extends Tela {
 	// Validação de formulário
 
 	// GETTERS AND SETTERS
-	public void setClienteSelecionado(Cliente cliente) {
-		comboBoxCliente.getModel().setSelectedItem(cliente);
-	}
-	
-	public void setReservaSelecionado(Reserva reserva) {
-		comboBoxReserva.getModel().setSelectedItem(reserva);
-	}
-	
-	public Reserva getReservaSelecionado() {
-		return (Reserva) comboBoxReserva.getModel().getSelectedItem();
-	}
 
 	public java.sql.Date getDataEntrada() {
 		return new java.sql.Date(dateEntrada.getDate().getTime());
@@ -442,15 +475,38 @@ public class TelaCadastroLocacao extends Tela {
 		return new java.sql.Date(dateSaida.getDate().getTime());
 	}
 
+	// GETTER SETTER ITEM COMBOBOX
+	public Locacao getLocacaoSelecionado() {
+		return ((Locacao) comboBoxCodigo.getSelectedItem());
+	}
+	
 	public Cliente getClienteSelecionado() {
 		return (Cliente) comboBoxCliente.getModel().getSelectedItem();
 	}
+	public void setClienteSelecionado(Cliente cliente) {
+		comboBoxCliente.getModel().setSelectedItem(cliente);
+	}
 
-	public Locacao getLocacaoSelecionado() {
-		return ((Locacao) comboBoxCodigo.getSelectedItem());
+	public void setReservaSelecionado(Reserva reserva) {
+		comboBoxReserva.getModel().setSelectedItem(reserva);
+	}
+	public Reserva getReservaSelecionado() {
+		return (Reserva) comboBoxReserva.getModel().getSelectedItem();
+	}
+
+	public TipoDeQuarto getReservaTipoDeQuarto() {
+		return ((TipoDeQuarto) comboBoxTipoDeQuarto.getSelectedItem());
+	}
+
+	public void setSelectedComboBoxTipoDeQuarto(TipoDeQuarto tipoDeQuarto) {
+		this.comboBoxTipoDeQuarto.getModel().setSelectedItem(tipoDeQuarto);
 	}
 
 	public void setSelectedComboBoxCodigo(Locacao locacao) {
 		this.comboBoxCodigo.getModel().setSelectedItem(locacao);
 	}
+
+	// GETTER SETTER ITEM COMBOBOX
+
 }
+// Getter and Setter

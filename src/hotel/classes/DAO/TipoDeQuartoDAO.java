@@ -51,6 +51,24 @@ public class TipoDeQuartoDAO extends DAO{
 				throw e;
 			}
 		}
+	
+	public TipoDeQuarto listarPorIDQuarto(long id) throws SQLException {
+		String sqlQuery = "SELECT quarto_tipo.id, quarto_tipo.ds_tipo_quarto FROM `quarto_tipo` INNER JOIN quarto ON quarto.fk_tipo_quarto = quarto_tipo.id WHERE quarto.id = ?";
+
+		try {
+			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+			stmt.setLong(1, id);
+			ResultSet rs = stmt.executeQuery();
+			TipoDeQuarto tipoDeQuarto = null;
+			if (rs.next()) {
+				tipoDeQuarto = parser(rs);
+			}
+
+			return tipoDeQuarto;
+		} catch (SQLException e) {
+			throw e;
+		}
+	}
 		
 	
 	private TipoDeQuarto parser(ResultSet resultSet) throws SQLException {

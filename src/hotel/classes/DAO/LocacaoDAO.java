@@ -95,11 +95,11 @@ public class LocacaoDAO extends DAO {
 	}
 
 	public ResultSet listar() throws SQLException, ClassNotFoundException {
-		String sqlQuery = "SELECT locacao.id, cliente.nm_cliente, quarto.nr_quarto, locacao.dt_entrada, locacao.dt_saida, locacao_status.ds_status "
+		String sqlQuery = "SELECT locacao.id, cliente.nm_cliente, quarto.nr_quarto, locacao.dt_entrada, locacao.dt_saida, status.ds_status "
 						+ "FROM locacao "
 						+ "INNER JOIN cliente ON cliente.id = locacao.fk_cliente "
 						+ "INNER JOIN quarto ON quarto.id = locacao.fk_quarto "
-						+ "INNER JOIN locacao_status ON locacao_status.id = locacao.fk_status";
+						+ "INNER JOIN status ON status.id = locacao.fk_status";
 
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);

@@ -10,6 +10,7 @@ import hotel.classes.Quarto;
 import hotel.classes.DAO.ClienteDAO;
 import hotel.classes.DAO.LocacaoDAO;
 import hotel.classes.DAO.QuartoDAO;
+import hotel.classes.DAO.TipoDeQuartoDAO;
 import hotel.telas.cadastro.TelaCadastroLocacao;
 import hotel.util.UtilDatas;
 
@@ -85,7 +86,9 @@ public class RegraCadastroLocacao {
 		Locacao locacao = tela.getLocacaoSelecionado();
 		try {
 			ClienteDAO cdao = new ClienteDAO();
+			TipoDeQuartoDAO tpqd = new TipoDeQuartoDAO();
 			tela.setClienteSelecionado(cdao.selecionar(locacao.getFkCliente()));
+			tela.setSelectedComboBoxTipoDeQuarto(tpqd.listarPorIDQuarto(locacao.getFkQuarto()));
 		} catch (ClassNotFoundException | SQLException e) {
 		}
 		tela.setDataEntrada(locacao.getDtEntradaSQL());
