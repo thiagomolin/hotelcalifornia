@@ -19,10 +19,9 @@ import com.toedter.calendar.JDateChooser;
 import hotel.classes.Cliente;
 import hotel.classes.Locacao;
 import hotel.classes.Reserva;
-import hotel.classes.TipoDeQuarto;
 import hotel.classes.DAO.ClienteDAO;
 import hotel.classes.DAO.LocacaoDAO;
-import hotel.classes.DAO.TipoDeQuartoDAO;
+import hotel.classes.DAO.ReservaDAO;
 import hotel.regras.cadastro.RegraCadastroLocacao;
 import hotel.telas.consulta.ETipos;
 import hotel.telas.consulta.TelaConsultaGeral;
@@ -44,7 +43,6 @@ public class TelaCadastroLocacao extends Tela {
 	private JButton buttonConsulta;
 	private JButton buttonMostrar;
 	private JButton buttonConsultaCliente;
-	
 
 	private TelaPrincipal telaPrincipal;
 
@@ -201,30 +199,30 @@ public class TelaCadastroLocacao extends Tela {
 		});
 		buttonConsultaCliente.setBounds(278, 148, 18, 23);
 		getContentPane().add(buttonConsultaCliente);
-		
+
 		comboBoxReserva = new JComboBox<Object>();
 		comboBoxReserva.setEnabled(false);
 		comboBoxReserva.setBounds(138, 104, 129, 20);
 		getContentPane().add(comboBoxReserva);
-		
+
 		lblReservaseExistir = new JLabel("Reserva (se existir)");
 		lblReservaseExistir.setBounds(10, 107, 113, 14);
 		getContentPane().add(lblReservaseExistir);
-		
+
 		buttonConsultaReserva = new JButton("...");
 		buttonConsultaReserva.setEnabled(false);
 		buttonConsultaReserva.setBounds(278, 103, 18, 23);
 		getContentPane().add(buttonConsultaReserva);
-		
+
 		comboBoxTipoDeQuarto = new JComboBox<Object>();
 		comboBoxTipoDeQuarto.setEnabled(false);
 		comboBoxTipoDeQuarto.setBounds(138, 188, 129, 20);
 		getContentPane().add(comboBoxTipoDeQuarto);
-		
+
 		JLabel lblTipoDeQuarto = new JLabel("Tipo de Quarto");
 		lblTipoDeQuarto.setBounds(46, 191, 77, 14);
 		getContentPane().add(lblTipoDeQuarto);
-		
+
 		JButton buttonConsultaTipoDeQuarto = new JButton("...");
 		buttonConsultaTipoDeQuarto.setEnabled(false);
 		buttonConsultaTipoDeQuarto.setBounds(278, 187, 18, 23);
@@ -307,7 +305,11 @@ public class TelaCadastroLocacao extends Tela {
 	// Eventos de botões
 
 	// Eventos de ComboBox
-
+	public void inicializarComboBoxReserva() {
+		ReservaDAO rsv = new ReservaDAO();
+		Reserva reservas = rsv.getLista<Reserva>();
+		
+	}
 	public void inicializarComboBoxCodigo() {
 		try {
 			LocacaoDAO cl = new LocacaoDAO();
@@ -335,13 +337,15 @@ public class TelaCadastroLocacao extends Tela {
 
 	private void inicializarComponentes() {
 		buttonAlterar.setEnabled(false);
-		comboBoxCliente.setEnabled(false);
+		comboBoxCliente.setEnabled(true);
+		comboBoxTipoDeQuarto.setEnabled(true);
 		dateEntrada.setEnabled(false);
 		dateSaida.setEnabled(false);
 		buttonExcluir.setEnabled(false);
 		buttonIncluir.setEnabled(false);
 		buttonCancelar.setEnabled(false);
 		comboBoxCodigo.getModel().setSelectedItem(null);
+		comboBoxTipoDeQuarto.getModel().setSelectedItem(null);
 		buttonMostrar.setEnabled(true);
 	}
 
@@ -417,11 +421,11 @@ public class TelaCadastroLocacao extends Tela {
 	public void setClienteSelecionado(Cliente cliente) {
 		comboBoxCliente.getModel().setSelectedItem(cliente);
 	}
-	
+
 	public void setReservaSelecionado(Reserva reserva) {
 		comboBoxReserva.getModel().setSelectedItem(reserva);
 	}
-	
+
 	public Reserva getReservaSelecionado() {
 		return (Reserva) comboBoxReserva.getModel().getSelectedItem();
 	}

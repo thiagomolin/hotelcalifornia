@@ -22,11 +22,11 @@ import hotel.classes.Status;
 import hotel.classes.TipoDeQuarto;
 import hotel.classes.DAO.ReservaDAO;
 import hotel.classes.DAO.StatusDAO;
-import hotel.classes.DAO.TipoDeQuartoDAO;
 import hotel.regras.cadastro.RegraCadastroReserva;
 import hotel.telas.consulta.ETipos;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.main.TelaPrincipal;
+import hotel.util.UtilCombobox;
 import hotel.util.UtilCpf;
 import hotel.util.UtilDatas;
 
@@ -62,7 +62,7 @@ public class TelaCadastroReserva extends Tela {
 		inicializarLayoutEEventos();
 		inicializarComboBoxCodigo();
 		inicializarComboBoxStatus();
-		inicializarComboBoxTipoQuarto();
+		UtilCombobox.inicializarComboBoxTipoQuarto(comboBoxTipoQuarto);
 		inicializarComponentes();
 		this.telaPrincipal = telaPrincipal;
 	}
@@ -207,7 +207,7 @@ public class TelaCadastroReserva extends Tela {
 		comboBoxStatus = new JComboBox<Object>();
 		comboBoxStatus.setBounds(138, 218, 129, 20);
 		getContentPane().add(comboBoxStatus);
-		
+
 		comboBoxTipoQuarto = new JComboBox<Object>();
 		comboBoxTipoQuarto.setEnabled(false);
 		comboBoxTipoQuarto.setBounds(138, 260, 129, 20);
@@ -216,7 +216,7 @@ public class TelaCadastroReserva extends Tela {
 		JLabel lblStatus = new JLabel("Status");
 		lblStatus.setBounds(53, 221, 70, 14);
 		getContentPane().add(lblStatus);
-		
+
 		lblTipoDeQuarto = new JLabel("Tipo Quarto");
 		lblTipoDeQuarto.setBounds(53, 263, 70, 14);
 		getContentPane().add(lblTipoDeQuarto);
@@ -314,17 +314,7 @@ public class TelaCadastroReserva extends Tela {
 			ex.printStackTrace();
 		}
 	}
-	
-	private void inicializarComboBoxTipoQuarto() {
-		try {
-			TipoDeQuartoDAO cl = new TipoDeQuartoDAO();
-			List<TipoDeQuarto> tipoQuarto = cl.getLista();
-			comboBoxTipoQuarto.setModel(new DefaultComboBoxModel<Object>(tipoQuarto.toArray()));
-		} catch (ClassNotFoundException | SQLException ex) {
-			ex.printStackTrace();
-			ex.printStackTrace();
-		}
-	}
+
 	// Eventos de ComboBox
 
 	// Métodos de manipulação de componentes
@@ -388,8 +378,6 @@ public class TelaCadastroReserva extends Tela {
 		buttonMostrar.setEnabled(true);
 	}
 
-	
-
 	public void limpaCampos() {
 		desabilitaCampos();
 		comboBoxCodigo.setSelectedItem(null);
@@ -411,9 +399,9 @@ public class TelaCadastroReserva extends Tela {
 		valido = (getSelectedComboBoxStatus() == null) ? false : valido;
 		valido = (dateEntrada.getDate() == null) ? false : valido;
 		valido = (dateSaida.getDate() == null) ? false : valido;
-		valido = (entrada.equals(saida))? false : valido;
-		valido = (entrada.isAfter(saida))? false : valido;
-		valido = (entrada.isBefore(LocalDate.now()) && entrada.equals(LocalDate.now()))? false : valido;
+		valido = (entrada.equals(saida)) ? false : valido;
+		valido = (entrada.isAfter(saida)) ? false : valido;
+		valido = (entrada.isBefore(LocalDate.now()) && entrada.equals(LocalDate.now())) ? false : valido;
 		return valido;
 	}
 	// Validação de formulário
@@ -462,11 +450,11 @@ public class TelaCadastroReserva extends Tela {
 	public void setSelectedComboBoxCodigo(Reserva reserva) {
 		this.comboBoxCodigo.getModel().setSelectedItem(reserva);
 	}
-	
+
 	public void setSelectedComboBoxCodigo(TipoDeQuarto quarto) {
 		this.comboBoxTipoQuarto.getModel().setSelectedItem(quarto);
 	}
-	
+
 	public TipoDeQuarto getTipoDeQuartoSelecionado() {
 		return ((TipoDeQuarto) comboBoxTipoQuarto.getModel().getSelectedItem());
 	}
