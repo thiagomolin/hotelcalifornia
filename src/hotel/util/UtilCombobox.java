@@ -10,10 +10,12 @@ import hotel.classes.Cargo;
 import hotel.classes.Cidade;
 import hotel.classes.Estado;
 import hotel.classes.Pais;
+import hotel.classes.TipoDeQuarto;
 import hotel.classes.DAO.CargoDAO;
 import hotel.classes.DAO.CidadeDAO;
 import hotel.classes.DAO.EstadoDAO;
 import hotel.classes.DAO.PaisDAO;
+import hotel.classes.DAO.TipoDeQuartoDAO;
 
 public class UtilCombobox {
 
@@ -85,5 +87,16 @@ public class UtilCombobox {
 
 		return comboBox;
 
+	}
+
+	public static void inicializarComboBoxTipoQuarto(JComboBox<Object> comboBox) {
+		try {
+			TipoDeQuartoDAO tdq = new TipoDeQuartoDAO();
+			List<TipoDeQuarto> tipoDeQuarto = tdq.getLista();
+			comboBox.setModel(new DefaultComboBoxModel<Object>(tipoDeQuarto.toArray()));
+		} catch (ClassNotFoundException | SQLException ex) {
+			ex.printStackTrace();
+			ex.printStackTrace();
+		}
 	}
 }

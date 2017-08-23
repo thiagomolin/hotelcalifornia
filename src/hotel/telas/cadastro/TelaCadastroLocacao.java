@@ -19,12 +19,15 @@ import com.toedter.calendar.JDateChooser;
 import hotel.classes.Cliente;
 import hotel.classes.Locacao;
 import hotel.classes.Reserva;
+import hotel.classes.TipoDeQuarto;
 import hotel.classes.DAO.ClienteDAO;
 import hotel.classes.DAO.LocacaoDAO;
+import hotel.classes.DAO.TipoDeQuartoDAO;
 import hotel.regras.cadastro.RegraCadastroLocacao;
 import hotel.telas.consulta.ETipos;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.main.TelaPrincipal;
+import hotel.util.UtilCombobox;
 import hotel.util.UtilDatas;
 
 public class TelaCadastroLocacao extends Tela {
@@ -41,11 +44,13 @@ public class TelaCadastroLocacao extends Tela {
 	private JButton buttonConsulta;
 	private JButton buttonMostrar;
 	private JButton buttonConsultaCliente;
+	
 
 	private TelaPrincipal telaPrincipal;
 
 	private JComboBox<Object> comboBoxCliente;
 	private JComboBox<Object> comboBoxReserva;
+	private JComboBox<Object> comboBoxTipoDeQuarto;
 
 	private JDateChooser dateSaida;
 	private JDateChooser dateEntrada;
@@ -59,6 +64,7 @@ public class TelaCadastroLocacao extends Tela {
 		inicializarLayoutEEventos();
 		inicializarComboBoxCodigo();
 		inicializarComboBoxCliente();
+		UtilCombobox.inicializarComboBoxTipoQuarto(comboBoxTipoDeQuarto);
 		inicializarComponentes();
 		this.telaPrincipal = telaPrincipal;
 	}
@@ -210,7 +216,7 @@ public class TelaCadastroLocacao extends Tela {
 		buttonConsultaReserva.setBounds(278, 103, 18, 23);
 		getContentPane().add(buttonConsultaReserva);
 		
-		JComboBox<Object> comboBoxTipoDeQuarto = new JComboBox<Object>();
+		comboBoxTipoDeQuarto = new JComboBox<Object>();
 		comboBoxTipoDeQuarto.setEnabled(false);
 		comboBoxTipoDeQuarto.setBounds(138, 188, 129, 20);
 		getContentPane().add(comboBoxTipoDeQuarto);
@@ -301,6 +307,7 @@ public class TelaCadastroLocacao extends Tela {
 	// Eventos de botões
 
 	// Eventos de ComboBox
+
 	public void inicializarComboBoxCodigo() {
 		try {
 			LocacaoDAO cl = new LocacaoDAO();
