@@ -163,27 +163,27 @@ public class TelaCadastroLocacao extends Tela {
 		panel_1.add(lblCodLocacao);
 
 		JLabel label = new JLabel("Cliente");
-		label.setBounds(53, 127, 46, 14);
+		label.setBounds(53, 152, 46, 14);
 		getContentPane().add(label);
 
 		comboBoxCliente = new JComboBox<Object>();
-		comboBoxCliente.setBounds(138, 124, 129, 20);
+		comboBoxCliente.setBounds(138, 149, 129, 20);
 		getContentPane().add(comboBoxCliente);
 
 		JLabel label_2 = new JLabel("Data Entrada");
-		label_2.setBounds(53, 168, 70, 14);
+		label_2.setBounds(53, 231, 70, 14);
 		getContentPane().add(label_2);
 
 		dateEntrada = new JDateChooser();
-		dateEntrada.setBounds(138, 168, 129, 20);
+		dateEntrada.setBounds(138, 231, 129, 20);
 		getContentPane().add(dateEntrada);
 
 		dateSaida = new JDateChooser();
-		dateSaida.setBounds(138, 209, 129, 20);
+		dateSaida.setBounds(138, 272, 129, 20);
 		getContentPane().add(dateSaida);
 
 		JLabel label_3 = new JLabel("Data Saida");
-		label_3.setBounds(53, 209, 70, 14);
+		label_3.setBounds(53, 272, 70, 14);
 		getContentPane().add(label_3);
 
 		buttonConsultaCliente = new JButton("...");
@@ -193,22 +193,36 @@ public class TelaCadastroLocacao extends Tela {
 				consultar(ETipos.Cliente);
 			}
 		});
-		buttonConsultaCliente.setBounds(278, 123, 18, 23);
+		buttonConsultaCliente.setBounds(278, 148, 18, 23);
 		getContentPane().add(buttonConsultaCliente);
 		
 		comboBoxReserva = new JComboBox<Object>();
 		comboBoxReserva.setEnabled(false);
-		comboBoxReserva.setBounds(138, 253, 129, 20);
+		comboBoxReserva.setBounds(138, 104, 129, 20);
 		getContentPane().add(comboBoxReserva);
 		
 		lblReservaseExistir = new JLabel("Reserva (se existir)");
-		lblReservaseExistir.setBounds(10, 256, 113, 14);
+		lblReservaseExistir.setBounds(10, 107, 113, 14);
 		getContentPane().add(lblReservaseExistir);
 		
 		buttonConsultaReserva = new JButton("...");
 		buttonConsultaReserva.setEnabled(false);
-		buttonConsultaReserva.setBounds(278, 252, 18, 23);
+		buttonConsultaReserva.setBounds(278, 103, 18, 23);
 		getContentPane().add(buttonConsultaReserva);
+		
+		JComboBox<Object> comboBoxTipoDeQuarto = new JComboBox<Object>();
+		comboBoxTipoDeQuarto.setEnabled(false);
+		comboBoxTipoDeQuarto.setBounds(138, 188, 129, 20);
+		getContentPane().add(comboBoxTipoDeQuarto);
+		
+		JLabel lblTipoDeQuarto = new JLabel("Tipo de Quarto");
+		lblTipoDeQuarto.setBounds(46, 191, 77, 14);
+		getContentPane().add(lblTipoDeQuarto);
+		
+		JButton buttonConsultaTipoDeQuarto = new JButton("...");
+		buttonConsultaTipoDeQuarto.setEnabled(false);
+		buttonConsultaTipoDeQuarto.setBounds(278, 187, 18, 23);
+		getContentPane().add(buttonConsultaTipoDeQuarto);
 
 	}
 	// LAYOUT
@@ -432,7 +446,4 @@ public class TelaCadastroLocacao extends Tela {
 	public void setSelectedComboBoxCodigo(Locacao locacao) {
 		this.comboBoxCodigo.getModel().setSelectedItem(locacao);
 	}
-
-	// GETTERS AND SETTERS
-
 }

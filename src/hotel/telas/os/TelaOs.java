@@ -1,27 +1,19 @@
 package hotel.telas.os;
 
-import java.awt.EventQueue;
-
-import javax.swing.JInternalFrame;
-import javax.swing.JPanel;
-import java.awt.CardLayout;
-import javax.swing.Box;
-import javax.swing.JSeparator;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
-import java.awt.Color;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
 import java.awt.Font;
-import javax.swing.JTextArea;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
 
 public class TelaOs extends JInternalFrame {
-
+	private static final long serialVersionUID = 1L;
 	
+	private JComboBox<Object> comboBoxCodigo;
+
 	public TelaOs() {
 		setClosable(true);
 		setTitle("Consultar OS");
@@ -56,7 +48,7 @@ public class TelaOs extends JInternalFrame {
 		lblCdigo.setBounds(113, 62, 46, 14);
 		panel_1.add(lblCdigo);
 		
-		JComboBox comboBoxCodigo = new JComboBox();
+		comboBoxCodigo = new JComboBox<Object>();
 		comboBoxCodigo.setBounds(158, 59, 92, 20);
 		panel_1.add(comboBoxCodigo);
 		

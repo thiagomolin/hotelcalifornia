@@ -38,16 +38,17 @@ public class ReservaDAO extends DAO {
 	}
 
 	public void alterar(Reserva reserva) throws SQLException, ClassNotFoundException {
-		String sqlQuery = "UPDATE reserva SET nm_cliente = ?, nr_cpf = ?, dt_entrada = ?, dt_saida = ?, fk_status = ? WHERE id = ?";
+		String sqlQuery = "UPDATE reserva SET nm_cliente = ?, nr_cpf = ?, fk_quarto = ?, dt_entrada = ?, dt_saida = ?, fk_status = ? WHERE id = ?";
 
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
 			stmt.setString(1, reserva.getNomeCliente());
 			stmt.setString(2, reserva.getNrCpf());
-			stmt.setDate(3, reserva.getDtEntradaSQL());
-			stmt.setDate(4, reserva.getDtSaidaSQL());
-			stmt.setLong(5, reserva.getFkStatus());
-			stmt.setLong(6, reserva.getId());
+			stmt.setLong(3, reserva.getFkQuarto());
+			stmt.setDate(4, reserva.getDtEntradaSQL());
+			stmt.setDate(5, reserva.getDtSaidaSQL());
+			stmt.setLong(6, reserva.getFkStatus());
+			stmt.setLong(7, reserva.getId());
 
 			stmt.executeUpdate();
 

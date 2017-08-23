@@ -6,9 +6,12 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import hotel.classes.Locacao;
+import hotel.classes.Quarto;
 import hotel.classes.DAO.ClienteDAO;
 import hotel.classes.DAO.LocacaoDAO;
+import hotel.classes.DAO.QuartoDAO;
 import hotel.telas.cadastro.TelaCadastroLocacao;
+import hotel.util.UtilDatas;
 
 public class RegraCadastroLocacao {
 
@@ -22,14 +25,22 @@ public class RegraCadastroLocacao {
 		long fkCliente = tela.getClienteSelecionado().getId();
 		Date entrada = tela.getDataEntrada();
 		Date saida = tela.getDataSaida();
-		try {
-			Locacao reserva = new Locacao(fkCliente, entrada.toLocalDate(), saida.toLocalDate(), (long) 1);
 
-			LocacaoDAO reservaDao = new LocacaoDAO();
-			reservaDao.inserir(reserva);
+		try {
+			QuartoDAO q = new QuartoDAO();
+
+			Quarto quarto = q.selecionarQuartoDisponivel(UtilDatas.dateToSQLDate(entrada),
+					UtilDatas.dateToSQLDate(saida), 1);
 			
+			long fkQuarto = quarto.getId();
+
+			Locacao locacao = new Locacao(fkCliente, fkQuarto, entrada.toLocalDate(), saida.toLocalDate(), (long) 1);
+
+			LocacaoDAO locacaoDao = new LocacaoDAO();
+			locacaoDao.inserir(locacao);
+
 		} catch (ClassNotFoundException | SQLException e1) {
-			JOptionPane.showMessageDialog(null, "Erro no banco de dados, verifique a conexão e a senha, e tente novamente");
+			e1.printStackTrace();
 		}
 
 	}
@@ -40,13 +51,14 @@ public class RegraCadastroLocacao {
 		Date entrada = tela.getDataEntrada();
 		Date saida = tela.getDataSaida();
 		try {
-			Locacao reserva = new Locacao(id, fkCliente, entrada.toLocalDate(), saida.toLocalDate(), (long) 1);
+			Locacao locacao = new Locacao(id, fkCliente, entrada.toLocalDate(), saida.toLocalDate(), (long) 1);
 
-			LocacaoDAO reservaDao = new LocacaoDAO();
-			reservaDao.alterar(reserva);
-			
+			LocacaoDAO locacaoDao = new LocacaoDAO();
+			locacaoDao.alterar(locacao);
+
 		} catch (ClassNotFoundException | SQLException e1) {
-			JOptionPane.showMessageDialog(null, "Erro no banco de dados, verifique a conexão e a senha, e tente novamente");
+			JOptionPane.showMessageDialog(null,
+					"Erro no banco de dados, verifique a conexão e a senha, e tente novamente");
 		}
 	}
 
@@ -55,10 +67,10 @@ public class RegraCadastroLocacao {
 		int result = JOptionPane.showConfirmDialog(null, "Confirmar a exclusão?", "Confirmar",
 				JOptionPane.OK_CANCEL_OPTION);
 		if (JOptionPane.OK_OPTION == result) {
-			Locacao reserva = tela.getLocacaoSelecionado();
+			Locacao locacao = tela.getLocacaoSelecionado();
 			try {
-				LocacaoDAO reservaDao = new LocacaoDAO();
-				reservaDao.excluir(reserva);
+				LocacaoDAO locacaoDao = new LocacaoDAO();
+				locacaoDao.excluir(locacao);
 				JOptionPane.showMessageDialog(tela, "Excluido com sucesso!", "Sucesso",
 						JOptionPane.INFORMATION_MESSAGE);
 			} catch (ClassNotFoundException | SQLException e) {
@@ -70,15 +82,15 @@ public class RegraCadastroLocacao {
 	}
 
 	public void mostrarLocacao() {//
-		Locacao reserva = tela.getLocacaoSelecionado();
+		Locacao locacao = tela.getLocacaoSelecionado();
 		try {
 			ClienteDAO cdao = new ClienteDAO();
-			tela.setClienteSelecionado(cdao.selecionar(reserva.getFkCliente()));
+			tela.setClienteSelecionado(cdao.selecionar(locacao.getFkCliente()));
 		} catch (ClassNotFoundException | SQLException e) {
 		}
-		tela.setDataEntrada(reserva.getDtEntradaSQL());
-		tela.setDataSaida(reserva.getDtSaidaSQL());
-		
+		tela.setDataEntrada(locacao.getDtEntradaSQL());
+		tela.setDataSaida(locacao.getDtSaidaSQL());
+
 	}
 
 	public void selecionarPorId(Long id) {
@@ -88,7 +100,8 @@ public class RegraCadastroLocacao {
 			tela.setSelectedComboBoxCodigo(dao.selecionar(id));
 			mostrarLocacao();
 		} catch (ClassNotFoundException | SQLException e) {
-			JOptionPane.showMessageDialog(null, "Erro no banco de dados, verifique a conexão e a senha, e tente novamente");
+			JOptionPane.showMessageDialog(null,
+					"Erro no banco de dados, verifique a conexão e a senha, e tente novamente");
 		}
 
 	}

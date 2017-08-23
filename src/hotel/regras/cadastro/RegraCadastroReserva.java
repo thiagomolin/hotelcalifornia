@@ -77,7 +77,7 @@ public class RegraCadastroReserva {
 	}
 
 	private void desativarReservaTemporariamente() {
-		long fkStatus = 4L;
+		long fkStatus = 4;
 		long id = tela.getReservaSelecionado().getId();
 
 		try {

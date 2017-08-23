@@ -107,23 +107,30 @@ public class QuartoDAO extends DAO {
 	}
 	
 	public Quarto selecionarQuartoDisponivel(Date entrada, Date saida, long fkTipoDeQuarto) {
-		String sqlQuery = "SELECT quarto.id, quarto.nr_quarto, quarto.fk_tipo_quarto, quarto.vf_disponivel FROM quarto " + 
-						  "LEFT JOIN reserva ON reserva.fk_quarto = quarto.id " + 
-						  "WHERE quarto.id " + 
-						  "NOT IN (" + 
-						  "SELECT reserva.fk_quarto FROM reserva " + 
-						  "WHERE NOT( (? <= reserva.dt_entrada) OR (? >= reserva.dt_saida) ) " + 
-						  ") " + 
-						  "AND quarto.vf_disponivel = true " + 
-						  "AND quarto.fk_tipo_quarto = ?";
+		String sqlQuery = "SELECT quarto.id, nr_quarto, fk_tipo_quarto, vf_disponivel FROM quarto " + 
+				"LEFT JOIN reserva ON reserva.fk_quarto = quarto.id " + 
+				"LEFT JOIN locacao ON locacao.fk_quarto = quarto.id " + 
+				"WHERE quarto.id " + 
+				"NOT IN ( " + 
+				"SELECT reserva.fk_quarto FROM reserva " + 
+				"WHERE NOT((? <= reserva.dt_entrada) OR (? >= reserva.dt_saida)) AND reserva.fk_status = 1 " + 
+				") " + 
+				"AND quarto.id NOT IN ( " + 
+				"SELECT locacao.fk_quarto FROM locacao " + 
+				"WHERE NOT((? <= locacao.dt_entrada) OR (? >= locacao.dt_saida)) AND locacao.fk_status = 1 " + 
+				") " + 
+				"AND quarto.vf_disponivel = true " + 
+				"AND quarto.fk_tipo_quarto = ?";
 		
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
 			stmt.setDate(1, saida);
 			stmt.setDate(2, entrada);
-			stmt.setLong(3, fkTipoDeQuarto);
+			stmt.setDate(3, saida);
+			stmt.setDate(4, entrada);
+			stmt.setLong(5, fkTipoDeQuarto);
 			
-			ResultSet rs = stmt.executeQuery();
+			ResultSet rs = stmt.executeQuery();	
 			
 			if (rs.next()) {
 				return parser(rs);
@@ -132,7 +139,7 @@ public class QuartoDAO extends DAO {
 			}
 
 		} catch (SQLException e) {
-			
+			e.printStackTrace();
 		}
 		
 		return null;
