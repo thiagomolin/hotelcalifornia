@@ -19,6 +19,7 @@ import hotel.telas.cadastro.TelaCadastroProduto;
 import hotel.telas.cadastro.TelaCadastroQuarto;
 import hotel.telas.cadastro.TelaCadastroReserva;
 import hotel.telas.consulta.ETipos;
+import hotel.telas.consulta.TelaConsultaEstoque;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.estoque.TelaAcertoEstoque;
 import hotel.telas.estoque.TelaEntradaEstoque;
@@ -171,6 +172,14 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		mnEstoque.add(mntmConsultarEstoque);
+		
+		JMenuItem mntmConsulta = new JMenuItem("Consulta");
+		mntmConsulta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				criarTela(ETipos.EstoqueConsulta);					
+			}
+		});
+		mnEstoque.add(mntmConsulta);
 
 		JMenu mnFinanceiro = new JMenu("Financeiro");
 		menuBar.add(mnFinanceiro);
@@ -235,6 +244,8 @@ public class TelaPrincipal extends JFrame {
 			TelaAcertoEstoque tela = new TelaAcertoEstoque(this);
 			tabbedPane.addTab("Acerto de estoque", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
+		}else if (tipoTela == ETipos.EstoqueConsulta) {
+			new TelaConsultaEstoque().setVisible(true);;
 		}else if (tipoTela == ETipos.Consulta) {
 			new TelaConsultaGeral().setVisible(true);
 		}

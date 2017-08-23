@@ -166,7 +166,7 @@ public class ClienteDAO extends DAO {
 		}
 	}
 	
-	public Vector<String> getCamposBD(){
+	public Vector<String> getCamposBDAnalitico(){
 		Vector<String> lista = new Vector<String>();
 		lista.add("ID");
 		lista.add("Nome");

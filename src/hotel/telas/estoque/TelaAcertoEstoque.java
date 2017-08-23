@@ -142,7 +142,10 @@ public class TelaAcertoEstoque extends Tela {
 		long fkTipoMovimento = getTipoDeMovimento().getId(); 
 		int nrQuantidade = getQuantidade();
 		LocalDate dtAtual = LocalDate.now();
-
+		if((fkTipoMovimento == 2) || (fkTipoMovimento == 4) || (fkTipoMovimento == 6)) { //negativo em caso de saidas de estoque
+			nrQuantidade *= -1;
+		}
+		
 		MovimentoEstoque m = new MovimentoEstoque(fkProduto, fkUsuario, fkTipoMovimento, nrQuantidade, dtAtual);
 		try {
 			MovimentoEstoqueDAO mdao = new MovimentoEstoqueDAO();

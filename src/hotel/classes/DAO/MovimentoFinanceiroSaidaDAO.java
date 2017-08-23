@@ -82,7 +82,7 @@ public class MovimentoFinanceiroSaidaDAO  extends DAO {
 	}
 
 	@Override
-	public Vector<String> getCamposBD() {
+	public Vector<String> getCamposBDAnalitico() {
 		// TODO Auto-generated method stub
 		return null;
 	}

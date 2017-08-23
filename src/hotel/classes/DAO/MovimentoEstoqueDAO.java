@@ -35,113 +35,121 @@ public class MovimentoEstoqueDAO extends DAO {
 			throw e;
 		}
 	}
-	
+
 	public List<MovimentoEstoque> listarPorProduto(long fkProduto) throws SQLException, ClassNotFoundException {
-        String sqlQuery = "SELECT * FROM movimento_estoque WHERE fk_produto = ? ORDER BY id DESC";
+		String sqlQuery = "SELECT * FROM movimento_estoque WHERE fk_produto = ? ORDER BY id DESC";
 
-        try {
-            PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+		try {
+			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
 			stmt.setLong(1, fkProduto);
-			
-            ResultSet rs = stmt.executeQuery();
 
-            List<MovimentoEstoque> mov = new ArrayList<>();
+			ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()) {
-            	mov.add(parser(rs));
-            }
+			List<MovimentoEstoque> mov = new ArrayList<>();
 
-            return mov;
-        } catch (SQLException e) {
-            throw e;
-        }
-    }
-	
-	public List<MovimentoEstoque> listarPorTipoMovimento(long fkTipoMovimento) throws SQLException, ClassNotFoundException {
-        String sqlQuery = "SELECT * FROM movimento_estoque WHERE fk_tipo_movimento = ? ORDER BY id DESC";
+			while (rs.next()) {
+				mov.add(parser(rs));
+			}
 
-        try {
-            PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+			return mov;
+		} catch (SQLException e) {
+			throw e;
+		}
+	}
+
+	public List<MovimentoEstoque> listarPorTipoMovimento(long fkTipoMovimento)
+			throws SQLException, ClassNotFoundException {
+		String sqlQuery = "SELECT * FROM movimento_estoque WHERE fk_tipo_movimento = ? ORDER BY id DESC";
+
+		try {
+			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
 			stmt.setLong(1, fkTipoMovimento);
-			
-            ResultSet rs = stmt.executeQuery();
 
-            List<MovimentoEstoque> mov = new ArrayList<>();
+			ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()) {
-            	mov.add(parser(rs));
-            }
+			List<MovimentoEstoque> mov = new ArrayList<>();
 
-            return mov;
-        } catch (SQLException e) {
-            throw e;
-        }
-    }
-	
-	public List<MovimentoEstoque> listarPorData(LocalDate dataInicial, LocalDate dataFinal) throws SQLException, ClassNotFoundException {
-        String sqlQuery = "SELECT * FROM movimento_estoque WHERE dt_atual >= ? AND dt_atual <= ?";
+			while (rs.next()) {
+				mov.add(parser(rs));
+			}
 
-        try {
-            PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+			return mov;
+		} catch (SQLException e) {
+			throw e;
+		}
+	}
+
+	public List<MovimentoEstoque> listarPorData(LocalDate dataInicial, LocalDate dataFinal)
+			throws SQLException, ClassNotFoundException {
+		String sqlQuery = "SELECT * FROM movimento_estoque WHERE dt_atual >= ? AND dt_atual <= ?";
+
+		try {
+			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
 			stmt.setDate(1, java.sql.Date.valueOf(dataInicial));
 			stmt.setDate(2, java.sql.Date.valueOf(dataFinal));
-			
-            ResultSet rs = stmt.executeQuery();
 
-            List<MovimentoEstoque> mov = new ArrayList<>();
+			ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()) {
-            	mov.add(parser(rs));
-            }
+			List<MovimentoEstoque> mov = new ArrayList<>();
 
-            return mov;
-        } catch (SQLException e) {
-            throw e;
-        }
-    }
-	
+			while (rs.next()) {
+				mov.add(parser(rs));
+			}
+
+			return mov;
+		} catch (SQLException e) {
+			throw e;
+		}
+	}
+
 	public List<MovimentoEstoque> listarPorUsuario(long fkUsuario) throws SQLException, ClassNotFoundException {
-        String sqlQuery = "SELECT * FROM movimento_estoque WHERE fk_usuario = ? ORDER BY id DESC";
+		String sqlQuery = "SELECT * FROM movimento_estoque WHERE fk_usuario = ? ORDER BY id DESC";
 
-        try {
-            PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+		try {
+			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
 			stmt.setLong(1, fkUsuario);
-			
-            ResultSet rs = stmt.executeQuery();
 
-            List<MovimentoEstoque> mov = new ArrayList<>();
+			ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()) {
-            	mov.add(parser(rs));
-            }
+			List<MovimentoEstoque> mov = new ArrayList<>();
 
-            return mov;
-        } catch (SQLException e) {
-            throw e;
-        }
-    }
-	
+			while (rs.next()) {
+				mov.add(parser(rs));
+			}
+
+			return mov;
+		} catch (SQLException e) {
+			throw e;
+		}
+	}
+
 	@Override
-	public Vector<String> getCamposBD(){
+	public Vector<String> getCamposBDAnalitico() {
 		Vector<String> lista = new Vector<String>();
-		lista.add("ID");
 		lista.add("Produto");
 		lista.add("Usuario");
 		lista.add("Tipo Mov.");
 		lista.add("Quantidade");
 		lista.add("Data");
-		
+
+		return lista;
+	}
+	
+	public Vector<String> getCamposBDSintetico() {
+		Vector<String> lista = new Vector<String>();
+		lista.add("Produto");
+		lista.add("Quantidade");
+
 		return lista;
 	}
 
 	@Override
 	public ResultSet listar() throws SQLException, ClassNotFoundException {
-		String sqlQuery = "SELECT movimento_estoque.id, ds_produto, ds_usuario, ds_movimento, nr_quantidade, dt_atual "
-						+ "FROM movimento_estoque "
-						+ "INNER JOIN produto ON produto.id = movimento_estoque.fk_produto "
-						+ "INNER JOIN usuario ON usuario.id = movimento_estoque.fk_usuario "
-						+ "INNER JOIN tipo_movimento ON tipo_movimento.id = movimento_estoque.fk_tipo_movimento";
-						
+		String sqlQuery = "SELECT ds_produto, ds_usuario, ds_movimento, nr_quantidade, dt_atual "
+				+ "FROM movimento_estoque " 
+				+ "INNER JOIN produto ON produto.id = movimento_estoque.fk_produto "
+				+ "INNER JOIN usuario ON usuario.id = movimento_estoque.fk_usuario "
+				+ "INNER JOIN tipo_movimento ON tipo_movimento.id = movimento_estoque.fk_tipo_movimento";
 
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
@@ -152,31 +160,40 @@ public class MovimentoEstoqueDAO extends DAO {
 			throw e;
 		}
 	}
+
 	
-	
-		
+	public ResultSet listarSintetico() throws SQLException, ClassNotFoundException {
+		String sqlQuery = "SELECT ds_produto, SUM(nr_quantidade) "
+				+ "FROM movimento_estoque " 
+				+ "INNER JOIN produto ON produto.id = movimento_estoque.fk_produto "
+				+ "GROUP BY ds_produto";
+
+		try {
+			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+			ResultSet rs = stmt.executeQuery();
+
+			return rs;
+		} catch (SQLException e) {
+			throw e;
+		}
+	}
+
 	
 	private MovimentoEstoque parser(ResultSet resultSet) throws SQLException {
 		LocalDate dtAtual = resultSet.getDate("dt_atual").toLocalDate();
 
-		
-		MovimentoEstoque r = new MovimentoEstoque(resultSet.getLong("id"), resultSet.getLong("fk_produto"), 
-				resultSet.getLong("fk_usuario"), resultSet.getLong("fk_tipo_movimento"), 
+		MovimentoEstoque r = new MovimentoEstoque(resultSet.getLong("id"), resultSet.getLong("fk_produto"),
+				resultSet.getLong("fk_usuario"), resultSet.getLong("fk_tipo_movimento"),
 				resultSet.getInt("nr_quantidade"), dtAtual);
 		return r;
 	}
-
-
 
 	@Override
 	public ResultSet listarFiltro(String campo, String busca) throws SQLException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	
-	
-	
-	
-	
-	
+
 }

@@ -259,7 +259,7 @@ public class TelaConsultaGeral extends JFrame {
 			if (tipoSelecionado != null) {
 				try {
 					listaDados = UtilVector.rsParaVector(dao.listar());
-					listaColunas = dao.getCamposBD();
+					listaColunas = dao.getCamposBDAnalitico();
 					table.setModel(construirTableModel());
 					statusBtnSelecionar();
 				} catch (ClassNotFoundException | SQLException e) {
@@ -271,7 +271,7 @@ public class TelaConsultaGeral extends JFrame {
 				ResultSet rs = dao.listarFiltro(((String) comboBoxCampo.getModel().getSelectedItem()),
 						textFieldPalavraChave.getText());
 				listaDados = UtilVector.rsParaVector(rs);
-				listaColunas = dao.getCamposBD();
+				listaColunas = dao.getCamposBDAnalitico();
 				table.setModel(construirTableModel());
 				statusBtnSelecionar();
 			} catch (ClassNotFoundException | SQLException e) {

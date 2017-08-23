@@ -176,7 +176,7 @@ public class QuartoDAO extends DAO {
 	}
 
 	@Override
-	public Vector<String> getCamposBD(){
+	public Vector<String> getCamposBDAnalitico(){
 		Vector<String> lista = new Vector<String>();
 		lista.add("ID");
 		lista.add("Numero do Quarto");

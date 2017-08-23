@@ -19,6 +19,6 @@ public abstract class DAO {
 	
 	public abstract ResultSet listarFiltro(String campo, String busca) throws SQLException, ClassNotFoundException;
 	
-	public abstract Vector<String> getCamposBD();
+	public abstract Vector<String> getCamposBDAnalitico();
 	
 }
