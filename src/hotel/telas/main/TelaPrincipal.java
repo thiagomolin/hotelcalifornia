@@ -20,6 +20,7 @@ import hotel.telas.cadastro.TelaCadastroQuarto;
 import hotel.telas.cadastro.TelaCadastroReserva;
 import hotel.telas.consulta.ETipos;
 import hotel.telas.consulta.TelaConsultaGeral;
+import hotel.telas.estoque.TelaAcertoEstoque;
 import hotel.telas.estoque.TelaEntradaEstoque;
 import hotel.telas.os.TelaOs;
 
@@ -155,7 +156,7 @@ public class TelaPrincipal extends JFrame {
 		JMenu mnEstoque = new JMenu("Estoque");
 		menuBar.add(mnEstoque);
 
-		JMenuItem mntmGerenciarEstoque = new JMenuItem("Gerenciar");
+		JMenuItem mntmGerenciarEstoque = new JMenuItem("Entrada");
 		mntmGerenciarEstoque.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				criarTela(ETipos.Estoque);			
@@ -163,7 +164,12 @@ public class TelaPrincipal extends JFrame {
 		});
 		mnEstoque.add(mntmGerenciarEstoque);
 
-		JMenuItem mntmConsultarEstoque = new JMenuItem("Consultar");
+		JMenuItem mntmConsultarEstoque = new JMenuItem("Acerto");
+		mntmConsultarEstoque.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				criarTela(ETipos.Acerto);						
+			}
+		});
 		mnEstoque.add(mntmConsultarEstoque);
 
 		JMenu mnFinanceiro = new JMenu("Financeiro");
@@ -224,6 +230,10 @@ public class TelaPrincipal extends JFrame {
 		}else if (tipoTela == ETipos.Estoque) {
 			TelaEntradaEstoque tela = new TelaEntradaEstoque(this);
 			tabbedPane.addTab("Entrada de estoque", null, tela, null);
+			tabbedPane.setSelectedComponent(tela);
+		}else if (tipoTela == ETipos.Acerto) {
+			TelaAcertoEstoque tela = new TelaAcertoEstoque(this);
+			tabbedPane.addTab("Acerto de estoque", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
 		}else if (tipoTela == ETipos.Consulta) {
 			new TelaConsultaGeral().setVisible(true);

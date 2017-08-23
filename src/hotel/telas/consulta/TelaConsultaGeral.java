@@ -67,7 +67,7 @@ public class TelaConsultaGeral extends JFrame {
 	private JTable table;
 
 	public TelaConsultaGeral() {
-		inicializarLayout();
+		inicializarLayoutEEventos();
 		comboBoxTipo.getModel().setSelectedItem(null);
 		panel.setVisible(false);
 		btnCancelar.setVisible(true);
@@ -76,13 +76,13 @@ public class TelaConsultaGeral extends JFrame {
 	public TelaConsultaGeral(ETipos tipoSelecionado, Tela telaCadastro) {
 		this.tipoSelecionado = tipoSelecionado;
 		this.telaCadastro = telaCadastro;
-		inicializarLayout();
+		inicializarLayoutEEventos();
 		mostrarCampos();
 		panel.setVisible(false);
 		btnCancelar.setVisible(false);
 	}
 
-	private void inicializarLayout() {
+	private void inicializarLayoutEEventos() {
 		setTitle("Consulta");
 		setBounds(100, 100, 750, 450);
 		getContentPane().setLayout(null);

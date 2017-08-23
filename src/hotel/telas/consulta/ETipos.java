@@ -10,5 +10,6 @@ public enum ETipos {
 	Reserva, 
 	Locacao,
 	Os,
-	Estoque
+	Estoque,
+	Acerto
 }
