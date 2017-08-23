@@ -154,7 +154,7 @@ public class MovimentoEstoqueDAO extends DAO {
 	}
 	
 	
-	
+		
 	
 	private MovimentoEstoque parser(ResultSet resultSet) throws SQLException {
 		LocalDate dtAtual = resultSet.getDate("dt_atual").toLocalDate();
