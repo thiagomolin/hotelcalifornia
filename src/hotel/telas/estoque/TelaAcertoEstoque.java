@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
-public class TelaEstoque extends JInternalFrame {
+public class TelaAcertoEstoque extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
 	
 	private JTextField textFieldQuantidade;
@@ -19,7 +19,7 @@ public class TelaEstoque extends JInternalFrame {
 	private JComboBox<Object> comboBoxProduto;
 
 	
-	public TelaEstoque() {
+	public TelaAcertoEstoque() {
 		setClosable(true);
 		setTitle("Estoque");
 		setBounds(100, 100, 540, 440);

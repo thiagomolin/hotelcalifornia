@@ -8,20 +8,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-import hotel.classes.MovimentoFinanceiroFornecedor;
+import hotel.classes.ConsumoDaLocacao;
 
-public class MovimentoFinanceiroFornecedorDAO  extends DAO {
+public class ConsumoDaLocacaoDAO extends DAO {
 
-	public MovimentoFinanceiroFornecedorDAO() throws ClassNotFoundException, SQLException {
+	public ConsumoDaLocacaoDAO() throws ClassNotFoundException, SQLException {
 		super();
 	}
 
-	public void inserir(MovimentoFinanceiroFornecedor mov) throws SQLException, ClassNotFoundException {
-		String sqlQuery = "INSERT INTO financeiro_fornecedor(fk_fornecedor, fk_produto, fk_usuario, nr_quantidade, dt_atual) VALUES (?,?,?,?,?)";
+	public void inserir(ConsumoDaLocacao mov) throws SQLException, ClassNotFoundException {
+		String sqlQuery = "INSERT INTO financeiro_cliente(fk_reserva, fk_produto, fk_usuario, nr_quantidade, dt_atual) VALUES (?,?,?,?,?)";
 
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
-			stmt.setLong(1, mov.getFkFornecedor());
+			stmt.setLong(1, mov.getFkReserva());
 			stmt.setLong(2, mov.getFkProduto());
 			stmt.setLong(3, mov.getFkUsuario());
 			stmt.setInt(4, mov.getNrQuantidade());
@@ -36,8 +36,8 @@ public class MovimentoFinanceiroFornecedorDAO  extends DAO {
 		}
 	}
 	
-	public List<MovimentoFinanceiroFornecedor> listar(LocalDate dataInicial, LocalDate dataFinal) throws SQLException, ClassNotFoundException {
-        String sqlQuery = "SELECT * FROM financeiro_fornecedor WHERE dt_atual >= ? AND dt_atual <= ? ORDER BY id DESC";
+	public List<ConsumoDaLocacao> listar(LocalDate dataInicial, LocalDate dataFinal) throws SQLException, ClassNotFoundException {
+        String sqlQuery = "SELECT * FROM financeiro_cliente WHERE dt_atual >= ? AND dt_atual <= ? ORDER BY id DESC";
 
         try {
             PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
@@ -46,7 +46,7 @@ public class MovimentoFinanceiroFornecedorDAO  extends DAO {
 			
             ResultSet rs = stmt.executeQuery();
 
-            List<MovimentoFinanceiroFornecedor> mov = new ArrayList<>();
+            List<ConsumoDaLocacao> mov = new ArrayList<>();
 
             while (rs.next()) {
             	mov.add(parser(rs));
@@ -59,11 +59,11 @@ public class MovimentoFinanceiroFornecedorDAO  extends DAO {
     }
 	
 	public ResultSet listar() throws SQLException, ClassNotFoundException {
-        String sqlQuery = "SELECT * FROM financeiro_fornecedor ORDER BY id DESC";
+        String sqlQuery = "SELECT * FROM financeiro_cliente ORDER BY id DESC";
 
         try {
-            PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);			
-            ResultSet rs = stmt.executeQuery();
+            PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+			ResultSet rs = stmt.executeQuery();
 
             return rs;
         } catch (SQLException e) {
@@ -71,10 +71,10 @@ public class MovimentoFinanceiroFornecedorDAO  extends DAO {
         }
     }
 
-	private MovimentoFinanceiroFornecedor parser(ResultSet resultSet) throws SQLException {
+	private ConsumoDaLocacao parser(ResultSet resultSet) throws SQLException {
 		LocalDate dtAtual = resultSet.getDate("dt_atual").toLocalDate();
 		
-		MovimentoFinanceiroFornecedor r = new MovimentoFinanceiroFornecedor(resultSet.getLong("id"), resultSet.getLong("fk_fornecedor"), 
+		ConsumoDaLocacao r = new ConsumoDaLocacao(resultSet.getLong("id"), resultSet.getLong("fk_reserva"), 
 				resultSet.getLong("fk_produto"), 
 				resultSet.getLong("fk_usuario"), 
 				resultSet.getInt("nr_quantidade"), 

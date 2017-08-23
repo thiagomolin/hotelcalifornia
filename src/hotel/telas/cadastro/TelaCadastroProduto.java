@@ -371,10 +371,6 @@ public class TelaCadastroProduto extends Tela {
 		this.setTextFieldVlrVenda(0);
 	}
 
-	public void setConsulta(Long id) {
-
-	}
-
 	public void setConsulta(Long id, ETipos tipo) {
 		if (tipo == ETipos.Produto) {
 			regraProduto.selecionarPorId(id);

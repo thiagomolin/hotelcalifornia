@@ -20,15 +20,19 @@ import hotel.telas.cadastro.TelaCadastroQuarto;
 import hotel.telas.cadastro.TelaCadastroReserva;
 import hotel.telas.consulta.ETipos;
 import hotel.telas.consulta.TelaConsultaGeral;
+import hotel.telas.estoque.TelaEntradaEstoque;
 import hotel.telas.os.TelaOs;
 
 public class TelaPrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JTabbedPane tabbedPane;
+	
+	private long usuarioLogado;
 
 	public TelaPrincipal() {
 		super();
+		usuarioLogado = 1;
 		initializarLayoutEEventos();
 	}
 
@@ -152,6 +156,11 @@ public class TelaPrincipal extends JFrame {
 		menuBar.add(mnEstoque);
 
 		JMenuItem mntmGerenciarEstoque = new JMenuItem("Gerenciar");
+		mntmGerenciarEstoque.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				criarTela(ETipos.Estoque);			
+			}
+		});
 		mnEstoque.add(mntmGerenciarEstoque);
 
 		JMenuItem mntmConsultarEstoque = new JMenuItem("Consultar");
@@ -212,6 +221,10 @@ public class TelaPrincipal extends JFrame {
 			TelaOs tela = new TelaOs(this);
 			tabbedPane.addTab("Gerenciar OS", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
+		}else if (tipoTela == ETipos.Estoque) {
+			TelaEntradaEstoque tela = new TelaEntradaEstoque(this);
+			tabbedPane.addTab("Entrada de estoque", null, tela, null);
+			tabbedPane.setSelectedComponent(tela);
 		}else if (tipoTela == ETipos.Consulta) {
 			new TelaConsultaGeral().setVisible(true);
 		}
@@ -223,6 +236,10 @@ public class TelaPrincipal extends JFrame {
 		tabbedPane.remove(j);
 	}
 	// MANIPULAÇÃO DE COMPONENTES
+
+	public long getUsuarioLogado() {
+		return usuarioLogado;
+	}
 
 	// MAIN
 	public static void main(String[] args) {
