@@ -121,6 +121,38 @@ public class MovimentoEstoqueDAO extends DAO {
         }
     }
 	
+	@Override
+	public Vector<String> getCamposBD(){
+		Vector<String> lista = new Vector<String>();
+		lista.add("ID");
+		lista.add("Produto");
+		lista.add("Usuario");
+		lista.add("Tipo Mov.");
+		lista.add("Quantidade");
+		lista.add("Data");
+		
+		return lista;
+	}
+
+	@Override
+	public ResultSet listar() throws SQLException, ClassNotFoundException {
+		String sqlQuery = "SELECT movimento_estoque.id, ds_produto, ds_usuario, ds_movimento, nr_quantidade, dt_atual "
+						+ "FROM movimento_estoque "
+						+ "INNER JOIN produto ON produto.id = movimento_estoque.fk_produto "
+						+ "INNER JOIN usuario ON usuario.id = movimento_estoque.fk_usuario "
+						+ "INNER JOIN tipo_movimento ON tipo_movimento.id = movimento_estoque.fk_tipo_movimento";
+						
+
+		try {
+			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+			ResultSet rs = stmt.executeQuery();
+
+			return rs;
+		} catch (SQLException e) {
+			throw e;
+		}
+	}
+	
 	
 	
 	
@@ -134,17 +166,7 @@ public class MovimentoEstoqueDAO extends DAO {
 		return r;
 	}
 
-	@Override
-	public Vector<String> getCamposBD() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public ResultSet listar() throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public ResultSet listarFiltro(String campo, String busca) throws SQLException, ClassNotFoundException {
