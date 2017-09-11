@@ -28,14 +28,12 @@ import com.toedter.calendar.JDateChooser;
 
 import hotel.classes.Cliente;
 import hotel.classes.Fornecedor;
-import hotel.classes.Funcionario;
 import hotel.classes.Locacao;
 import hotel.classes.Produto;
 import hotel.classes.Quarto;
 import hotel.classes.DAO.ClienteDAO;
 import hotel.classes.DAO.DAO;
 import hotel.classes.DAO.FornecedorDAO;
-import hotel.classes.DAO.FuncionarioDAO;
 import hotel.classes.DAO.LocacaoDAO;
 import hotel.classes.DAO.MovimentoEstoqueDAO;
 import hotel.classes.DAO.ProdutoDAO;
@@ -354,22 +352,6 @@ public class TelaConsultaGeral extends JFrame {
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
-		} else if (tipoSelecionado == ETipos.Funcionario) {
-			panel.setVisible(false);
-			dateChooserDe.setEnabled(false);
-			dateChooserAte.setEnabled(false);
-			textFieldPalavraChave.setEnabled(true);
-			comboBoxCampo.setEnabled(true);
-			comboBoxTipo.getModel().setSelectedItem(ETipos.Funcionario);
-			rdbtnAnalitico.setVisible(false);
-			rdbtnSintetico.setVisible(false);
-			try {
-				dao = new FuncionarioDAO();
-				comboBoxCampo.setModel(new DefaultComboBoxModel<Object>(Funcionario.getCampos().toArray()));
-			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
-			}
-
 		} else if (tipoSelecionado == ETipos.Produto) {
 			panel.setVisible(false);
 			dateChooserDe.setEnabled(false);

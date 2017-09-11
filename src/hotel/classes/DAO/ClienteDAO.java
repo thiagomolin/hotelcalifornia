@@ -13,7 +13,6 @@ public class ClienteDAO extends DAO {
 
 	public ClienteDAO() throws ClassNotFoundException, SQLException {
 		super();
-
 	}
 
 	public void inserir(Cliente cliente) throws SQLException, ClassNotFoundException {
