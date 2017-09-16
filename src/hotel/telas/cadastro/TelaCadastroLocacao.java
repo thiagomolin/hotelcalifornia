@@ -67,9 +67,9 @@ public class TelaCadastroLocacao extends Tela {
 		inicializarComboBoxCodigo();
 		inicializarComboBoxCliente();
 		UtilCombobox.inicializarComboBoxTipoQuarto(comboBoxTipoDeQuarto);
-		
+
 		lblNrQuarto = new JLabel("");
-		lblNrQuarto.setBounds(287, 194, 46, 14);
+		lblNrQuarto.setBounds(287, 194, 79, 14);
 		getContentPane().add(lblNrQuarto);
 		inicializarComponentes();
 		this.telaPrincipal = telaPrincipal;
@@ -271,8 +271,12 @@ public class TelaCadastroLocacao extends Tela {
 	}
 
 	protected void mostrar() {
-		regraLocacao.mostrarLocacao();
-		habilitaCamposEditar();
+		if (comboBoxCodigo.getSelectedItem() == null) {
+			JOptionPane.showMessageDialog(null, "Selecione uma Locação");
+		} else {
+			regraLocacao.mostrarLocacao();
+			habilitaCamposEditar();
+		}
 	}
 
 	protected void novo() {
@@ -447,13 +451,14 @@ public class TelaCadastroLocacao extends Tela {
 			setDataSaida(reserva.getDtSaidaSQL());
 			setDataEntrada(reserva.getDtEntradaSQL());
 			setSelectedComboBoxTipoDeQuarto(regraLocacao.selecionarTipoQuartoPorReserva(reserva));
-			lblNrQuarto.setText("Quarto: " + regraLocacao.selecionarQuartoPorReserva(reserva).toString());
+			lblNrQuarto.setText("Qrt: " + regraLocacao.selecionarQuartoPorReserva(reserva).toString());
 			comboBoxCliente.setEnabled(true);
 			comboBoxReserva.setEnabled(false);
+			buttonConsultaReserva.setEnabled(false);
 			comboBoxTipoDeQuarto.setEnabled(false);
 			dateEntrada.setEnabled(false);
 			dateSaida.setEnabled(false);
-			
+
 		}
 	}
 
@@ -471,9 +476,13 @@ public class TelaCadastroLocacao extends Tela {
 		} else if (tipo == ETipos.Reserva) {
 			try {
 				ReservaDAO r = new ReservaDAO();
-				setReservaSelecionado(r.selecionar(id));
+				if (r.selecionar(id).getFkStatus() == 1) {
+					setReservaSelecionado(r.selecionar(id));
+				} else {
+					JOptionPane.showMessageDialog(null, "RESERVA NÃO ATIVA");
+				}
+
 			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

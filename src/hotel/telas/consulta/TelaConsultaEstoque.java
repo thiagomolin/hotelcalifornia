@@ -118,12 +118,12 @@ public class TelaConsultaEstoque extends JFrame {
 		scrollPane.setViewportView(table);
 
 	}
-	
+
 	private void inicializarComboBoxCampo() {
-		String[] campos = {"Produto", "Usuario"};
+		String[] campos = { "Produto", "Usuario" };
 		comboBoxCampo.setModel(new DefaultComboBoxModel<Object>(campos));
 	}
-	
+
 	protected void cancelar() {
 		comboBoxCampo.getModel().setSelectedItem(null);
 		table.setModel(new DefaultTableModel());
@@ -131,11 +131,13 @@ public class TelaConsultaEstoque extends JFrame {
 	}
 
 	protected void mostrar() {
-		if(rdbtnAnalitico.isSelected()) {
+
+		if (rdbtnAnalitico.isSelected()) {
 			mostrarAnalitico();
-		}else {
+		} else {
 			mostrarSintetico();
-		}		
+		}
+
 	}
 
 	private void mostrarAnalitico() {
@@ -154,7 +156,7 @@ public class TelaConsultaEstoque extends JFrame {
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-		}		
+		}
 	}
 
 	private void mostrarSintetico() {
@@ -168,11 +170,12 @@ public class TelaConsultaEstoque extends JFrame {
 				ResultSet rs = dao.listarFiltro(((String) comboBoxCampo.getModel().getSelectedItem()),
 						textFieldPalavraChave.getText());
 				listaDados = UtilVector.rsParaVector(rs);
+
 				table.setModel(construirTableModel());
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-		}		
+		}
 	}
 
 	private DefaultTableModel construirTableModel() {
