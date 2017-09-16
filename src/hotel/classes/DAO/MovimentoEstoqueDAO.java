@@ -190,8 +190,37 @@ public class MovimentoEstoqueDAO extends DAO {
 
 	@Override
 	public ResultSet listarFiltro(String campo, String busca) throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		if (campo == "Produto") {
+			String sqlQuery = "SELECT produto.ds_produto, usuario.ds_usuario, tipo_movimento.ds_movimento, movimento_estoque.nr_quantidade, movimento_estoque.dt_atual " + 
+					"FROM movimento_estoque " + 
+					"INNER JOIN produto ON produto.id = movimento_estoque.fk_produto " + 
+					"INNER JOIN usuario ON usuario.id = movimento_estoque.fk_usuario " + 
+					"INNER JOIN tipo_movimento on tipo_movimento.id = movimento_estoque.fk_tipo_movimento " + 
+					"WHERE produto.ds_produto LIKE ?";
+			try {
+				PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+				stmt.setString(1, "%" + busca + "%");
+				ResultSet rs = stmt.executeQuery();
+				return rs;
+			} catch (SQLException e) {
+				throw e;
+			} 
+		}else{
+			String sqlQuery = "SELECT produto.ds_produto, usuario.ds_usuario, tipo_movimento.ds_movimento, movimento_estoque.nr_quantidade, movimento_estoque.dt_atual " + 
+					"FROM movimento_estoque " + 
+					"INNER JOIN produto ON produto.id = movimento_estoque.fk_produto " + 
+					"INNER JOIN usuario ON usuario.id = movimento_estoque.fk_usuario " + 
+					"INNER JOIN tipo_movimento on tipo_movimento.id = movimento_estoque.fk_tipo_movimento " + 
+					"WHERE usuario.ds_usuario LIKE ?";
+			try {
+				PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+				stmt.setString(1, "%" + busca + "%");
+				ResultSet rs = stmt.executeQuery();
+				return rs;
+			} catch (SQLException e) {
+				throw e;
+			} 
+		}
 	}
 
 	
