@@ -52,11 +52,6 @@ public class TelaFinanceiroExtrato extends JInternalFrame {
 		panel_1.setBounds(0, 0, 380, 127);
 		getContentPane().add(panel_1);
 		
-		JLabel lblCadastroDeCliente = new JLabel("Extrato");
-		lblCadastroDeCliente.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCadastroDeCliente.setBounds(10, 11, 146, 17);
-		panel_1.add(lblCadastroDeCliente);
-		
 		comboBoxTipo = new JComboBox<Object>();
 		comboBoxTipo.setModel(new DefaultComboBoxModel<Object>(new String[] {"Entradas", "Saídas", "Entradas e Saídas"}));
 		comboBoxTipo.setBounds(90, 39, 120, 20);
@@ -78,21 +73,21 @@ public class TelaFinanceiroExtrato extends JInternalFrame {
 		lblDe.setBounds(34, 102, 46, 14);
 		panel_1.add(lblDe);
 		
-		JLabel lblAt = new JLabel("Até");
-		lblAt.setBounds(198, 102, 46, 14);
-		panel_1.add(lblAt);
+		JLabel lblAte = new JLabel("Até");
+		lblAte.setBounds(198, 102, 46, 14);
+		panel_1.add(lblAte);
 		
 		JDateChooser dateChooserAte = new JDateChooser();
 		dateChooserAte.setBounds(254, 96, 87, 20);
 		panel_1.add(dateChooserAte);
 		
 		table = new JTable();
-		table.setBounds(20, 187, 341, 170);
+		table.setBounds(25, 138, 341, 170);
 		getContentPane().add(table);
 		
 		JLabel lblTotal = new JLabel("");
 		lblTotal.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblTotal.setBounds(215, 303, 146, 17);
+		lblTotal.setBounds(205, 382, 146, 17);
 		getContentPane().add(lblTotal);
 		
 		JLabel label = new JLabel("TOTAL:");

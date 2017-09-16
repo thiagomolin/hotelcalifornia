@@ -22,6 +22,7 @@ import hotel.telas.consulta.TelaConsultaEstoque;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.estoque.TelaAcertoEstoque;
 import hotel.telas.estoque.TelaEntradaEstoque;
+import hotel.telas.financeiro.TelaFinanceiroLancamento;
 
 public class TelaPrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -185,7 +186,12 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmFecharConta = new JMenuItem("Fechar Conta");
 		mnFinanceiro.add(mntmFecharConta);
 
-		JMenuItem mntmNovoLancamento = new JMenuItem("Novo LanÃ§amento");
+		JMenuItem mntmNovoLancamento = new JMenuItem("Novo Lançamento");
+		mntmNovoLancamento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				criarTela(ETipos.FinanceiroLancamento);				
+			}
+		});
 		mnFinanceiro.add(mntmNovoLancamento);
 
 		JMenuItem mntmExtrato = new JMenuItem("Extrato");
@@ -209,6 +215,10 @@ public class TelaPrincipal extends JFrame {
 		} else if (tipoTela == ETipos.Fornecedor) {
 			TelaCadastroFornecedor tela = new TelaCadastroFornecedor(this);
 			tabbedPane.addTab("Cadastro Fornecedor", null, tela, null);
+			tabbedPane.setSelectedComponent(tela);
+		} else if (tipoTela == ETipos.FinanceiroLancamento) {
+			TelaFinanceiroLancamento tela = new TelaFinanceiroLancamento(this);
+			tabbedPane.addTab("Novo lancamento em locação", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
 		}  else if (tipoTela == ETipos.Produto) {
 			TelaCadastroProduto tela = new TelaCadastroProduto(this);
