@@ -10,6 +10,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -32,7 +33,7 @@ public class TelaFinanceiroLancamento extends Tela {
 
 	private JComboBox<Object> comboBoxCodigo;
 	private JComboBox<Object> comboBoxProduto;
-	
+
 	private TelaPrincipal telaPrincipal;
 
 	public TelaFinanceiroLancamento(TelaPrincipal telaPrincipal) {
@@ -40,6 +41,7 @@ public class TelaFinanceiroLancamento extends Tela {
 		inicializarLayoutEEventos();
 		inicializarComboBoxCodigo();
 		inicializarComboBoxProduto();
+		resetaCampos();
 	}
 
 	private void inicializarLayoutEEventos() {
@@ -128,22 +130,35 @@ public class TelaFinanceiroLancamento extends Tela {
 	}
 
 	protected void processar() {
-		try {
-			LocacaoConsumoDAO lcdao = new LocacaoConsumoDAO();
-			
-			long fk_locacao = getLocacaoSelecionado().getId();
-			long fk_produto = getProdutoSelecionado().getId();
-			long fk_usuario = 1;
-			int nr_quantidade = Integer.parseInt(textFieldQuantidade.getText());
-			LocalDate dt_atual = LocalDate.now();
-			
-			LocacaoConsumo lc = new LocacaoConsumo(fk_locacao, fk_produto, fk_usuario, nr_quantidade, dt_atual);
-			
-			lcdao.inserir(lc);
-			
-		} catch (ClassNotFoundException | SQLException ex) {
-			ex.printStackTrace();
+		if (!textFieldQuantidade.getText().isEmpty()) {
+			try {
+				LocacaoConsumoDAO lcdao = new LocacaoConsumoDAO();
+
+				long fk_locacao = getLocacaoSelecionado().getId();
+				long fk_produto = getProdutoSelecionado().getId();
+				long fk_usuario = 1;
+				int nr_quantidade = Integer.parseInt(textFieldQuantidade.getText());
+				LocalDate dt_atual = LocalDate.now();
+
+				LocacaoConsumo lc = new LocacaoConsumo(fk_locacao, fk_produto, fk_usuario, nr_quantidade, dt_atual);
+
+				lcdao.inserir(lc);
+
+				JOptionPane.showMessageDialog(null, "Consumo inserido com sucesso");
+				resetaCampos();
+
+			} catch (ClassNotFoundException | SQLException ex) {
+				ex.printStackTrace();
+			}
+		}else {
+			JOptionPane.showMessageDialog(null, "Insira a quantidade");			
 		}
+	}
+
+	private void resetaCampos() {
+		comboBoxCodigo.getModel().setSelectedItem(null);
+		comboBoxProduto.getModel().setSelectedItem(null);
+		textFieldQuantidade.setText("");
 	}
 
 	private void inicializarComboBoxProduto() {
@@ -155,7 +170,7 @@ public class TelaFinanceiroLancamento extends Tela {
 			ex.printStackTrace();
 		}
 	}
-	
+
 	protected void sair() {
 		telaPrincipal.fecharTela(this);
 	}
@@ -168,11 +183,11 @@ public class TelaFinanceiroLancamento extends Tela {
 	public Locacao getLocacaoSelecionado() {
 		return ((Locacao) comboBoxCodigo.getSelectedItem());
 	}
-	
+
 	public Produto getProdutoSelecionado() {
 		return ((Produto) comboBoxProduto.getSelectedItem());
 	}
-	
+
 	private void inicializarComboBoxCodigo() {
 		try {
 			LocacaoDAO cl = new LocacaoDAO();
