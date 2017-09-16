@@ -57,11 +57,22 @@ public class LocacaoConsumoDAO extends DAO {
 		return null;
 	}
 
-	public ResultSet listar() throws SQLException, ClassNotFoundException {
-		String sqlQuery = "";
+	public ResultSet listar(long id) throws SQLException, ClassNotFoundException {
+		String sqlQuery = "SELECT cliente.nm_cliente, "
+						+ "produto.ds_produto, usuario.ds_usuario, locacao_consumo.nr_quantidade, "
+						+ "produto.nr_valor_venda, produto.nr_valor_venda * locacao_consumo.nr_quantidade as total, "
+						+ "locacao_consumo.fk_locacao, locacao_consumo.dt_atual, locacao_consumo.id " + 
+						  "FROM locacao_consumo " + 
+						  "INNER JOIN locacao ON locacao.id = locacao_consumo.fk_locacao " + 
+						  "INNER JOIN cliente ON locacao.fk_cliente = cliente.id " + 
+						  "INNER JOIN produto ON produto.id = locacao_consumo.fk_produto " + 
+						  "INNER JOIN usuario ON usuario.id = locacao_consumo.fk_usuario " + 
+						  "WHERE locacao_consumo.fk_locacao = ? " + 
+						  "ORDER BY produto.id DESC";
 
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+			stmt.setLong(1, id);
 			ResultSet rs = stmt.executeQuery();
 
 			return rs;
@@ -104,8 +115,7 @@ public class LocacaoConsumoDAO extends DAO {
 	@Override
 	public Vector<String> getCamposBDAnalitico() {
 		Vector<String> lista = new Vector<String>();
-		lista.add("ID");
-		lista.add("Locação");
+		lista.add("Cliente");
 		lista.add("Produto");
 		lista.add("Usuário");
 		lista.add("Quantidade");
@@ -113,9 +123,28 @@ public class LocacaoConsumoDAO extends DAO {
 		
 		return lista;
 	}
+	
+	public Vector<String> getCamposBD() {
+		Vector<String> lista = new Vector<String>();
+		lista.add("Cliente");
+		lista.add("Produto");
+		lista.add("Usuário");
+		lista.add("Quant.");
+		lista.add("Preço");
+		lista.add("Total");
+		
+		
+		return lista;
+	}
 
 	@Override
 	public ResultSet listarFiltro(String campo, String busca) throws SQLException, ClassNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResultSet listar() throws SQLException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		return null;
 	}

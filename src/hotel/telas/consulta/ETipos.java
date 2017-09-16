@@ -13,5 +13,6 @@ public enum ETipos {
 	Estoque,
 	Acerto, 
 	EstoqueConsulta,
-	FinanceiroLancamento
+	FinanceiroLancamento,
+	FinanceiroFecharConta
 }
