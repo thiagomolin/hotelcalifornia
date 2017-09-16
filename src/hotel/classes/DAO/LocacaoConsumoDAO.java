@@ -36,32 +36,11 @@ public class LocacaoConsumoDAO extends DAO {
 		}
 	}
 
-	public LocacaoConsumo selecionar(long id) throws SQLException, ClassNotFoundException {
-		String sqlQuery = "SELECT * FROM locacao_consumo WHERE id = ?";
-
-		try {
-			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
-			stmt.setLong(1, id);
-
-			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {
-				return parser(rs);
-			}
-
-			this.conexao.commit();
-		} catch (SQLException e) {
-			this.conexao.rollback();
-			throw e;
-		}
-
-		return null;
-	}
-
 	public ResultSet listar(long id) throws SQLException, ClassNotFoundException {
 		String sqlQuery = "SELECT cliente.nm_cliente, "
 						+ "produto.ds_produto, usuario.ds_usuario, locacao_consumo.nr_quantidade, "
 						+ "produto.nr_valor_venda, produto.nr_valor_venda * locacao_consumo.nr_quantidade as total, "
-						+ "locacao_consumo.fk_locacao, locacao_consumo.dt_atual, locacao_consumo.id, "
+						+ "locacao_consumo.fk_locacao, locacao_consumo.dt_atual, "
 						+ "locacao_consumo.fk_produto " + 
 						  "FROM locacao_consumo " + 
 						  "INNER JOIN locacao ON locacao.id = locacao_consumo.fk_locacao " + 
@@ -82,11 +61,12 @@ public class LocacaoConsumoDAO extends DAO {
 		}
 	}
 
-	public List<LocacaoConsumo> getLista() throws SQLException, ClassNotFoundException {
-		String sqlQuery = "SELECT * FROM locacaoconsumo ORDER BY id";
+	public List<LocacaoConsumo> getLista(long fkLocacao) throws SQLException, ClassNotFoundException {
+		String sqlQuery = "SELECT * FROM locacao_consumo WHERE fk_locacao = ? ORDER BY id";
 
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+			stmt.setLong(1, fkLocacao);
 			ResultSet rs = stmt.executeQuery();
 
 			List<LocacaoConsumo> locacaoConsumo = new ArrayList<>();

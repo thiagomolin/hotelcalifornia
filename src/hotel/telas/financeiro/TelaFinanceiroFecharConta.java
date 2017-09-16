@@ -21,6 +21,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 
 import hotel.classes.Locacao;
+import hotel.classes.LocacaoConsumo;
 import hotel.classes.MovimentoEstoque;
 import hotel.classes.MovimentoFinanceiroEntrada;
 import hotel.classes.DAO.LocacaoConsumoDAO;
@@ -259,7 +260,7 @@ public class TelaFinanceiroFecharConta extends Tela {
 
 			gerarFinanceiroEntrada(fk_locacao);
 			finalizarLocacao(fk_locacao);
-			gerarMovimentoEstoque();
+			gerarMovimentoEstoque(fk_locacao);
 
 			JOptionPane.showMessageDialog(null, "Sucesso! Reserva finalizada. Lançamentos de estoque gerados");
 
@@ -293,26 +294,33 @@ public class TelaFinanceiroFecharConta extends Tela {
 		lblTotal.setText("");
 	}
 
-	private void gerarMovimentoEstoque() {
-		for(Vector<Object> row : listaDados) {
-			try {
-				long fkProduto = (long) row.get(9);
-				if(fkProduto == 4) {
-					continue;
-				}
-				long fkUsuario = 1; // alterar para pegar o usuario logado
-				long tipo_mov = 2; //saida por venda
-				int quantidade = (int) row.get(3);
-				LocalDate dtAtual = LocalDate.now();
-				
-				MovimentoEstoqueDAO movest = new MovimentoEstoqueDAO();
-				MovimentoEstoque mov = new MovimentoEstoque(fkProduto, fkUsuario, tipo_mov, quantidade, dtAtual);
-				
-				movest.inserir(mov);
-			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
-			}
+	private void gerarMovimentoEstoque(long fk_locacao) {
+		try {
+			LocacaoConsumoDAO locadao = new LocacaoConsumoDAO();
+			List<LocacaoConsumo> lista = locadao.getLista(fk_locacao);
 			
+			for(LocacaoConsumo consumo : lista) {
+				try {
+					long fkProduto = (long) consumo.getFk_produto();
+					if(fkProduto == 4) {
+						continue;
+					}
+					long fkUsuario = telaPrincipal.getUsuarioLogado(); // alterar para pegar o usuario logado
+					long tipo_mov = 2; //saida por venda
+					int quantidade = (int) consumo.getNr_quantidade();
+					LocalDate dtAtual = LocalDate.now();
+					
+					MovimentoEstoqueDAO movest = new MovimentoEstoqueDAO();
+					MovimentoEstoque mov = new MovimentoEstoque(fkProduto, fkUsuario, tipo_mov, quantidade, dtAtual);
+					
+					movest.inserir(mov);
+				} catch (ClassNotFoundException | SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
 		}
 	}
 

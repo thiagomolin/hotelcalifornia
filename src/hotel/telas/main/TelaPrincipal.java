@@ -34,7 +34,7 @@ public class TelaPrincipal extends JFrame {
 
 	public TelaPrincipal() {
 		super();
-		usuarioLogado = getUsuarioLogado();
+		usuarioLogado = 1; //TODO: Alterar para valor dinamico
 		initializarLayoutEEventos();
 	}
 
