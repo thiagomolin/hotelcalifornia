@@ -40,8 +40,8 @@ public class LocacaoDAO extends DAO {
 
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
-			stmt.setLong(1, id);
-			stmt.setLong(2, status);
+			stmt.setLong(1, status);
+			stmt.setLong(2, id);
 
 			stmt.executeUpdate();
 			

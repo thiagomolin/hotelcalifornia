@@ -6,12 +6,14 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -19,8 +21,10 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 
 import hotel.classes.Locacao;
+import hotel.classes.MovimentoFinanceiroEntrada;
 import hotel.classes.DAO.LocacaoConsumoDAO;
 import hotel.classes.DAO.LocacaoDAO;
+import hotel.classes.DAO.MovimentoFinanceiroEntradaDAO;
 import hotel.classes.DAO.ProdutoDAO;
 import hotel.telas.cadastro.Tela;
 import hotel.telas.consulta.ETipos;
@@ -34,8 +38,8 @@ public class TelaFinanceiroFecharConta extends Tela {
 	private JComboBox<Object> comboBoxCodigo;
 
 	private TelaPrincipal telaPrincipal;
-	
-	private JLabel lblDtInicial;	
+
+	private JLabel lblDtInicial;
 	private JLabel lblDtFinal;
 	private JLabel lblTotal;
 
@@ -125,22 +129,22 @@ public class TelaFinanceiroFecharConta extends Tela {
 		});
 		buttonConsulta.setBounds(256, 26, 18, 23);
 		panel_1.add(buttonConsulta);
-		
+
 		lblDtInicial = new JLabel("");
 		lblDtInicial.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblDtInicial.setBounds(107, 64, 73, 17);
 		panel_1.add(lblDtInicial);
-		
+
 		lblDtFinal = new JLabel("");
 		lblDtFinal.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblDtFinal.setBounds(297, 64, 73, 17);
 		panel_1.add(lblDtFinal);
-		
+
 		JLabel lblInicial = new JLabel("Data Inicial:");
 		lblInicial.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblInicial.setBounds(10, 64, 87, 17);
 		panel_1.add(lblInicial);
-		
+
 		JLabel lblFinal = new JLabel("Data Final:");
 		lblFinal.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblFinal.setBounds(206, 64, 87, 17);
@@ -179,10 +183,10 @@ public class TelaFinanceiroFecharConta extends Tela {
 			listaDados = UtilVector.rsParaVector(lcdao.listar(fk_locacao));
 			adicionarTotalPernoites(fk_locacao);
 			somarValorTotal();
-			
-			listaColunas = lcdao.getCamposBD();			
+
+			listaColunas = lcdao.getCamposBD();
 			table.setModel(construirTableModel());
-			
+
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -191,12 +195,12 @@ public class TelaFinanceiroFecharConta extends Tela {
 
 	private void somarValorTotal() {
 		double acumulador = 0;
-		
-		for(Vector<Object> lista : listaDados) {			
+
+		for (Vector<Object> lista : listaDados) {
 			acumulador += (double) lista.get(5);
 		}
-		
-		lblTotal.setText(String.valueOf(acumulador));
+
+		lblTotal.setText(String.format(Locale.ROOT, "%.2f", acumulador));
 	}
 
 	private void adicionarTotalPernoites(long fk_locacao) {
@@ -204,31 +208,32 @@ public class TelaFinanceiroFecharConta extends Tela {
 			LocacaoDAO locadao = new LocacaoDAO();
 			Locacao loca = locadao.selecionar(fk_locacao);
 			ProdutoDAO proddao = new ProdutoDAO();
-			
-			float valorPernoite = proddao.selecionar(4).getNrValorVenda(); // seleciona o produto com id 4, ou seja, o produto "locação"
-			
+
+			float valorPernoite = proddao.selecionar(4).getNrValorVenda(); // seleciona o produto com id 4, ou seja, o
+																			// produto "locação"
+
 			LocalDate dt_entrada = loca.getDtEntrada();
 			LocalDate hoje = LocalDate.now();
 			long totalPernoites = java.time.temporal.ChronoUnit.DAYS.between(dt_entrada, hoje);
-			totalPernoites = (totalPernoites == 0)? 1 : totalPernoites;
-			
-			//Seta labels indicando as datas
+			totalPernoites = (totalPernoites == 0) ? 1 : totalPernoites;
+
+			// Seta labels indicando as datas
 			lblDtInicial.setText(dt_entrada.toString());
 			lblDtFinal.setText(hoje.toString());
-			
+
 			Vector<Object> pernoites = new Vector<Object>();
 			pernoites.add("");
 			pernoites.add("Pernoites");
 			pernoites.add("");
 			pernoites.add(String.valueOf(totalPernoites));
 			pernoites.add(String.valueOf(valorPernoite));
-			pernoites.add((double)totalPernoites * valorPernoite);
-			
+			pernoites.add((double) totalPernoites * valorPernoite);
+
 			listaDados.add(pernoites);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	private DefaultTableModel construirTableModel() {
@@ -244,7 +249,67 @@ public class TelaFinanceiroFecharConta extends Tela {
 	}
 
 	protected void processar() {
-		// TODO Auto-generated method stub
+		int result = JOptionPane.showConfirmDialog(null, "Confirmar o pagamento e finalizar locação?", "Confirmar",
+				JOptionPane.OK_CANCEL_OPTION);
+		if (JOptionPane.OK_OPTION == result) {
+
+			long fk_locacao = getLocacaoSelecionado().getId();
+
+			gerarFinanceiroEntrada(fk_locacao);
+			finalizarLocacao(fk_locacao);
+			gerarMovimentoEstoque();
+
+			JOptionPane.showMessageDialog(null, "Sucesso! Reserva finalizada. Lançamentos de estoque gerados");
+			
+			limparCampos();
+
+		}
+	}
+
+	private void finalizarLocacao(long fk_locacao) {
+
+		try {
+			
+			LocacaoDAO locadao = new LocacaoDAO();
+			
+			locadao.alterarStatusLocacao(fk_locacao, 2);
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} // status 2, finalizada
+
+	}
+
+	private void limparCampos() {
+		inicializarComboBoxCodigo();
+		comboBoxCodigo.getModel().setSelectedItem(null);
+		listaDados = new Vector<Vector<Object>>();
+		table.setModel(construirTableModel());
+		lblDtFinal.setText("");
+		lblDtInicial.setText("");
+		lblTotal.setText("");
+	}
+
+	private void gerarMovimentoEstoque() {
+
+	}
+
+	private void gerarFinanceiroEntrada(long fk_locacao) {
+		try {
+			long fkUsuario = 1; // alterar para pegar o usuario logado
+			float nrValor = Float.valueOf(lblTotal.getText());
+			LocalDate dtAtual = LocalDate.now();
+
+			MovimentoFinanceiroEntrada mov = new MovimentoFinanceiroEntrada(fk_locacao, fkUsuario, nrValor, dtAtual);
+
+			MovimentoFinanceiroEntradaDAO movdao = new MovimentoFinanceiroEntradaDAO();
+
+			movdao.inserir(mov);
+
+		} catch (NumberFormatException | ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Locacao getLocacaoSelecionado() {
