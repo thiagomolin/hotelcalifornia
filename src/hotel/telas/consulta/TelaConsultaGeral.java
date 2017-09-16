@@ -379,6 +379,16 @@ public class TelaConsultaGeral extends JFrame {
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
+		}else if (tipoSelecionado == ETipos.Locacao) {
+			comboBoxTipo.getModel().setSelectedItem(ETipos.Locacao);
+			textFieldPalavraChave.setEnabled(true);
+			comboBoxCampo.setEnabled(true);
+			try {
+				dao = new LocacaoDAO();
+				comboBoxCampo.setModel(new DefaultComboBoxModel<Object>(Locacao.getCampos().toArray()));
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}

@@ -20,6 +20,10 @@ public class RegraCadastroReserva {
 	public RegraCadastroReserva(TelaCadastroReserva tela) {
 		this.tela = tela;
 	}
+	
+	public RegraCadastroReserva() {
+	}
+
 
 	public void incluirReserva() {
 		String nome = tela.getNome();
@@ -76,6 +80,18 @@ public class RegraCadastroReserva {
 		}
 	}
 
+	public void finalizarReserva(Reserva reserva) {
+		long fkStatus = 2;
+		long id = reserva.getId();
+
+		try {
+			ReservaDAO reservaDao = new ReservaDAO();
+			reservaDao.alterarStatusReserva(id, fkStatus);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private void desativarReservaTemporariamente() {
 		long fkStatus = 4;
 		long id = tela.getReservaSelecionado().getId();

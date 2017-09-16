@@ -35,6 +35,23 @@ public class LocacaoDAO extends DAO {
 			throw e;
 		}
 	}
+	public void alterarStatusLocacao(long id, long status) throws SQLException {
+		String sqlQuery = "UPDATE locacao SET fk_status = ? WHERE id = ?";
+
+		try {
+			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+			stmt.setLong(1, id);
+			stmt.setLong(2, status);
+
+			stmt.executeUpdate();
+			
+
+			this.conexao.commit();
+		} catch (SQLException e) {
+			this.conexao.rollback();
+			throw e;
+		}
+	}
 
 	public void alterar(Locacao locacao) throws SQLException, ClassNotFoundException {
 		String sqlQuery = "UPDATE locacao SET fk_cliente = ?, fk_quarto = ?, dt_entrada = ?, dt_saida = ?, fk_status = ? WHERE id = ?";
@@ -152,8 +169,37 @@ public class LocacaoDAO extends DAO {
 
 	@Override
 	public ResultSet listarFiltro(String campo, String busca) throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		if (campo == Locacao.getCampos().get(0)) {
+			String sqlQuery = "SELECT locacao.id, cliente.nm_cliente, quarto.nr_quarto, `dt_entrada`, `dt_saida`, status.ds_status " 
+					+ "FROM `locacao` "
+					+ "INNER JOIN cliente ON cliente.id = locacao.fk_cliente " 
+					+ "INNER JOIN quarto ON quarto.id = locacao.fk_quarto " 
+					+ "INNER JOIN status ON status.id = locacao.fk_status " 
+					+ "WHERE cliente.nm_cliente LIKE ?";
+			try {
+				PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+				stmt.setString(1, "%" + busca + "%");
+				ResultSet rs = stmt.executeQuery();
+				return rs;
+			} catch (SQLException e) {
+				throw e;
+			} 
+		}else{
+			String sqlQuery = "SELECT locacao.id, cliente.nm_cliente, quarto.nr_quarto, `dt_entrada`, `dt_saida`, status.ds_status "
+					+ "FROM `locacao` "
+					+ "INNER JOIN cliente ON cliente.id = locacao.fk_cliente "
+					+ "INNER JOIN quarto ON quarto.id = locacao.fk_quarto "
+					+ "INNER JOIN status ON status.id = locacao.fk_status "
+					+ "WHERE quarto.nr_quarto LIKE ?";
+			try {
+				PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+				stmt.setString(1, "%" + busca + "%");
+				ResultSet rs = stmt.executeQuery();
+				return rs;
+			} catch (SQLException e) {
+				throw e;
+			} 
+		}
 	}
 
 }

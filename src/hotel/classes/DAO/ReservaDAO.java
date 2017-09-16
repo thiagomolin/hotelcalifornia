@@ -97,8 +97,10 @@ public class ReservaDAO extends DAO {
 	}
 
 	public ResultSet listar() throws SQLException, ClassNotFoundException {
-		String sqlQuery = "SELECT *, ds_status FROM reserva "
-						+ "INNER JOIN status ON status.id = reserva.fk_status";
+		String sqlQuery = "SELECT reserva.id, nm_cliente, nr_cpf, quarto.nr_quarto, dt_entrada, dt_saida, status.ds_status "
+				+"FROM reserva "
+				+"INNER JOIN quarto ON quarto.id = reserva.fk_quarto "
+				+"INNER JOIN status ON status.id = reserva.fk_status ";
 
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
@@ -115,9 +117,8 @@ public class ReservaDAO extends DAO {
 
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
-			stmt.setLong(1, id);
-			stmt.setLong(2, status);
-
+			stmt.setLong(1, status);
+			stmt.setLong(2, id);
 			stmt.executeUpdate();
 			
 
