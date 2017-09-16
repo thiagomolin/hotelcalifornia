@@ -47,9 +47,9 @@ public class TelaFinanceiroFecharConta extends JInternalFrame {
 		panel_1.setBounds(0, 0, 380, 92);
 		getContentPane().add(panel_1);
 		
-		JLabel lblCdigo = new JLabel("C\u00F3digo da Reserva");
-		lblCdigo.setBounds(49, 62, 99, 14);
-		panel_1.add(lblCdigo);
+		JLabel lblCodigo = new JLabel("Código da Locação");
+		lblCodigo.setBounds(49, 62, 99, 14);
+		panel_1.add(lblCodigo);
 		
 		comboBoxCodigo = new JComboBox<Object>();
 		comboBoxCodigo.setBounds(158, 59, 92, 20);
@@ -58,11 +58,6 @@ public class TelaFinanceiroFecharConta extends JInternalFrame {
 		JButton buttonConsulta = new JButton("...");
 		buttonConsulta.setBounds(254, 58, 18, 23);
 		panel_1.add(buttonConsulta);
-		
-		JLabel lblCadastroDeCliente = new JLabel("Fechar Conta");
-		lblCadastroDeCliente.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCadastroDeCliente.setBounds(10, 11, 146, 17);
-		panel_1.add(lblCadastroDeCliente);
 		
 		table = new JTable();
 		table.setBounds(20, 103, 341, 170);

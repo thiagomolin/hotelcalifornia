@@ -130,6 +130,25 @@ public class LocacaoDAO extends DAO {
 		}
 	}
 	
+	public List<Locacao> getListaAtiva() throws SQLException, ClassNotFoundException {
+		String sqlQuery = "SELECT * FROM locacao WHERE fk_status = 1 ORDER BY id";
+
+		try {
+			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+			ResultSet rs = stmt.executeQuery();
+
+			List<Locacao> locacao = new ArrayList<>();
+
+			while (rs.next()) {
+				locacao.add(parser(rs));
+			}
+
+			return locacao;
+		} catch (SQLException e) {
+			throw e;
+		}
+	}
+	
 	private Locacao parser(ResultSet resultSet) throws SQLException {
 		LocalDate entrada = resultSet.getDate("dt_entrada").toLocalDate();
 		LocalDate saida = resultSet.getDate("dt_saida").toLocalDate();
