@@ -41,7 +41,7 @@ public class TelaFinanceiroLancamento extends Tela {
 		inicializarLayoutEEventos();
 		inicializarComboBoxCodigo();
 		inicializarComboBoxProduto();
-		resetaCampos();
+		limpaCampos();
 	}
 
 	private void inicializarLayoutEEventos() {
@@ -66,6 +66,11 @@ public class TelaFinanceiroLancamento extends Tela {
 		panel.add(btnProcessar);
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				limpaCampos();
+			}
+		});
 		btnCancelar.setBounds(29, 99, 89, 23);
 		panel.add(btnCancelar);
 
@@ -145,7 +150,7 @@ public class TelaFinanceiroLancamento extends Tela {
 				lcdao.inserir(lc);
 
 				JOptionPane.showMessageDialog(null, "Consumo inserido com sucesso");
-				resetaCampos();
+				limpaCampos();
 
 			} catch (ClassNotFoundException | SQLException ex) {
 				ex.printStackTrace();
@@ -155,7 +160,7 @@ public class TelaFinanceiroLancamento extends Tela {
 		}
 	}
 
-	private void resetaCampos() {
+	private void limpaCampos() {
 		comboBoxCodigo.getModel().setSelectedItem(null);
 		comboBoxProduto.getModel().setSelectedItem(null);
 		textFieldQuantidade.setText("");
