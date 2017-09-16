@@ -268,8 +268,14 @@ public class TelaCadastroFornecedor extends Tela {
 	}
 	
 	protected void mostrar() {
-		regraFornecedor.mostrarFornecedor();
-		habilitaCamposEditar();		
+		try {
+			if(comboBoxCodigo.getModel().getSelectedItem() != null) {
+				regraFornecedor.mostrarFornecedor();
+				habilitaCamposEditar();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
 	}
 	
 	protected void novo() {

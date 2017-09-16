@@ -242,8 +242,11 @@ public class TelaCadastroProduto extends Tela {
 	}
 
 	protected void mostrar() {
-		regraProduto.mostrarProduto();
-		habilitaCamposEditar();
+		try {
+			regraProduto.mostrarProduto();
+			habilitaCamposEditar();
+		} catch (Exception e) {
+		}
 	}
 
 	protected void novo() {
@@ -393,7 +396,9 @@ public class TelaCadastroProduto extends Tela {
 		valido = (textFieldProduto.getText().isEmpty()) ? false : valido;
 		valido = (textFieldVlrCompra.getText().isEmpty()) ? false : valido;
 		valido = (textFieldVlrVenda.getText().isEmpty()) ? false : valido;
-
+		if(comboBoxFornecedor.getModel().getSelectedItem() == null) {
+			return false;
+		}
 		return valido;
 	}
 	// Validação de formulário

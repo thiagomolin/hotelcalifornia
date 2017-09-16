@@ -24,7 +24,7 @@ import hotel.telas.consulta.ETipo;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.main.TelaPrincipal;
 import hotel.util.UtilCombobox;
-import hotel.util.UtilCpf;
+import hotel.util.UtilVerificadores;
 
 public class TelaCadastroCliente extends Tela {
 	private static final long serialVersionUID = 1L;
@@ -270,8 +270,11 @@ public class TelaCadastroCliente extends Tela {
 	}
 	
 	protected void mostrar() {
-		regraCliente.mostrarCliente();
-		habilitaCamposEditar();		
+		try {
+			regraCliente.mostrarCliente();
+			habilitaCamposEditar();
+		} catch (Exception e) {
+		}		
 	}
 	
 	protected void novo() {
@@ -428,7 +431,7 @@ public class TelaCadastroCliente extends Tela {
 		textFieldCpf.setText(textFieldCpf.getText().replaceAll("[^0-9]+", ""));
 		boolean valido = true;
 		valido = (textFieldNome.getText().isEmpty()) ? false : valido;
-		valido = (textFieldCpf.getText().isEmpty() || !UtilCpf.isCpfValido(textFieldCpf.getText())) ? false : valido;
+		valido = (textFieldCpf.getText().isEmpty() || !UtilVerificadores.isCpfValido(textFieldCpf.getText())) ? false : valido;
 		valido = (textFieldEmail.getText().isEmpty()) ? false : valido;
 		valido = (textFieldEndereco.getText().isEmpty()) ? false : valido;
 		valido = (textFieldTelefone.getText().isEmpty()) ? false : valido;

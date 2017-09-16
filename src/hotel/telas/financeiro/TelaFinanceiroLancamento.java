@@ -206,7 +206,26 @@ public class TelaFinanceiroLancamento extends Tela {
 
 	@Override
 	public void setConsulta(Long id, ETipo tipo) {
-		// TODO Auto-generated method stub
+		if (tipo == ETipo.Locacao) {
+			try {
+				LocacaoDAO p = new LocacaoDAO();
+				Locacao l = p.selecionar(id);
+				if (l.getFkStatus() != 1) {
+					JOptionPane.showMessageDialog(null, "LOCAÇÃO NÃO ATIVA");
+				} else {
+					comboBoxCodigo.getModel().setSelectedItem(l);
+				}
 
+			} catch (ClassNotFoundException | SQLException e) {
+			} 
+		}else {
+			try {
+				ProdutoDAO p = new ProdutoDAO();
+				Produto l = p.selecionar(id);
+				comboBoxProduto.getModel().setSelectedItem(l);				
+
+			} catch (ClassNotFoundException | SQLException e) {
+			} 
+		}
 	}
 }

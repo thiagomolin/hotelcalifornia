@@ -29,7 +29,8 @@ public class RegraCadastroLocacao {
 		long fkTipoQuarto = tela.getTipoDeQuartoSelecionado().getId();
 		Date entrada = tela.getDataEntrada();
 		Date saida = tela.getDataSaida();
-
+		long fkStatus = 1;
+		
 		try {
 			if (reserva == null) {
 				QuartoDAO q = new QuartoDAO();
@@ -40,7 +41,7 @@ public class RegraCadastroLocacao {
 				long fkQuarto = quarto.getId();
 
 				Locacao locacao = new Locacao(fkCliente, fkQuarto, entrada.toLocalDate(), saida.toLocalDate(),
-						fkTipoQuarto);
+						fkStatus);
 
 				LocacaoDAO locacaoDao = new LocacaoDAO();
 				locacaoDao.inserir(locacao);
@@ -49,7 +50,7 @@ public class RegraCadastroLocacao {
 				regraReserva.finalizarReserva(reserva);
 				
 				Locacao locacao = new Locacao(fkCliente, reserva.getFkQuarto(), entrada.toLocalDate(), saida.toLocalDate(),
-						fkTipoQuarto);
+						fkStatus);
 
 				LocacaoDAO locacaoDao = new LocacaoDAO();
 				locacaoDao.inserir(locacao);	
@@ -120,8 +121,10 @@ public class RegraCadastroLocacao {
 		try {
 			ClienteDAO cdao = new ClienteDAO();
 			TipoDeQuartoDAO tpqd = new TipoDeQuartoDAO();
+			QuartoDAO qdao = new QuartoDAO();
 			tela.setClienteSelecionado(cdao.selecionar(locacao.getFkCliente()));
 			tela.setSelectedComboBoxTipoDeQuarto(tpqd.listarPorIDQuarto(locacao.getFkQuarto()));
+			tela.setLblNrQuarto(qdao.selecionar(locacao.getFkQuarto()).getNrDoQuarto().toString());
 		} catch (ClassNotFoundException | SQLException e) {
 		}
 		tela.setDataEntrada(locacao.getDtEntradaSQL());

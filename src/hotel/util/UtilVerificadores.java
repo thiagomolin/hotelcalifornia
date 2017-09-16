@@ -1,6 +1,6 @@
 package hotel.util;
 
-public class UtilCpf {
+public class UtilVerificadores {
 	
 	public static boolean isCpfValido(String cpf) {
 
@@ -43,6 +43,10 @@ public class UtilCpf {
 		} else {
 			return false;
 		}
+	}
+	
+	public static boolean isCnpjValido(String cnpj){
+		return false;
 	}
 	
 }
