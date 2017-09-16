@@ -23,6 +23,10 @@ public class TelaFinanceiroExtrato extends JInternalFrame {
 
 	
 	public TelaFinanceiroExtrato() {
+		inicializarLayoutEEventos();
+	}
+	
+	public void inicializarLayoutEEventos() {
 		setClosable(true);
 		setTitle("Extrato");
 		setBounds(100, 100, 540, 440);
@@ -94,6 +98,9 @@ public class TelaFinanceiroExtrato extends JInternalFrame {
 		label.setFont(new Font("Tahoma", Font.BOLD, 14));
 		label.setBounds(20, 382, 146, 17);
 		getContentPane().add(label);
-
+	}
+	
+	public void inicializarComboBoxTipo() {
+		
 	}
 }
