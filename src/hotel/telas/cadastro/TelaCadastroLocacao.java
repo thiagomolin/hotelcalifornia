@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -57,6 +56,7 @@ public class TelaCadastroLocacao extends Tela {
 	private JDateChooser dateEntrada;
 	private JLabel lblReserva;
 	private JLabel lblTipoDeQuarto;
+	private JLabel lblNrQuarto;
 	private JButton buttonConsultaReserva;
 
 	public TelaCadastroLocacao(TelaPrincipal telaPrincipal) {
@@ -67,6 +67,10 @@ public class TelaCadastroLocacao extends Tela {
 		inicializarComboBoxCodigo();
 		inicializarComboBoxCliente();
 		UtilCombobox.inicializarComboBoxTipoQuarto(comboBoxTipoDeQuarto);
+		
+		lblNrQuarto = new JLabel("");
+		lblNrQuarto.setBounds(287, 194, 46, 14);
+		getContentPane().add(lblNrQuarto);
 		inicializarComponentes();
 		this.telaPrincipal = telaPrincipal;
 	}
@@ -430,16 +434,26 @@ public class TelaCadastroLocacao extends Tela {
 		comboBoxTipoDeQuarto.getModel().setSelectedItem(null);
 		comboBoxReserva.getModel().setSelectedItem(null);
 		comboBoxCliente.getModel().setSelectedItem(null);
+		setDataEntrada(null);
+		setDataSaida(null);
 
 	}
 	// Campos
 
 	// Getter and Setter
 	private void setLocacaoPorReserva() {
-		if (getReservaSelecionado() != null) {
-			setDataSaida(getReservaSelecionado().getDtSaidaSQL());
-			setDataEntrada(new Date(System.currentTimeMillis()));
-			setSelectedComboBoxTipoDeQuarto(regraLocacao.selecionarTipoQuartoPorReserva(getReservaSelecionado()));
+		Reserva reserva = getReservaSelecionado();
+		if (reserva != null) {
+			setDataSaida(reserva.getDtSaidaSQL());
+			setDataEntrada(reserva.getDtEntradaSQL());
+			setSelectedComboBoxTipoDeQuarto(regraLocacao.selecionarTipoQuartoPorReserva(reserva));
+			lblNrQuarto.setText("Quarto: " + regraLocacao.selecionarQuartoPorReserva(reserva).toString());
+			comboBoxCliente.setEnabled(true);
+			comboBoxReserva.setEnabled(false);
+			comboBoxTipoDeQuarto.setEnabled(false);
+			dateEntrada.setEnabled(false);
+			dateSaida.setEnabled(false);
+			
 		}
 	}
 
@@ -530,8 +544,5 @@ public class TelaCadastroLocacao extends Tela {
 	public void setSelectedComboBoxCodigo(Locacao locacao) {
 		this.comboBoxCodigo.getModel().setSelectedItem(locacao);
 	}
-
-	// GETTER SETTER ITEM COMBOBOX
-
 }
 // Getter and Setter

@@ -6,12 +6,10 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 
-import hotel.classes.Cargo;
 import hotel.classes.Cidade;
 import hotel.classes.Estado;
 import hotel.classes.Pais;
 import hotel.classes.TipoDeQuarto;
-import hotel.classes.DAO.CargoDAO;
 import hotel.classes.DAO.CidadeDAO;
 import hotel.classes.DAO.EstadoDAO;
 import hotel.classes.DAO.PaisDAO;
@@ -70,22 +68,6 @@ public class UtilCombobox {
 		} else {
 			return;
 		}
-
-	}
-
-	public static Object inicializarComboBoxCargo(JComboBox<Object> comboBox) {
-		try {
-			CargoDAO p = new CargoDAO();
-			List<Cargo> paises = p.getLista();
-			comboBox.setModel(new DefaultComboBoxModel<Object>(paises.toArray()));
-
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return comboBox;
 
 	}
 

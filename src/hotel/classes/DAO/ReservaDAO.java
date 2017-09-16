@@ -157,7 +157,7 @@ public class ReservaDAO extends DAO {
 		return r;
 	}
 
-	public Vector<String> getCamposBD(){
+	public Vector<String> getCamposBDAnalitico(){
 		Vector<String> lista = new Vector<String>();
 		lista.add("ID");
 		lista.add("Cliente");

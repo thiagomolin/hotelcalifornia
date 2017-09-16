@@ -31,24 +31,32 @@ public class RegraCadastroLocacao {
 		Date saida = tela.getDataSaida();
 
 		try {
-			QuartoDAO q = new QuartoDAO();
+			if (reserva == null) {
+				QuartoDAO q = new QuartoDAO();
 
-			Quarto quarto = q.selecionarQuartoDisponivel(UtilDatas.dateToSQLDate(entrada),
-					UtilDatas.dateToSQLDate(saida), fkTipoQuarto);
-			
-			long fkQuarto = quarto.getId();
+				Quarto quarto = q.selecionarQuartoDisponivel(UtilDatas.dateToSQLDate(entrada),
+						UtilDatas.dateToSQLDate(saida), fkTipoQuarto);
 
-			Locacao locacao = new Locacao(fkCliente, fkQuarto, entrada.toLocalDate(), saida.toLocalDate(), fkTipoQuarto);
+				long fkQuarto = quarto.getId();
 
-			LocacaoDAO locacaoDao = new LocacaoDAO();
-			locacaoDao.inserir(locacao);
+				Locacao locacao = new Locacao(fkCliente, fkQuarto, entrada.toLocalDate(), saida.toLocalDate(),
+						fkTipoQuarto);
+
+				LocacaoDAO locacaoDao = new LocacaoDAO();
+				locacaoDao.inserir(locacao);
+			} else {
+				RegraCadastroReserva regraReserva = new RegraCadastroReserva();
+				regraReserva.finalizarReserva(reserva);
+				
+				Locacao locacao = new Locacao(fkCliente, reserva.getFkQuarto(), entrada.toLocalDate(), saida.toLocalDate(),
+						fkTipoQuarto);
+
+				LocacaoDAO locacaoDao = new LocacaoDAO();
+				locacaoDao.inserir(locacao);	
+			}
 
 		} catch (ClassNotFoundException | SQLException e1) {
 			e1.printStackTrace();
-		}
-		if(reserva != null) {
-			RegraCadastroReserva regraReserva = new RegraCadastroReserva();
-			regraReserva.finalizarReserva(reserva);	
 		}
 
 	}
@@ -64,7 +72,8 @@ public class RegraCadastroLocacao {
 			desativarLocacaoTemporariamente();
 			QuartoDAO q = new QuartoDAO();
 			long fkQuarto = q.selecionarQuartoDisponivel(entrada, saida, fkTipoDeQuarto).getId();
-			Locacao locacao = new Locacao(id, fkCliente, fkQuarto, entrada.toLocalDate(), saida.toLocalDate(), (long) 1);
+			Locacao locacao = new Locacao(id, fkCliente, fkQuarto, entrada.toLocalDate(), saida.toLocalDate(),
+					(long) 1);
 
 			LocacaoDAO locacaoDao = new LocacaoDAO();
 			locacaoDao.alterar(locacao);
@@ -74,7 +83,7 @@ public class RegraCadastroLocacao {
 					"Erro no banco de dados, verifique a conexão e a senha, e tente novamente");
 		}
 	}
-	
+
 	private void desativarLocacaoTemporariamente() {
 		long fkStatus = 4;
 		long id = tela.getLocacaoSelecionado().getId();
@@ -86,7 +95,7 @@ public class RegraCadastroLocacao {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void excluirLocacao() {
 
 		int result = JOptionPane.showConfirmDialog(null, "Confirmar a exclusão?", "Confirmar",
@@ -132,21 +141,34 @@ public class RegraCadastroLocacao {
 		}
 
 	}
-	
+
 	public TipoDeQuarto selecionarTipoQuartoPorReserva(Reserva reserva) {
 		TipoDeQuarto t = null;
 		try {
 			QuartoDAO qDao = new QuartoDAO();
 			TipoDeQuartoDAO tdq = new TipoDeQuartoDAO();
 			Quarto q = qDao.selecionar(reserva.getFkQuarto());
-			 t = tdq.listarPorIDQuarto(q.getId());
-			
+			t = tdq.listarPorIDQuarto(q.getId());
+
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return t;
+	}
+	
+	public Quarto selecionarQuartoPorReserva(Reserva reserva) {
+		Quarto q = null;
+		try {
+			QuartoDAO qDao = new QuartoDAO();
+			q = qDao.selecionar(reserva.getFkQuarto());
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return q;
 	}
 
 }

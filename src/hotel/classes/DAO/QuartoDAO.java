@@ -166,7 +166,9 @@ public class QuartoDAO extends DAO {
 		} catch (SQLException e) {
 			throw e;
 		}
-	}
+	}	
+
+	
 
 	private Quarto parser(ResultSet resultSet) throws SQLException {
 		Quarto q = new Quarto(resultSet.getLong("id"), resultSet.getString("nr_quarto"),resultSet.getLong("fk_tipo_quarto"), resultSet.getBoolean("vf_disponivel"));
@@ -174,7 +176,7 @@ public class QuartoDAO extends DAO {
 	}
 
 	@Override
-	public Vector<String> getCamposBD(){
+	public Vector<String> getCamposBDAnalitico(){
 		Vector<String> lista = new Vector<String>();
 		lista.add("ID");
 		lista.add("Numero do Quarto");
@@ -183,6 +185,7 @@ public class QuartoDAO extends DAO {
 		
 		return lista;
 	}
+
 
 
 }

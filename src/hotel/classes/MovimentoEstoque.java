@@ -1,6 +1,8 @@
 package hotel.classes;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MovimentoEstoque {
 	
@@ -29,6 +31,14 @@ public class MovimentoEstoque {
 		this.fkTipoMovimento = fkTipoMovimento;
 		this.nrQuantidade = nrQuantidade;
 		this.dtAtual = dtAtual;
+	}
+	
+	public static List<String> getCampos() {
+		List<String> lista = new ArrayList<String>();
+		lista.add("Produto");
+		lista.add("Fornecedor");
+		lista.add("Fornecedor");		
+		return lista;
 	}
 
 	public long getId() {

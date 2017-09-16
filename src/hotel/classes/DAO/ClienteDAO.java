@@ -13,7 +13,6 @@ public class ClienteDAO extends DAO {
 
 	public ClienteDAO() throws ClassNotFoundException, SQLException {
 		super();
-
 	}
 
 	public void inserir(Cliente cliente) throws SQLException, ClassNotFoundException {
@@ -166,7 +165,7 @@ public class ClienteDAO extends DAO {
 		}
 	}
 	
-	public Vector<String> getCamposBD(){
+	public Vector<String> getCamposBDAnalitico(){
 		Vector<String> lista = new Vector<String>();
 		lista.add("ID");
 		lista.add("Nome");

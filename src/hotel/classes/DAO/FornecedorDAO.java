@@ -176,7 +176,7 @@ public class FornecedorDAO extends DAO {
 		return q;
 	}
 
-	public Vector<String> getCamposBD() {
+	public Vector<String> getCamposBDAnalitico() {
 		Vector<String> lista = new Vector<String>();
 		lista.add("id");
 		lista.add("Nome");

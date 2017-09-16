@@ -8,15 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-import hotel.classes.MovimentoFinanceiroCliente;
+import hotel.classes.ConsumoDaLocacao;
 
-public class MovimentoFinanceiroClienteDAO extends DAO {
+public class ConsumoDaLocacaoDAO extends DAO {
 
-	public MovimentoFinanceiroClienteDAO() throws ClassNotFoundException, SQLException {
+	public ConsumoDaLocacaoDAO() throws ClassNotFoundException, SQLException {
 		super();
 	}
 
-	public void inserir(MovimentoFinanceiroCliente mov) throws SQLException, ClassNotFoundException {
+	public void inserir(ConsumoDaLocacao mov) throws SQLException, ClassNotFoundException {
 		String sqlQuery = "INSERT INTO financeiro_cliente(fk_reserva, fk_produto, fk_usuario, nr_quantidade, dt_atual) VALUES (?,?,?,?,?)";
 
 		try {
@@ -36,7 +36,7 @@ public class MovimentoFinanceiroClienteDAO extends DAO {
 		}
 	}
 	
-	public List<MovimentoFinanceiroCliente> listar(LocalDate dataInicial, LocalDate dataFinal) throws SQLException, ClassNotFoundException {
+	public List<ConsumoDaLocacao> listar(LocalDate dataInicial, LocalDate dataFinal) throws SQLException, ClassNotFoundException {
         String sqlQuery = "SELECT * FROM financeiro_cliente WHERE dt_atual >= ? AND dt_atual <= ? ORDER BY id DESC";
 
         try {
@@ -46,7 +46,7 @@ public class MovimentoFinanceiroClienteDAO extends DAO {
 			
             ResultSet rs = stmt.executeQuery();
 
-            List<MovimentoFinanceiroCliente> mov = new ArrayList<>();
+            List<ConsumoDaLocacao> mov = new ArrayList<>();
 
             while (rs.next()) {
             	mov.add(parser(rs));
@@ -71,10 +71,10 @@ public class MovimentoFinanceiroClienteDAO extends DAO {
         }
     }
 
-	private MovimentoFinanceiroCliente parser(ResultSet resultSet) throws SQLException {
+	private ConsumoDaLocacao parser(ResultSet resultSet) throws SQLException {
 		LocalDate dtAtual = resultSet.getDate("dt_atual").toLocalDate();
 		
-		MovimentoFinanceiroCliente r = new MovimentoFinanceiroCliente(resultSet.getLong("id"), resultSet.getLong("fk_reserva"), 
+		ConsumoDaLocacao r = new ConsumoDaLocacao(resultSet.getLong("id"), resultSet.getLong("fk_reserva"), 
 				resultSet.getLong("fk_produto"), 
 				resultSet.getLong("fk_usuario"), 
 				resultSet.getInt("nr_quantidade"), 
@@ -83,7 +83,7 @@ public class MovimentoFinanceiroClienteDAO extends DAO {
 	}
 
 	@Override
-	public Vector<String> getCamposBD() {
+	public Vector<String> getCamposBDAnalitico() {
 		// TODO Auto-generated method stub
 		return null;
 	}

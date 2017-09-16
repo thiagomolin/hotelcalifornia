@@ -135,7 +135,7 @@ public class ProdutoDAO extends DAO {
 	}
 
 	@Override
-	public Vector<String> getCamposBD() {
+	public Vector<String> getCamposBDAnalitico() {
 		Vector<String> lista = new Vector<String>();
 		lista.add("ID");
 		lista.add("Nome");

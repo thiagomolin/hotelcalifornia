@@ -2,29 +2,29 @@ package hotel.classes;
 
 import java.time.LocalDate;
 
-public class MovimentoFinanceiroCliente {
+public class ConsumoDaLocacao {
 	
 	private long id;
-	private long fkReserva;
+	private long fkLocacao;
 	private long fkProduto;
 	private long fkUsuario;
 	private int nrQuantidade;
 	private LocalDate dtAtual;
 		
-	public MovimentoFinanceiroCliente(long id, long fkReserva, long fkProduto, long fkUsuario, int nrQuantidade,
+	public ConsumoDaLocacao(long id, long fkLocacao, long fkProduto, long fkUsuario, int nrQuantidade,
 			LocalDate dtAtual) {
 		super();
 		this.id = id;
-		this.fkReserva = fkReserva;
+		this.fkLocacao = fkLocacao;
 		this.fkProduto = fkProduto;
 		this.fkUsuario = fkUsuario;
 		this.nrQuantidade = nrQuantidade;
 		this.dtAtual = dtAtual;
 	}
 	
-	public MovimentoFinanceiroCliente(long fkReserva, long fkProduto, long fkUsuario, int nrQuantidade,
+	public ConsumoDaLocacao(long fkLocacao, long fkProduto, long fkUsuario, int nrQuantidade,
 			LocalDate dtAtual) {
-		this.fkReserva = fkReserva;
+		this.fkLocacao = fkLocacao;
 		this.fkProduto = fkProduto;
 		this.fkUsuario = fkUsuario;
 		this.nrQuantidade = nrQuantidade;
@@ -38,10 +38,10 @@ public class MovimentoFinanceiroCliente {
 		this.id = id;
 	}
 	public long getFkReserva() {
-		return fkReserva;
+		return fkLocacao;
 	}
-	public void getFkReserva(long fkReserva) {
-		this.fkReserva = fkReserva;
+	public void getFkReserva(long fkLocacao) {
+		this.fkLocacao = fkLocacao;
 	}
 	public long getFkProduto() {
 		return fkProduto;

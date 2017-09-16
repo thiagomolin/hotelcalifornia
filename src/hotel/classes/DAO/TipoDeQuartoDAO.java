@@ -88,7 +88,7 @@ public class TipoDeQuartoDAO extends DAO{
 	
 
 	@Override
-	public Vector<String> getCamposBD() {
+	public Vector<String> getCamposBDAnalitico() {
 		return null;
 	}
 	

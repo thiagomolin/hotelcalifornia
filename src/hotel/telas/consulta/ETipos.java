@@ -8,5 +8,9 @@ public enum ETipos {
 	Quarto,
 	Consulta,
 	Reserva, 
-	Locacao	
+	Locacao,
+	Os,
+	Estoque,
+	Acerto, 
+	EstoqueConsulta
 }

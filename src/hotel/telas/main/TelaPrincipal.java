@@ -13,21 +13,26 @@ import javax.swing.JTabbedPane;
 
 import hotel.telas.cadastro.TelaCadastroCliente;
 import hotel.telas.cadastro.TelaCadastroFornecedor;
-import hotel.telas.cadastro.TelaCadastroFuncionario;
 import hotel.telas.cadastro.TelaCadastroLocacao;
 import hotel.telas.cadastro.TelaCadastroProduto;
 import hotel.telas.cadastro.TelaCadastroQuarto;
 import hotel.telas.cadastro.TelaCadastroReserva;
 import hotel.telas.consulta.ETipos;
+import hotel.telas.consulta.TelaConsultaEstoque;
 import hotel.telas.consulta.TelaConsultaGeral;
+import hotel.telas.estoque.TelaAcertoEstoque;
+import hotel.telas.estoque.TelaEntradaEstoque;
 
 public class TelaPrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JTabbedPane tabbedPane;
+	
+	private long usuarioLogado;
 
 	public TelaPrincipal() {
 		super();
+		usuarioLogado = 1;
 		initializarLayoutEEventos();
 	}
 
@@ -111,6 +116,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmGerenciar = new JMenuItem("Gerenciar");
 		mntmGerenciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				criarTela(ETipos.Os);
 			}
 		});
 		mnOs.add(mntmGerenciar);
@@ -149,11 +155,29 @@ public class TelaPrincipal extends JFrame {
 		JMenu mnEstoque = new JMenu("Estoque");
 		menuBar.add(mnEstoque);
 
-		JMenuItem mntmGerenciarEstoque = new JMenuItem("Gerenciar");
+		JMenuItem mntmGerenciarEstoque = new JMenuItem("Entrada");
+		mntmGerenciarEstoque.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				criarTela(ETipos.Estoque);			
+			}
+		});
 		mnEstoque.add(mntmGerenciarEstoque);
 
-		JMenuItem mntmConsultarEstoque = new JMenuItem("Consultar");
+		JMenuItem mntmConsultarEstoque = new JMenuItem("Acerto");
+		mntmConsultarEstoque.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				criarTela(ETipos.Acerto);						
+			}
+		});
 		mnEstoque.add(mntmConsultarEstoque);
+		
+		JMenuItem mntmConsulta = new JMenuItem("Consulta");
+		mntmConsulta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				criarTela(ETipos.EstoqueConsulta);					
+			}
+		});
+		mnEstoque.add(mntmConsulta);
 
 		JMenu mnFinanceiro = new JMenu("Financeiro");
 		menuBar.add(mnFinanceiro);
@@ -186,11 +210,7 @@ public class TelaPrincipal extends JFrame {
 			TelaCadastroFornecedor tela = new TelaCadastroFornecedor(this);
 			tabbedPane.addTab("Cadastro Fornecedor", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
-		} else if (tipoTela == ETipos.Funcionario) {
-			TelaCadastroFuncionario tela = new TelaCadastroFuncionario(this);
-			tabbedPane.addTab("Cadastro Funcionario", null, tela, null);
-			tabbedPane.setSelectedComponent(tela);
-		} else if (tipoTela == ETipos.Produto) {
+		}  else if (tipoTela == ETipos.Produto) {
 			TelaCadastroProduto tela = new TelaCadastroProduto(this);
 			tabbedPane.addTab("Cadastro Produto", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
@@ -206,6 +226,16 @@ public class TelaPrincipal extends JFrame {
 			TelaCadastroReserva tela = new TelaCadastroReserva(this);
 			tabbedPane.addTab("Cadastro Reserva", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
+		}else if (tipoTela == ETipos.Estoque) {
+			TelaEntradaEstoque tela = new TelaEntradaEstoque(this);
+			tabbedPane.addTab("Entrada de estoque", null, tela, null);
+			tabbedPane.setSelectedComponent(tela);
+		}else if (tipoTela == ETipos.Acerto) {
+			TelaAcertoEstoque tela = new TelaAcertoEstoque(this);
+			tabbedPane.addTab("Acerto de estoque", null, tela, null);
+			tabbedPane.setSelectedComponent(tela);
+		}else if (tipoTela == ETipos.EstoqueConsulta) {
+			new TelaConsultaEstoque().setVisible(true);;
 		}else if (tipoTela == ETipos.Consulta) {
 			new TelaConsultaGeral().setVisible(true);
 		}
@@ -217,6 +247,10 @@ public class TelaPrincipal extends JFrame {
 		tabbedPane.remove(j);
 	}
 	// MANIPULAÇÃO DE COMPONENTES
+
+	public long getUsuarioLogado() {
+		return usuarioLogado;
+	}
 
 	// MAIN
 	public static void main(String[] args) {

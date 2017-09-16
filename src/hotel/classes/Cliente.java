@@ -1,7 +1,6 @@
 package hotel.classes;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Cliente{
 
@@ -38,8 +37,8 @@ public class Cliente{
 		this.fkPais = fkPais;
 	}
 	
-	public static List<String> getCampos(){
-		List<String> lista = new ArrayList<String>();
+	public static ArrayList<String> getCampos(){
+		ArrayList<String> lista = new ArrayList<String>();
 		lista.add("Nome Do Cliente");
 		lista.add("CPF");
 		
