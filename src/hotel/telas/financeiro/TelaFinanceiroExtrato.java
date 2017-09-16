@@ -1,12 +1,13 @@
 package hotel.telas.financeiro;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -14,15 +15,27 @@ import javax.swing.border.EtchedBorder;
 
 import com.toedter.calendar.JDateChooser;
 
-public class TelaFinanceiroExtrato extends JInternalFrame {
+import hotel.telas.cadastro.Tela;
+import hotel.telas.consulta.ETipos;
+import hotel.telas.main.TelaPrincipal;
+
+public class TelaFinanceiroExtrato extends Tela {
 	private static final long serialVersionUID = 1L;
 	
+	private TelaPrincipal telaPrincipal;
+	
 	private JTable table;
-	
 	private JComboBox<Object> comboBoxTipo;
-
+	private JButton btnMostrar;
+	private JButton btnCancelar;
+	private JButton btnSair;
+	private JDateChooser dataDe;
+	private JDateChooser dataAte;
+	private JLabel lblTotal;
+	private JCheckBox chckbxSintetico;
 	
-	public TelaFinanceiroExtrato() {
+	public TelaFinanceiroExtrato(TelaPrincipal telaPrincipal) {
+		this.telaPrincipal = telaPrincipal;
 		inicializarLayoutEEventos();
 	}
 	
@@ -38,15 +51,25 @@ public class TelaFinanceiroExtrato extends JInternalFrame {
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JButton btnMostrar = new JButton("Mostrar");
+		btnMostrar = new JButton("Mostrar");
 		btnMostrar.setBounds(29, 41, 89, 23);
 		panel.add(btnMostrar);
 		
-		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cancelar();
+			}
+		});
 		btnCancelar.setBounds(29, 99, 89, 23);
 		panel.add(btnCancelar);
 		
-		JButton btnSair = new JButton("Sair");
+		btnSair = new JButton("Sair");
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				sair();
+			}
+		});
 		btnSair.setBounds(29, 365, 89, 23);
 		panel.add(btnSair);
 		
@@ -65,11 +88,11 @@ public class TelaFinanceiroExtrato extends JInternalFrame {
 		lblTipo.setBounds(34, 42, 46, 14);
 		panel_1.add(lblTipo);
 		
-		JDateChooser dateChooserDe = new JDateChooser();
-		dateChooserDe.setBounds(90, 96, 87, 20);
-		panel_1.add(dateChooserDe);
+		dataDe = new JDateChooser();
+		dataDe.setBounds(90, 96, 87, 20);
+		panel_1.add(dataDe);
 		
-		JCheckBox chckbxSintetico = new JCheckBox("Sintético");
+		chckbxSintetico = new JCheckBox("Sintético");
 		chckbxSintetico.setBounds(245, 38, 97, 23);
 		panel_1.add(chckbxSintetico);
 		
@@ -81,26 +104,39 @@ public class TelaFinanceiroExtrato extends JInternalFrame {
 		lblAte.setBounds(198, 102, 46, 14);
 		panel_1.add(lblAte);
 		
-		JDateChooser dateChooserAte = new JDateChooser();
-		dateChooserAte.setBounds(254, 96, 87, 20);
-		panel_1.add(dateChooserAte);
+		dataAte = new JDateChooser();
+		dataAte.setBounds(254, 96, 87, 20);
+		panel_1.add(dataAte);
 		
 		table = new JTable();
 		table.setBounds(25, 138, 341, 170);
 		getContentPane().add(table);
 		
-		JLabel lblTotal = new JLabel("");
+		lblTotal = new JLabel("");
 		lblTotal.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblTotal.setBounds(205, 382, 146, 17);
+		lblTotal.setBounds(90, 382, 146, 17);
 		getContentPane().add(lblTotal);
 		
 		JLabel label = new JLabel("TOTAL:");
 		label.setFont(new Font("Tahoma", Font.BOLD, 14));
-		label.setBounds(20, 382, 146, 17);
+		label.setBounds(20, 382, 60, 17);
 		getContentPane().add(label);
 	}
-	
-	public void inicializarComboBoxTipo() {
-		
+
+	private void sair() {
+		telaPrincipal.fecharTela(this);
 	}
+	
+	private void cancelar() {
+		dataAte.setDate(null);
+		dataDe.setDate(null);
+		lblTotal.setText("");
+	}
+
+	public void setConsulta(Long id, ETipos tipo) {
+			
+	}
+	
+	
+
 }
