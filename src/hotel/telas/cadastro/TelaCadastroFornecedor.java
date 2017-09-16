@@ -20,7 +20,7 @@ import hotel.classes.Estado;
 import hotel.classes.Pais;
 import hotel.classes.DAO.FornecedorDAO;
 import hotel.regras.cadastro.RegraCadastroFornecedor;
-import hotel.telas.consulta.ETipos;
+import hotel.telas.consulta.ETipo;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.main.TelaPrincipal;
 import hotel.util.UtilCombobox;
@@ -308,7 +308,7 @@ public class TelaCadastroFornecedor extends Tela {
 	}
 
 	protected void consultar() {
-		TelaConsultaGeral telaConsulta = new TelaConsultaGeral(ETipos.Fornecedor, this);
+		TelaConsultaGeral telaConsulta = new TelaConsultaGeral(ETipo.Fornecedor, this);
 		telaConsulta.setVisible(true);	
 	}
 
@@ -526,7 +526,7 @@ public class TelaCadastroFornecedor extends Tela {
 	// GETTERS AND SETTERS
 
 	@Override
-	public void setConsulta(Long id, ETipos tipo) {
+	public void setConsulta(Long id, ETipo tipo) {
 		regraFornecedor.selecionarPorId(id);
 		habilitaCamposEditar();
 	}

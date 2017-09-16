@@ -30,7 +30,7 @@ import hotel.classes.DAO.MovimentoEstoqueDAO;
 import hotel.classes.DAO.MovimentoFinanceiroEntradaDAO;
 import hotel.classes.DAO.ProdutoDAO;
 import hotel.telas.cadastro.Tela;
-import hotel.telas.consulta.ETipos;
+import hotel.telas.consulta.ETipo;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.main.TelaPrincipal;
 import hotel.util.UtilVector;
@@ -127,7 +127,7 @@ public class TelaFinanceiroFecharConta extends Tela {
 		JButton buttonConsulta = new JButton("...");
 		buttonConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				consultar(ETipos.Locacao);
+				consultar(ETipo.Locacao);
 			}
 		});
 		buttonConsulta.setBounds(256, 26, 18, 23);
@@ -172,7 +172,7 @@ public class TelaFinanceiroFecharConta extends Tela {
 
 	}
 
-	protected void consultar(ETipos tipo) {
+	protected void consultar(ETipo tipo) {
 		TelaConsultaGeral telaConsulta = new TelaConsultaGeral(tipo, this);
 		telaConsulta.setVisible(true);
 	}
@@ -350,7 +350,7 @@ public class TelaFinanceiroFecharConta extends Tela {
 	}
 
 	@Override
-	public void setConsulta(Long id, ETipos tipo) {
+	public void setConsulta(Long id, ETipo tipo) {
 		// TODO Auto-generated method stub
 
 	}

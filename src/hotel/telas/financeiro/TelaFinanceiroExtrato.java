@@ -16,7 +16,7 @@ import javax.swing.border.EtchedBorder;
 import com.toedter.calendar.JDateChooser;
 
 import hotel.telas.cadastro.Tela;
-import hotel.telas.consulta.ETipos;
+import hotel.telas.consulta.ETipo;
 import hotel.telas.main.TelaPrincipal;
 
 public class TelaFinanceiroExtrato extends Tela {
@@ -133,7 +133,7 @@ public class TelaFinanceiroExtrato extends Tela {
 		lblTotal.setText("");
 	}
 
-	public void setConsulta(Long id, ETipos tipo) {
+	public void setConsulta(Long id, ETipo tipo) {
 			
 	}
 	

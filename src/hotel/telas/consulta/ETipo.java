@@ -1,6 +1,6 @@
 package hotel.telas.consulta;
 
-public enum ETipos {	
+public enum ETipo {	
 	Cliente,
 	Fornecedor,
 	Funcionario,

@@ -22,7 +22,7 @@ import hotel.classes.DAO.LocacaoConsumoDAO;
 import hotel.classes.DAO.LocacaoDAO;
 import hotel.classes.DAO.ProdutoDAO;
 import hotel.telas.cadastro.Tela;
-import hotel.telas.consulta.ETipos;
+import hotel.telas.consulta.ETipo;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.main.TelaPrincipal;
 
@@ -100,7 +100,7 @@ public class TelaFinanceiroLancamento extends Tela {
 		JButton buttonConsultaLocacao = new JButton("...");
 		buttonConsultaLocacao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				consultar(ETipos.Locacao);
+				consultar(ETipo.Locacao);
 			}
 		});
 		buttonConsultaLocacao.setBounds(254, 58, 18, 23);
@@ -117,7 +117,7 @@ public class TelaFinanceiroLancamento extends Tela {
 		JButton buttonConsultaProduto = new JButton("...");
 		buttonConsultaProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				consultar(ETipos.Produto);
+				consultar(ETipo.Produto);
 			}
 		});
 		buttonConsultaProduto.setBounds(311, 110, 18, 23);
@@ -180,7 +180,7 @@ public class TelaFinanceiroLancamento extends Tela {
 		telaPrincipal.fecharTela(this);
 	}
 
-	protected void consultar(ETipos tipo) {
+	protected void consultar(ETipo tipo) {
 		TelaConsultaGeral telaConsulta = new TelaConsultaGeral(tipo, this);
 		telaConsulta.setVisible(true);
 	}
@@ -205,7 +205,7 @@ public class TelaFinanceiroLancamento extends Tela {
 	}
 
 	@Override
-	public void setConsulta(Long id, ETipos tipo) {
+	public void setConsulta(Long id, ETipo tipo) {
 		// TODO Auto-generated method stub
 
 	}

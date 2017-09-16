@@ -20,7 +20,7 @@ import hotel.classes.Produto;
 import hotel.classes.DAO.FornecedorDAO;
 import hotel.classes.DAO.ProdutoDAO;
 import hotel.regras.cadastro.RegraCadastroProduto;
-import hotel.telas.consulta.ETipos;
+import hotel.telas.consulta.ETipo;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.main.TelaPrincipal;
 
@@ -143,7 +143,7 @@ public class TelaCadastroProduto extends Tela {
 		buttonConsulta = new JButton("...");
 		buttonConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				consultar(ETipos.Produto);
+				consultar(ETipo.Produto);
 			}
 		});
 		buttonConsulta.setBounds(196, 58, 18, 23);
@@ -206,7 +206,7 @@ public class TelaCadastroProduto extends Tela {
 		buttonConsultaFornecedor = new JButton("...");
 		buttonConsultaFornecedor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				consultar(ETipos.Fornecedor);
+				consultar(ETipo.Fornecedor);
 			}
 		});
 		buttonConsultaFornecedor.setBounds(311, 215, 18, 23);
@@ -279,7 +279,7 @@ public class TelaCadastroProduto extends Tela {
 		}
 	}
 
-	protected void consultar(ETipos tipo) {
+	protected void consultar(ETipo tipo) {
 		TelaConsultaGeral telaConsulta = new TelaConsultaGeral(tipo, this);
 		telaConsulta.setVisible(true);
 	}
@@ -371,11 +371,11 @@ public class TelaCadastroProduto extends Tela {
 		this.setTextFieldVlrVenda(0);
 	}
 
-	public void setConsulta(Long id, ETipos tipo) {
-		if (tipo == ETipos.Produto) {
+	public void setConsulta(Long id, ETipo tipo) {
+		if (tipo == ETipo.Produto) {
 			regraProduto.selecionarPorId(id);
 			habilitaCamposEditar();
-		} else if (tipo == ETipos.Fornecedor) {
+		} else if (tipo == ETipo.Fornecedor) {
 			try {
 				FornecedorDAO f = new FornecedorDAO();
 				comboBoxFornecedor.getModel().setSelectedItem(f.selecionar(id));

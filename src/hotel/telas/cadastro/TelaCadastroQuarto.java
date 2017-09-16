@@ -21,7 +21,7 @@ import hotel.classes.TipoDeQuarto;
 import hotel.classes.DAO.QuartoDAO;
 import hotel.classes.DAO.TipoDeQuartoDAO;
 import hotel.regras.cadastro.RegraCadastroQuarto;
-import hotel.telas.consulta.ETipos;
+import hotel.telas.consulta.ETipo;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.main.TelaPrincipal;
 
@@ -254,7 +254,7 @@ public class TelaCadastroQuarto extends Tela {
 	}
 
 	protected void consultar() {
-		TelaConsultaGeral telaConsulta = new TelaConsultaGeral(ETipos.Quarto, this);
+		TelaConsultaGeral telaConsulta = new TelaConsultaGeral(ETipo.Quarto, this);
 		telaConsulta.setVisible(true);
 	}
 
@@ -389,7 +389,7 @@ public class TelaCadastroQuarto extends Tela {
 	}
 
 	@Override
-	public void setConsulta(Long id, ETipos tipo) {
+	public void setConsulta(Long id, ETipo tipo) {
 		regraQuarto.selecionarPorId(id);
 		habilitaCamposEditar();
 	}
