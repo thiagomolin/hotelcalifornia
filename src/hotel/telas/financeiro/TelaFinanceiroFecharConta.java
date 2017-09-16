@@ -21,9 +21,11 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 
 import hotel.classes.Locacao;
+import hotel.classes.MovimentoEstoque;
 import hotel.classes.MovimentoFinanceiroEntrada;
 import hotel.classes.DAO.LocacaoConsumoDAO;
 import hotel.classes.DAO.LocacaoDAO;
+import hotel.classes.DAO.MovimentoEstoqueDAO;
 import hotel.classes.DAO.MovimentoFinanceiroEntradaDAO;
 import hotel.classes.DAO.ProdutoDAO;
 import hotel.telas.cadastro.Tela;
@@ -260,7 +262,7 @@ public class TelaFinanceiroFecharConta extends Tela {
 			gerarMovimentoEstoque();
 
 			JOptionPane.showMessageDialog(null, "Sucesso! Reserva finalizada. Lançamentos de estoque gerados");
-			
+
 			limparCampos();
 
 		}
@@ -269,11 +271,11 @@ public class TelaFinanceiroFecharConta extends Tela {
 	private void finalizarLocacao(long fk_locacao) {
 
 		try {
-			
+
 			LocacaoDAO locadao = new LocacaoDAO();
-			
+
 			locadao.alterarStatusLocacao(fk_locacao, 2);
-			
+
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -292,7 +294,26 @@ public class TelaFinanceiroFecharConta extends Tela {
 	}
 
 	private void gerarMovimentoEstoque() {
-
+		for(Vector<Object> row : listaDados) {
+			try {
+				long fkProduto = (long) row.get(9);
+				if(fkProduto == 4) {
+					continue;
+				}
+				long fkUsuario = 1; // alterar para pegar o usuario logado
+				long tipo_mov = 2; //saida por venda
+				int quantidade = (int) row.get(3);
+				LocalDate dtAtual = LocalDate.now();
+				
+				MovimentoEstoqueDAO movest = new MovimentoEstoqueDAO();
+				MovimentoEstoque mov = new MovimentoEstoque(fkProduto, fkUsuario, tipo_mov, quantidade, dtAtual);
+				
+				movest.inserir(mov);
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
 	}
 
 	private void gerarFinanceiroEntrada(long fk_locacao) {

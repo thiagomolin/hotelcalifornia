@@ -61,7 +61,8 @@ public class LocacaoConsumoDAO extends DAO {
 		String sqlQuery = "SELECT cliente.nm_cliente, "
 						+ "produto.ds_produto, usuario.ds_usuario, locacao_consumo.nr_quantidade, "
 						+ "produto.nr_valor_venda, produto.nr_valor_venda * locacao_consumo.nr_quantidade as total, "
-						+ "locacao_consumo.fk_locacao, locacao_consumo.dt_atual, locacao_consumo.id " + 
+						+ "locacao_consumo.fk_locacao, locacao_consumo.dt_atual, locacao_consumo.id, "
+						+ "locacao_consumo.fk_produto " + 
 						  "FROM locacao_consumo " + 
 						  "INNER JOIN locacao ON locacao.id = locacao_consumo.fk_locacao " + 
 						  "INNER JOIN cliente ON locacao.fk_cliente = cliente.id " + 
