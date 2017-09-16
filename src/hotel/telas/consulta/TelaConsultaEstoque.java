@@ -159,6 +159,8 @@ public class TelaConsultaEstoque extends JFrame {
 		}
 	}
 
+	
+	
 	private void mostrarSintetico() {
 		try {
 			MovimentoEstoqueDAO dao = new MovimentoEstoqueDAO();
