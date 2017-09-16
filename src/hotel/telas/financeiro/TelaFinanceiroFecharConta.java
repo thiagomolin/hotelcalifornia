@@ -35,9 +35,9 @@ public class TelaFinanceiroFecharConta extends Tela {
 
 	private TelaPrincipal telaPrincipal;
 	
-	private JLabel lblDtInicial;
-	
+	private JLabel lblDtInicial;	
 	private JLabel lblDtFinal;
+	private JLabel lblTotal;
 
 	private Vector<Vector<Object>> listaDados;
 	private Vector<String> listaColunas;
@@ -146,7 +146,7 @@ public class TelaFinanceiroFecharConta extends Tela {
 		lblFinal.setBounds(206, 64, 87, 17);
 		panel_1.add(lblFinal);
 
-		JLabel lblTotal = new JLabel("");
+		lblTotal = new JLabel("");
 		lblTotal.setBounds(215, 303, 146, 17);
 		lblTotal.setFont(new Font("Tahoma", Font.BOLD, 14));
 		getContentPane().add(lblTotal);
@@ -178,13 +178,25 @@ public class TelaFinanceiroFecharConta extends Tela {
 
 			listaDados = UtilVector.rsParaVector(lcdao.listar(fk_locacao));
 			adicionarTotalPernoites(fk_locacao);
-			listaColunas = lcdao.getCamposBD();
+			somarValorTotal();
+			
+			listaColunas = lcdao.getCamposBD();			
 			table.setModel(construirTableModel());
-
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	private void somarValorTotal() {
+		double acumulador = 0;
+		
+		for(Vector<Object> lista : listaDados) {			
+			acumulador += (double) lista.get(5);
+		}
+		
+		lblTotal.setText(String.valueOf(acumulador));
 	}
 
 	private void adicionarTotalPernoites(long fk_locacao) {
@@ -210,7 +222,7 @@ public class TelaFinanceiroFecharConta extends Tela {
 			pernoites.add("");
 			pernoites.add(String.valueOf(totalPernoites));
 			pernoites.add(String.valueOf(valorPernoite));
-			pernoites.add(String.valueOf(totalPernoites * valorPernoite));
+			pernoites.add((double)totalPernoites * valorPernoite);
 			
 			listaDados.add(pernoites);
 		} catch (ClassNotFoundException | SQLException e) {
