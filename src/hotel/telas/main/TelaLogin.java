@@ -71,6 +71,7 @@ public class TelaLogin extends JFrame{
 			JOptionPane.showMessageDialog(null, "Usuario ou senha incorreto");
 		}else if(usuario.getDsSenha().equals(String.copyValueOf(textFieldSenha.getPassword()))) {
 			TelaPrincipal tela = new TelaPrincipal();
+			tela.setUsuarioLogado(1); //ALTERAR PARA tela.setUsuarioLogado(usuario.getId()); 
 			tela.setVisible(true);	
 			this.dispose();
 		}else {
