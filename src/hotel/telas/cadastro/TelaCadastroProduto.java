@@ -46,7 +46,7 @@ public class TelaCadastroProduto extends Tela {
 	private TelaPrincipal telaPrincipal;
 	private JTextField textFieldVlrCompra;
 	private JTextField textFieldVlrVenda;
-	private JLabel lblConsumvel;
+	private JLabel lblConsumivel;
 
 	public TelaCadastroProduto(TelaPrincipal telaPrincipal) {
 		super();
@@ -107,14 +107,14 @@ public class TelaCadastroProduto extends Tela {
 		buttonCancelar.setBounds(29, 305, 89, 23);
 		panel.add(buttonCancelar);
 
-		JButton button_4 = new JButton("Sair");
-		button_4.addActionListener(new ActionListener() {
+		JButton buttonSair = new JButton("Sair");
+		buttonSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				sair();
 			}
 		});
-		button_4.setBounds(29, 365, 89, 23);
-		panel.add(button_4);
+		buttonSair.setBounds(29, 365, 89, 23);
+		panel.add(buttonSair);
 
 		buttonMostrar = new JButton("Mostrar");
 		buttonMostrar.addActionListener(new ActionListener() {
@@ -132,9 +132,9 @@ public class TelaCadastroProduto extends Tela {
 		panel_1.setBounds(0, 0, 380, 92);
 		getContentPane().add(panel_1);
 
-		JLabel lblCdigo = new JLabel("Código");
-		lblCdigo.setBounds(10, 62, 46, 14);
-		panel_1.add(lblCdigo);
+		JLabel lblCodigo = new JLabel("Código");
+		lblCodigo.setBounds(10, 62, 46, 14);
+		panel_1.add(lblCodigo);
 
 		comboBoxCodigo = new JComboBox<Object>();
 		comboBoxCodigo.setBounds(55, 59, 131, 20);
@@ -158,9 +158,9 @@ public class TelaCadastroProduto extends Tela {
 		buttonNovo.setBounds(260, 58, 89, 23);
 		panel_1.add(buttonNovo);
 
-		JLabel lblNome = new JLabel("Produto");
-		lblNome.setBounds(31, 123, 74, 14);
-		getContentPane().add(lblNome);
+		JLabel lblProduto = new JLabel("Produto");
+		lblProduto.setBounds(31, 123, 74, 14);
+		getContentPane().add(lblProduto);
 
 		textFieldProduto = new JTextField();
 		textFieldProduto.setBounds(120, 122, 181, 20);
@@ -187,9 +187,9 @@ public class TelaCadastroProduto extends Tela {
 		textFieldVlrVenda.setBounds(120, 184, 181, 20);
 		getContentPane().add(textFieldVlrVenda);
 
-		lblConsumvel = new JLabel("Consumível");
-		lblConsumvel.setBounds(31, 264, 74, 14);
-		getContentPane().add(lblConsumvel);
+		lblConsumivel = new JLabel("Consumível");
+		lblConsumivel.setBounds(31, 264, 74, 14);
+		getContentPane().add(lblConsumivel);
 
 		chckbxConsumivel = new JCheckBox("");
 		chckbxConsumivel.setBounds(120, 260, 97, 23);

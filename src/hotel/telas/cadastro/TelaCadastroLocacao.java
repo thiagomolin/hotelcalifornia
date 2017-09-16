@@ -272,7 +272,7 @@ public class TelaCadastroLocacao extends Tela {
 
 	protected void mostrar() {
 		if (comboBoxCodigo.getSelectedItem() == null) {
-			JOptionPane.showMessageDialog(null, "Selecione uma Locação");
+			JOptionPane.showMessageDialog(null, "Selecione uma Locação ou pressione \"Novo\"");
 		} else {
 			regraLocacao.mostrarLocacao();
 			habilitaCamposEditar();

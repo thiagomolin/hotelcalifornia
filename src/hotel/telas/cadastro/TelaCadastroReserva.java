@@ -310,7 +310,7 @@ public class TelaCadastroReserva extends Tela {
 	private void inicializarComboBoxCodigo() {
 		try {
 			ReservaDAO cl = new ReservaDAO();
-			List<Reserva> reservas = cl.getLista();
+			List<Reserva> reservas = cl.getListaAtiva();
 			comboBoxCodigo.setModel(new DefaultComboBoxModel<Object>(reservas.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
 			ex.printStackTrace();
@@ -389,10 +389,6 @@ public class TelaCadastroReserva extends Tela {
 		comboBoxCodigo.setSelectedItem(null);
 	}
 
-	public void setConsulta(Long id) {
-		regraReserva.selecionarPorId(id);
-		habilitaCamposEditar();
-	}
 	// Métodos de manipulação de componentes
 	
 	
@@ -476,6 +472,7 @@ public class TelaCadastroReserva extends Tela {
 	// GETTERS AND SETTERS
 
 	public void setConsulta(Long id, ETipo tipo) {
-
+		regraReserva.selecionarPorId(id);
+		habilitaCamposEditar();
 	}
 }

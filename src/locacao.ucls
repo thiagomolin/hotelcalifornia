@@ -570,34 +570,42 @@
     <end type="TARGET" refId="17"/>  
   </dependency>  
   <dependency id="108">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="109">    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="28"/>  
   </dependency>  
-  <association id="109">    
+  <dependency id="110">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <association id="111">    
     <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="110" name="conexao">        
+      <attribute id="112" name="conexao">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="111" minimum="0" maximum="1">        
+      <multiplicity id="113" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="112">    
+  <dependency id="114">    
     <end type="SOURCE" refId="23"/>    
     <end type="TARGET" refId="24"/>  
   </dependency>  
-  <dependency id="113">    
+  <dependency id="115">    
     <end type="SOURCE" refId="18"/>    
     <end type="TARGET" refId="2"/>  
   </dependency>  
-  <dependency id="114">    
+  <dependency id="116">    
     <end type="SOURCE" refId="23"/>    
     <end type="TARGET" refId="7"/>  
   </dependency>  
-  <dependency id="115">    
+  <dependency id="117">    
     <end type="SOURCE" refId="23"/>    
     <end type="TARGET" refId="21"/>  
   </dependency>  

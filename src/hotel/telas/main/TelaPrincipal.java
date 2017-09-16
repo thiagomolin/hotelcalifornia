@@ -35,11 +35,11 @@ public class TelaPrincipal extends JFrame {
 	public TelaPrincipal() {
 		super();
 		usuarioLogado = 1; //TODO: Alterar para valor dinamico
-		initializarLayoutEEventos();
+		inicializarLayoutEEventos();
 	}
 
 	// LAYOUT E EVENTOS
-	private void initializarLayoutEEventos() {
+	private void inicializarLayoutEEventos() {
 		// Frame
 		setResizable(false);
 		setBounds(100, 100, 550, 520);
@@ -103,34 +103,6 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		mnConsulta.add(mntmConsultaGeral);
-
-		JMenu mnOs = new JMenu("OS");
-		menuBar.add(mnOs);
-
-		JMenuItem mntmGerenciar = new JMenuItem("Gerenciar");
-		mntmGerenciar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				criarTela(ETipo.Os);
-			}
-		});
-		mnOs.add(mntmGerenciar);
-
-		JMenuItem mntmConsultar = new JMenuItem("Consultar");
-		mnOs.add(mntmConsultar);
-
-		JMenu mnLocacao = new JMenu("Locacao");
-		menuBar.add(mnLocacao);
-
-		JMenuItem mntmGerenciarLocacao = new JMenuItem("Gerenciar");
-		mntmGerenciarLocacao.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				criarTela(ETipo.Locacao);
-			}
-		});
-		mnLocacao.add(mntmGerenciarLocacao);
-
-		JMenuItem mntmConsultarLocacao = new JMenuItem("Consultar");
-		mnLocacao.add(mntmConsultarLocacao);
 		
 		JMenu mnReserva = new JMenu("Reserva");
 		menuBar.add(mnReserva);
@@ -142,9 +114,17 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		mnReserva.add(mntmGerenciarReserva);
-		
-		JMenuItem mntmConsultarReserva = new JMenuItem("Consultar");
-		mnReserva.add(mntmConsultarReserva);
+
+		JMenu mnLocacao = new JMenu("Locacao");
+		menuBar.add(mnLocacao);
+
+		JMenuItem mntmGerenciarLocacao = new JMenuItem("Gerenciar");
+		mntmGerenciarLocacao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				criarTela(ETipo.Locacao);
+			}
+		});
+		mnLocacao.add(mntmGerenciarLocacao);
 
 		JMenu mnEstoque = new JMenu("Estoque");
 		menuBar.add(mnEstoque);

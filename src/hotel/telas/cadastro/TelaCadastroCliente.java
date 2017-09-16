@@ -110,14 +110,14 @@ public class TelaCadastroCliente extends Tela {
 		buttonCancelar.setBounds(29, 305, 89, 23);
 		panel.add(buttonCancelar);
 
-		JButton button_4 = new JButton("Sair");
-		button_4.addActionListener(new ActionListener() {
+		JButton buttonSair = new JButton("Sair");
+		buttonSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				sair();
 			}
 		});
-		button_4.setBounds(29, 365, 89, 23);
-		panel.add(button_4);
+		buttonSair.setBounds(29, 365, 89, 23);
+		panel.add(buttonSair);
 
 		buttonMostrar = new JButton("Mostrar");
 		buttonMostrar.addActionListener(new ActionListener() {
@@ -206,9 +206,9 @@ public class TelaCadastroCliente extends Tela {
 		getContentPane().add(textFieldEmail);
 		textFieldEmail.setColumns(10);
 
-		JLabel lblNewLabel = new JLabel("País");
-		lblNewLabel.setBounds(59, 246, 46, 14);
-		getContentPane().add(lblNewLabel);
+		JLabel lblPais = new JLabel("País");
+		lblPais.setBounds(59, 246, 46, 14);
+		getContentPane().add(lblPais);
 
 		comboBoxPais = new JComboBox<Object>();
 		comboBoxPais.addActionListener(new ActionListener() {
@@ -219,9 +219,9 @@ public class TelaCadastroCliente extends Tela {
 		comboBoxPais.setBounds(120, 243, 181, 20);
 		getContentPane().add(comboBoxPais);
 
-		JLabel lblEstafo = new JLabel("Estado");
-		lblEstafo.setBounds(59, 283, 46, 14);
-		getContentPane().add(lblEstafo);
+		JLabel lblEstado = new JLabel("Estado");
+		lblEstado.setBounds(59, 283, 46, 14);
+		getContentPane().add(lblEstado);
 
 		comboBoxEstado = new JComboBox<Object>();
 		comboBoxEstado.addActionListener(new ActionListener() {
