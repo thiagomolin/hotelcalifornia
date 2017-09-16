@@ -141,7 +141,7 @@ public class TelaFinanceiroLancamento extends Tela {
 
 				long fk_locacao = getLocacaoSelecionado().getId();
 				long fk_produto = getProdutoSelecionado().getId();
-				long fk_usuario = 1;
+				long fk_usuario = telaPrincipal.getUsuarioLogado();
 				int nr_quantidade = Integer.parseInt(textFieldQuantidade.getText());
 				LocalDate dt_atual = LocalDate.now();
 

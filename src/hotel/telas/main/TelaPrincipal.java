@@ -34,7 +34,7 @@ public class TelaPrincipal extends JFrame {
 
 	public TelaPrincipal() {
 		super();
-		usuarioLogado = 1;
+		usuarioLogado = getUsuarioLogado();
 		initializarLayoutEEventos();
 	}
 
@@ -272,6 +272,10 @@ public class TelaPrincipal extends JFrame {
 		return usuarioLogado;
 	}
 
+
+	public void setUsuarioLogado(long usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
+	}
 	// MAIN
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
