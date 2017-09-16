@@ -162,6 +162,7 @@ public class ReservaDAO extends DAO {
 		lista.add("ID");
 		lista.add("Cliente");
 		lista.add("Cpf");
+		lista.add("Quarto");
 		lista.add("Entrada");
 		lista.add("Saida");
 		lista.add("Status");
