@@ -20,7 +20,7 @@ import hotel.classes.TipoDeMovimento;
 import hotel.classes.DAO.MovimentoEstoqueDAO;
 import hotel.classes.DAO.ProdutoDAO;
 import hotel.telas.cadastro.Tela;
-import hotel.telas.consulta.ETipos;
+import hotel.telas.consulta.ETipo;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.main.TelaPrincipal;
 
@@ -112,7 +112,7 @@ public class TelaAcertoEstoque extends Tela {
 		JButton buttonSelecionarProduto = new JButton("...");
 		buttonSelecionarProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				consultar(ETipos.Produto);
+				consultar(ETipo.Produto);
 			}
 		});
 		buttonSelecionarProduto.setBounds(255, 87, 18, 23);
@@ -170,7 +170,7 @@ public class TelaAcertoEstoque extends Tela {
 		}
 	}
 
-	protected void consultar(ETipos tipo) {
+	protected void consultar(ETipo tipo) {
 		TelaConsultaGeral telaConsulta = new TelaConsultaGeral(tipo, this);
 		telaConsulta.setVisible(true);
 	}
@@ -188,7 +188,7 @@ public class TelaAcertoEstoque extends Tela {
 	}
 
 	@Override
-	public void setConsulta(Long id, ETipos tipo) {
+	public void setConsulta(Long id, ETipo tipo) {
 		try {
 			ProdutoDAO p = new ProdutoDAO();
 			comboBoxProduto.getModel().setSelectedItem(p.selecionar(id));

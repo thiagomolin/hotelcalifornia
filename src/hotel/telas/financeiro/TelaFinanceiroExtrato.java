@@ -16,7 +16,7 @@ import javax.swing.border.EtchedBorder;
 import com.toedter.calendar.JDateChooser;
 
 import hotel.telas.cadastro.Tela;
-import hotel.telas.consulta.ETipos;
+import hotel.telas.consulta.ETipo;
 import hotel.telas.main.TelaPrincipal;
 
 public class TelaFinanceiroExtrato extends Tela {
@@ -52,6 +52,11 @@ public class TelaFinanceiroExtrato extends Tela {
 		panel.setLayout(null);
 		
 		btnMostrar = new JButton("Mostrar");
+		btnMostrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mostrar();
+			}
+		});
 		btnMostrar.setBounds(29, 41, 89, 23);
 		panel.add(btnMostrar);
 		
@@ -132,11 +137,13 @@ public class TelaFinanceiroExtrato extends Tela {
 		dataDe.setDate(null);
 		lblTotal.setText("");
 	}
+	
+	public void mostrar() {
+		
+	}
 
-	public void setConsulta(Long id, ETipos tipo) {
+	public void setConsulta(Long id, ETipo tipo) {
 			
 	}
 	
-	
-
 }

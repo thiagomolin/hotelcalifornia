@@ -23,7 +23,7 @@ import hotel.classes.TipoDeQuarto;
 import hotel.classes.DAO.ReservaDAO;
 import hotel.classes.DAO.StatusDAO;
 import hotel.regras.cadastro.RegraCadastroReserva;
-import hotel.telas.consulta.ETipos;
+import hotel.telas.consulta.ETipo;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.main.TelaPrincipal;
 import hotel.util.UtilCombobox;
@@ -295,7 +295,7 @@ public class TelaCadastroReserva extends Tela {
 	}
 
 	protected void consultar() {
-		TelaConsultaGeral telaConsulta = new TelaConsultaGeral(ETipos.Reserva, this);
+		TelaConsultaGeral telaConsulta = new TelaConsultaGeral(ETipo.Reserva, this);
 		telaConsulta.setVisible(true);
 	}
 
@@ -475,7 +475,7 @@ public class TelaCadastroReserva extends Tela {
 
 	// GETTERS AND SETTERS
 
-	public void setConsulta(Long id, ETipos tipo) {
+	public void setConsulta(Long id, ETipo tipo) {
 
 	}
 }

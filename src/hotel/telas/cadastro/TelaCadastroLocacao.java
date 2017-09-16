@@ -25,7 +25,7 @@ import hotel.classes.DAO.ClienteDAO;
 import hotel.classes.DAO.LocacaoDAO;
 import hotel.classes.DAO.ReservaDAO;
 import hotel.regras.cadastro.RegraCadastroLocacao;
-import hotel.telas.consulta.ETipos;
+import hotel.telas.consulta.ETipo;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.main.TelaPrincipal;
 import hotel.util.UtilCombobox;
@@ -155,7 +155,7 @@ public class TelaCadastroLocacao extends Tela {
 		buttonConsulta = new JButton("...");
 		buttonConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				consultar(ETipos.Locacao);
+				consultar(ETipo.Locacao);
 			}
 		});
 		buttonConsulta.setBounds(252, 58, 18, 23);
@@ -202,7 +202,7 @@ public class TelaCadastroLocacao extends Tela {
 		buttonConsultaCliente.setEnabled(false);
 		buttonConsultaCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				consultar(ETipos.Cliente);
+				consultar(ETipo.Cliente);
 			}
 		});
 		buttonConsultaCliente.setBounds(278, 148, 18, 23);
@@ -225,7 +225,7 @@ public class TelaCadastroLocacao extends Tela {
 		buttonConsultaReserva = new JButton("...");
 		buttonConsultaReserva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				consultar(ETipos.Reserva);
+				consultar(ETipo.Reserva);
 			}
 		});
 		buttonConsultaReserva.setEnabled(false);
@@ -318,7 +318,7 @@ public class TelaCadastroLocacao extends Tela {
 		}
 	}
 
-	protected void consultar(ETipos tipo) {
+	protected void consultar(ETipo tipo) {
 		TelaConsultaGeral telaConsulta = new TelaConsultaGeral(tipo, this);
 		telaConsulta.setVisible(true);
 	}
@@ -462,18 +462,18 @@ public class TelaCadastroLocacao extends Tela {
 		}
 	}
 
-	public void setConsulta(Long id, ETipos tipo) {
-		if (tipo == ETipos.Locacao) {
+	public void setConsulta(Long id, ETipo tipo) {
+		if (tipo == ETipo.Locacao) {
 			regraLocacao.selecionarPorId(id);
 			habilitaCamposEditar();
-		} else if (tipo == ETipos.Cliente) {
+		} else if (tipo == ETipo.Cliente) {
 			try {
 				ClienteDAO c = new ClienteDAO();
 				setClienteSelecionado(c.selecionar(id));
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
-		} else if (tipo == ETipos.Reserva) {
+		} else if (tipo == ETipo.Reserva) {
 			try {
 				ReservaDAO r = new ReservaDAO();
 				if (r.selecionar(id).getFkStatus() == 1) {

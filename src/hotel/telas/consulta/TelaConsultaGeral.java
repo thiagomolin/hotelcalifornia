@@ -48,7 +48,7 @@ public class TelaConsultaGeral extends JFrame {
 
 	private JTextField textFieldPalavraChave;
 
-	private JComboBox<ETipos> comboBoxTipo;
+	private JComboBox<ETipo> comboBoxTipo;
 	private JComboBox<Object> comboBoxCampo;
 
 	private JDateChooser dateChooserDe;
@@ -65,7 +65,7 @@ public class TelaConsultaGeral extends JFrame {
 	private Vector<Vector<Object>> listaDados;
 	private Vector<String> listaColunas;
 
-	private ETipos tipoSelecionado = null;
+	private ETipo tipoSelecionado = null;
 	private JTable table;
 	
 	private final ButtonGroup buttonGroup = new ButtonGroup();
@@ -82,7 +82,7 @@ public class TelaConsultaGeral extends JFrame {
 		rdbtnSintetico.setVisible(false);
 	}
 
-	public TelaConsultaGeral(ETipos tipoSelecionado, Tela telaCadastro) {
+	public TelaConsultaGeral(ETipo tipoSelecionado, Tela telaCadastro) {
 		this.tipoSelecionado = tipoSelecionado;
 		this.telaCadastro = telaCadastro;
 		inicializarLayoutEEventos();
@@ -102,15 +102,15 @@ public class TelaConsultaGeral extends JFrame {
 		panel_1.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		getContentPane().add(panel_1);
 
-		comboBoxTipo = new JComboBox<ETipos>();
+		comboBoxTipo = new JComboBox<ETipo>();
 		comboBoxTipo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selecionarTipo();
 				mostrarCampos();
 			}
 		});
-		comboBoxTipo.setModel(new DefaultComboBoxModel<ETipos>(new ETipos[] { ETipos.Cliente, ETipos.Fornecedor,
-				ETipos.Funcionario, ETipos.Reserva, ETipos.Locacao, ETipos.Produto, ETipos.Quarto, ETipos.Estoque }));
+		comboBoxTipo.setModel(new DefaultComboBoxModel<ETipo>(new ETipo[] { ETipo.Cliente, ETipo.Fornecedor,
+				ETipo.Funcionario, ETipo.Reserva, ETipo.Locacao, ETipo.Produto, ETipo.Quarto, ETipo.Estoque }));
 		comboBoxTipo.setBounds(45, 11, 183, 20);
 		panel_1.add(comboBoxTipo);
 
@@ -305,7 +305,7 @@ public class TelaConsultaGeral extends JFrame {
 				return false;
 			}
 		};
-		if (tipoSelecionado == ETipos.Quarto) {
+		if (tipoSelecionado == ETipo.Quarto) {
 			for (int i = 0; i < tableModel.getRowCount(); i++) {
 				boolean b = (boolean) tableModel.getValueAt(i, 3);
 				if (b) {
@@ -319,17 +319,17 @@ public class TelaConsultaGeral extends JFrame {
 	}
 
 	protected void selecionarTipo() {
-		tipoSelecionado = (ETipos) comboBoxTipo.getModel().getSelectedItem();
+		tipoSelecionado = (ETipo) comboBoxTipo.getModel().getSelectedItem();
 	}
 
 	private void mostrarCampos() {
-		if (tipoSelecionado == ETipos.Cliente) {
+		if (tipoSelecionado == ETipo.Cliente) {
 			dateChooserDe.setEnabled(false);
 			dateChooserAte.setEnabled(false);
 			panel.setVisible(false);
 			textFieldPalavraChave.setEnabled(true);
 			comboBoxCampo.setEnabled(true);
-			comboBoxTipo.getModel().setSelectedItem(ETipos.Cliente);
+			comboBoxTipo.getModel().setSelectedItem(ETipo.Cliente);
 			rdbtnAnalitico.setVisible(false);
 			rdbtnSintetico.setVisible(false);
 			try {
@@ -339,13 +339,13 @@ public class TelaConsultaGeral extends JFrame {
 				e.printStackTrace();
 			}
 
-		} else if (tipoSelecionado == ETipos.Fornecedor) {
+		} else if (tipoSelecionado == ETipo.Fornecedor) {
 			panel.setVisible(false);
 			dateChooserDe.setEnabled(false);
 			dateChooserAte.setEnabled(false);
 			textFieldPalavraChave.setEnabled(true);
 			comboBoxCampo.setEnabled(true);
-			comboBoxTipo.getModel().setSelectedItem(ETipos.Fornecedor);
+			comboBoxTipo.getModel().setSelectedItem(ETipo.Fornecedor);
 			rdbtnAnalitico.setVisible(false);
 			rdbtnSintetico.setVisible(false);
 			try {
@@ -354,13 +354,13 @@ public class TelaConsultaGeral extends JFrame {
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
-		} else if (tipoSelecionado == ETipos.Produto) {
+		} else if (tipoSelecionado == ETipo.Produto) {
 			panel.setVisible(false);
 			dateChooserDe.setEnabled(false);
 			dateChooserAte.setEnabled(false);
 			textFieldPalavraChave.setEnabled(true);
 			comboBoxCampo.setEnabled(true);
-			comboBoxTipo.getModel().setSelectedItem(ETipos.Produto);
+			comboBoxTipo.getModel().setSelectedItem(ETipo.Produto);
 			rdbtnAnalitico.setVisible(false);
 			rdbtnSintetico.setVisible(false);
 			try {
@@ -370,13 +370,13 @@ public class TelaConsultaGeral extends JFrame {
 				e.printStackTrace();
 			}
 
-		} else if (tipoSelecionado == ETipos.Quarto) {
+		} else if (tipoSelecionado == ETipo.Quarto) {
 			panel.setVisible(false);
 			dateChooserDe.setEnabled(false);
 			dateChooserAte.setEnabled(false);
 			textFieldPalavraChave.setEnabled(false);
 			comboBoxCampo.setEnabled(false);
-			comboBoxTipo.getModel().setSelectedItem(ETipos.Quarto);
+			comboBoxTipo.getModel().setSelectedItem(ETipo.Quarto);
 			rdbtnAnalitico.setVisible(false);
 			rdbtnSintetico.setVisible(false);
 			try {
@@ -385,9 +385,9 @@ public class TelaConsultaGeral extends JFrame {
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
-		} else if (tipoSelecionado == ETipos.Reserva) {
+		} else if (tipoSelecionado == ETipo.Reserva) {
 			panel.setVisible(true);
-			comboBoxTipo.getModel().setSelectedItem(ETipos.Reserva);
+			comboBoxTipo.getModel().setSelectedItem(ETipo.Reserva);
 			textFieldPalavraChave.setEnabled(true);
 			comboBoxCampo.setEnabled(true);
 			rdbtnAnalitico.setVisible(false);
@@ -398,8 +398,8 @@ public class TelaConsultaGeral extends JFrame {
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
-		}else if (tipoSelecionado == ETipos.Locacao) {
-			comboBoxTipo.getModel().setSelectedItem(ETipos.Locacao);
+		}else if (tipoSelecionado == ETipo.Locacao) {
+			comboBoxTipo.getModel().setSelectedItem(ETipo.Locacao);
 			textFieldPalavraChave.setEnabled(true);
 			comboBoxCampo.setEnabled(true);
 			try {
@@ -408,9 +408,9 @@ public class TelaConsultaGeral extends JFrame {
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
-		} else if (tipoSelecionado == ETipos.Estoque) {
+		} else if (tipoSelecionado == ETipo.Estoque) {
 			panel.setVisible(false);
-			comboBoxTipo.getModel().setSelectedItem(ETipos.Estoque);
+			comboBoxTipo.getModel().setSelectedItem(ETipo.Estoque);
 			textFieldPalavraChave.setEnabled(true);
 			comboBoxCampo.setEnabled(true);
 			rdbtnAnalitico.setVisible(true);

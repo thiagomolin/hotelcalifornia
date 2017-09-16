@@ -17,7 +17,7 @@ import hotel.telas.cadastro.TelaCadastroLocacao;
 import hotel.telas.cadastro.TelaCadastroProduto;
 import hotel.telas.cadastro.TelaCadastroQuarto;
 import hotel.telas.cadastro.TelaCadastroReserva;
-import hotel.telas.consulta.ETipos;
+import hotel.telas.consulta.ETipo;
 import hotel.telas.consulta.TelaConsultaEstoque;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.estoque.TelaAcertoEstoque;
@@ -64,7 +64,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmCliente = new JMenuItem("Cliente");
 		mntmCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				criarTela(ETipos.Cliente);
+				criarTela(ETipo.Cliente);
 			}
 		});
 		mnCadastro.add(mntmCliente);
@@ -72,7 +72,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmFornecedor = new JMenuItem("Fornecedor");
 		mntmFornecedor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				criarTela(ETipos.Fornecedor);
+				criarTela(ETipo.Fornecedor);
 			}
 		});
 		mnCadastro.add(mntmFornecedor);
@@ -80,7 +80,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmProduto = new JMenuItem("Produto");
 		mntmProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				criarTela(ETipos.Produto);
+				criarTela(ETipo.Produto);
 			}
 		});
 		mnCadastro.add(mntmProduto);
@@ -88,7 +88,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmFuncionario = new JMenuItem("Funcionário");
 		mntmFuncionario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				criarTela(ETipos.Funcionario);
+				criarTela(ETipo.Funcionario);
 			}
 		});
 		mnCadastro.add(mntmFuncionario);
@@ -96,7 +96,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmQuarto = new JMenuItem("Quarto");
 		mntmQuarto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				criarTela(ETipos.Quarto);
+				criarTela(ETipo.Quarto);
 			}
 		});
 		mnCadastro.add(mntmQuarto);
@@ -107,7 +107,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmConsultaGeral = new JMenuItem("Consulta Geral");
 		mntmConsultaGeral.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				criarTela(ETipos.Consulta);
+				criarTela(ETipo.Consulta);
 			}
 		});
 		mnConsulta.add(mntmConsultaGeral);
@@ -118,7 +118,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmGerenciar = new JMenuItem("Gerenciar");
 		mntmGerenciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				criarTela(ETipos.Os);
+				criarTela(ETipo.Os);
 			}
 		});
 		mnOs.add(mntmGerenciar);
@@ -132,7 +132,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmGerenciarLocacao = new JMenuItem("Gerenciar");
 		mntmGerenciarLocacao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				criarTela(ETipos.Locacao);
+				criarTela(ETipo.Locacao);
 			}
 		});
 		mnLocacao.add(mntmGerenciarLocacao);
@@ -146,7 +146,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmGerenciarReserva = new JMenuItem("Gerenciar");
 		mntmGerenciarReserva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				criarTela(ETipos.Reserva);				
+				criarTela(ETipo.Reserva);				
 			}
 		});
 		mnReserva.add(mntmGerenciarReserva);
@@ -160,7 +160,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmGerenciarEstoque = new JMenuItem("Entrada");
 		mntmGerenciarEstoque.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				criarTela(ETipos.Estoque);			
+				criarTela(ETipo.Estoque);			
 			}
 		});
 		mnEstoque.add(mntmGerenciarEstoque);
@@ -168,7 +168,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmConsultarEstoque = new JMenuItem("Acerto");
 		mntmConsultarEstoque.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				criarTela(ETipos.Acerto);						
+				criarTela(ETipo.Acerto);						
 			}
 		});
 		mnEstoque.add(mntmConsultarEstoque);
@@ -176,7 +176,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmConsulta = new JMenuItem("Consulta");
 		mntmConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				criarTela(ETipos.EstoqueConsulta);					
+				criarTela(ETipo.EstoqueConsulta);					
 			}
 		});
 		mnEstoque.add(mntmConsulta);
@@ -187,7 +187,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmFecharConta = new JMenuItem("Fechar Conta");
 		mntmFecharConta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				criarTela(ETipos.FinanceiroFecharConta);				
+				criarTela(ETipo.FinanceiroFecharConta);				
 			}
 		});
 		mnFinanceiro.add(mntmFecharConta);
@@ -195,7 +195,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmNovoLancamento = new JMenuItem("Novo Lançamento");
 		mntmNovoLancamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				criarTela(ETipos.FinanceiroLancamento);				
+				criarTela(ETipo.FinanceiroLancamento);				
 			}
 		});
 		mnFinanceiro.add(mntmNovoLancamento);
@@ -213,50 +213,50 @@ public class TelaPrincipal extends JFrame {
 
 	}
 
-	protected void criarTela(ETipos tipoTela) {
-		if (tipoTela == ETipos.Cliente) {
+	protected void criarTela(ETipo tipoTela) {
+		if (tipoTela == ETipo.Cliente) {
 			TelaCadastroCliente tela = new TelaCadastroCliente(this);
 			tabbedPane.addTab("Cadastro Cliente", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
-		} else if (tipoTela == ETipos.Fornecedor) {
+		} else if (tipoTela == ETipo.Fornecedor) {
 			TelaCadastroFornecedor tela = new TelaCadastroFornecedor(this);
 			tabbedPane.addTab("Cadastro Fornecedor", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
-		} else if (tipoTela == ETipos.FinanceiroLancamento) {
+		} else if (tipoTela == ETipo.FinanceiroLancamento) {
 			TelaFinanceiroLancamento tela = new TelaFinanceiroLancamento(this);
 			tabbedPane.addTab("Novo lancamento em locação", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
-		} else if (tipoTela == ETipos.FinanceiroFecharConta) {
+		} else if (tipoTela == ETipo.FinanceiroFecharConta) {
 			TelaFinanceiroFecharConta tela = new TelaFinanceiroFecharConta(this);
 			tabbedPane.addTab("Fechar conta", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
-		}  else if (tipoTela == ETipos.Produto) {
+		}  else if (tipoTela == ETipo.Produto) {
 			TelaCadastroProduto tela = new TelaCadastroProduto(this);
 			tabbedPane.addTab("Cadastro Produto", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
-		} else if (tipoTela == ETipos.Quarto) {
+		} else if (tipoTela == ETipo.Quarto) {
 			TelaCadastroQuarto tela = new TelaCadastroQuarto(this);
 			tabbedPane.addTab("Cadastro Quarto", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
-		} else if (tipoTela == ETipos.Locacao) {
+		} else if (tipoTela == ETipo.Locacao) {
 			TelaCadastroLocacao tela = new TelaCadastroLocacao(this);
 			tabbedPane.addTab("Cadastro Locação", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
-		} else if (tipoTela == ETipos.Reserva) {
+		} else if (tipoTela == ETipo.Reserva) {
 			TelaCadastroReserva tela = new TelaCadastroReserva(this);
 			tabbedPane.addTab("Cadastro Reserva", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
-		}else if (tipoTela == ETipos.Estoque) {
+		}else if (tipoTela == ETipo.Estoque) {
 			TelaEntradaEstoque tela = new TelaEntradaEstoque(this);
 			tabbedPane.addTab("Entrada de estoque", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
-		}else if (tipoTela == ETipos.Acerto) {
+		}else if (tipoTela == ETipo.Acerto) {
 			TelaAcertoEstoque tela = new TelaAcertoEstoque(this);
 			tabbedPane.addTab("Acerto de estoque", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
-		}else if (tipoTela == ETipos.EstoqueConsulta) {
+		}else if (tipoTela == ETipo.EstoqueConsulta) {
 			new TelaConsultaEstoque().setVisible(true);;
-		}else if (tipoTela == ETipos.Consulta) {
+		}else if (tipoTela == ETipo.Consulta) {
 			new TelaConsultaGeral().setVisible(true);
 		}
 	}
