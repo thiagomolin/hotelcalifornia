@@ -38,6 +38,8 @@ import hotel.classes.DAO.LocacaoDAO;
 import hotel.classes.DAO.MovimentoEstoqueDAO;
 import hotel.classes.DAO.ProdutoDAO;
 import hotel.classes.DAO.QuartoDAO;
+import hotel.classes.DAO.ReservaDAO;
+
 import hotel.telas.cadastro.Tela;
 import hotel.util.UtilVector;
 
@@ -390,6 +392,16 @@ public class TelaConsultaGeral extends JFrame {
 			comboBoxCampo.setEnabled(true);
 			rdbtnAnalitico.setVisible(false);
 			rdbtnSintetico.setVisible(false);
+			try {
+				dao = new ReservaDAO();
+				comboBoxCampo.setModel(new DefaultComboBoxModel<Object>(Locacao.getCampos().toArray()));
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+			}
+		}else if (tipoSelecionado == ETipos.Locacao) {
+			comboBoxTipo.getModel().setSelectedItem(ETipos.Locacao);
+			textFieldPalavraChave.setEnabled(true);
+			comboBoxCampo.setEnabled(true);
 			try {
 				dao = new LocacaoDAO();
 				comboBoxCampo.setModel(new DefaultComboBoxModel<Object>(Locacao.getCampos().toArray()));

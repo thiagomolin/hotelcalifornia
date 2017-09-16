@@ -262,6 +262,7 @@ public class TelaCadastroReserva extends Tela {
 
 	protected void novo() {
 		comboBoxCodigo.setEnabled(true);
+		comboBoxTipoQuarto.setEnabled(true);
 		dateEntrada.setEnabled(true);
 		textFieldCliente.setEnabled(true);
 		textFieldCpf.setEnabled(true);
@@ -302,6 +303,8 @@ public class TelaCadastroReserva extends Tela {
 		telaPrincipal.fecharTela(this);
 	}
 	// Eventos de botões
+	
+	
 
 	// Eventos de ComboBox
 	private void inicializarComboBoxCodigo() {
@@ -314,8 +317,10 @@ public class TelaCadastroReserva extends Tela {
 			ex.printStackTrace();
 		}
 	}
-
 	// Eventos de ComboBox
+
+
+
 
 	// Métodos de manipulação de componentes
 
@@ -355,6 +360,7 @@ public class TelaCadastroReserva extends Tela {
 		buttonCancelar.setEnabled(true);
 		comboBoxStatus.setEnabled(true);
 		comboBoxCodigo.setEnabled(false);
+		comboBoxTipoQuarto.setEnabled(true);
 		buttonNovo.setEnabled(false);
 		buttonConsulta.setEnabled(false);
 		buttonMostrar.setEnabled(false);
@@ -388,6 +394,8 @@ public class TelaCadastroReserva extends Tela {
 		habilitaCamposEditar();
 	}
 	// Métodos de manipulação de componentes
+	
+	
 
 	// Validação de formulário
 	protected boolean isFormularioValido() {
@@ -405,6 +413,8 @@ public class TelaCadastroReserva extends Tela {
 		return valido;
 	}
 	// Validação de formulário
+	
+	
 
 	// GETTERS AND SETTERS
 	public void setTextFieldCliente(String cliente) {

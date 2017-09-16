@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -55,6 +56,7 @@ public class TelaCadastroLocacao extends Tela {
 	private JDateChooser dateEntrada;
 	private JLabel lblReserva;
 	private JLabel lblTipoDeQuarto;
+	private JLabel lblNrQuarto;
 	private JButton buttonConsultaReserva;
 
 	public TelaCadastroLocacao(TelaPrincipal telaPrincipal) {
@@ -65,7 +67,10 @@ public class TelaCadastroLocacao extends Tela {
 		inicializarComboBoxCodigo();
 		inicializarComboBoxCliente();
 		UtilCombobox.inicializarComboBoxTipoQuarto(comboBoxTipoDeQuarto);
-		inicializarComboBoxReserva();
+		
+		lblNrQuarto = new JLabel("");
+		lblNrQuarto.setBounds(287, 194, 46, 14);
+		getContentPane().add(lblNrQuarto);
 		inicializarComponentes();
 		this.telaPrincipal = telaPrincipal;
 	}
@@ -204,6 +209,11 @@ public class TelaCadastroLocacao extends Tela {
 		getContentPane().add(buttonConsultaCliente);
 
 		comboBoxReserva = new JComboBox<Object>();
+		comboBoxReserva.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setLocacaoPorReserva();
+			}
+		});
 		comboBoxReserva.setEnabled(false);
 		comboBoxReserva.setBounds(138, 104, 129, 20);
 		getContentPane().add(comboBoxReserva);
@@ -240,7 +250,7 @@ public class TelaCadastroLocacao extends Tela {
 			int result = JOptionPane.showConfirmDialog(null, "Confirmar a inclusão?", "Confirmar",
 					JOptionPane.OK_CANCEL_OPTION);
 			if (JOptionPane.OK_OPTION == result) {
-				regraLocacao.incluirLocacao();
+				regraLocacao.incluirLocacao(getReservaSelecionado());
 				limpaCampos();
 				inicializarComboBoxCodigo();
 			}
@@ -283,8 +293,9 @@ public class TelaCadastroLocacao extends Tela {
 		buttonMostrar.setEnabled(false);
 		comboBoxCodigo.getModel().setSelectedItem(null);
 		comboBoxTipoDeQuarto.getModel().setSelectedItem(null);
-		comboBoxReserva.getModel().setSelectedItem(null);
 		comboBoxCliente.getModel().setSelectedItem(null);
+		inicializarComboBoxReserva();
+		comboBoxReserva.getModel().setSelectedItem(null);
 	}
 
 	protected void alterar() {
@@ -322,6 +333,12 @@ public class TelaCadastroLocacao extends Tela {
 		try {
 			rsv = new ReservaDAO();
 			List<Reserva> reservas = rsv.getLista();
+			for (Iterator<Reserva> iterator = reservas.iterator(); iterator.hasNext();) {
+				Reserva value = iterator.next();
+				if (value.getFkStatus() != 1) {
+					iterator.remove();
+				}
+			}
 			comboBoxReserva.setModel(new DefaultComboBoxModel<Object>(reservas.toArray()));
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -393,17 +410,19 @@ public class TelaCadastroLocacao extends Tela {
 	}
 
 	protected void desabilitaCampos() {
-		buttonAlterar.setEnabled(false);
+
 		comboBoxCliente.setEnabled(false);
 		comboBoxCodigo.setEnabled(true);
 		comboBoxTipoDeQuarto.setEnabled(false);
+		comboBoxReserva.setEnabled(false);
 		dateEntrada.setEnabled(false);
 		dateSaida.setEnabled(false);
 		buttonAlterar.setEnabled(false);
 		buttonExcluir.setEnabled(false);
 		buttonIncluir.setEnabled(false);
 		buttonCancelar.setEnabled(false);
-		
+		buttonConsultaReserva.setEnabled(false);
+		buttonConsultaCliente.setEnabled(false);
 		buttonNovo.setEnabled(true);
 		buttonConsulta.setEnabled(true);
 		buttonMostrar.setEnabled(true);
@@ -415,11 +434,29 @@ public class TelaCadastroLocacao extends Tela {
 		comboBoxTipoDeQuarto.getModel().setSelectedItem(null);
 		comboBoxReserva.getModel().setSelectedItem(null);
 		comboBoxCliente.getModel().setSelectedItem(null);
-		
+		setDataEntrada(null);
+		setDataSaida(null);
+
 	}
 	// Campos
 
-// Getter and Setter
+	// Getter and Setter
+	private void setLocacaoPorReserva() {
+		Reserva reserva = getReservaSelecionado();
+		if (reserva != null) {
+			setDataSaida(reserva.getDtSaidaSQL());
+			setDataEntrada(reserva.getDtEntradaSQL());
+			setSelectedComboBoxTipoDeQuarto(regraLocacao.selecionarTipoQuartoPorReserva(reserva));
+			lblNrQuarto.setText("Quarto: " + regraLocacao.selecionarQuartoPorReserva(reserva).toString());
+			comboBoxCliente.setEnabled(true);
+			comboBoxReserva.setEnabled(false);
+			comboBoxTipoDeQuarto.setEnabled(false);
+			dateEntrada.setEnabled(false);
+			dateSaida.setEnabled(false);
+			
+		}
+	}
+
 	public void setConsulta(Long id, ETipos tipo) {
 		if (tipo == ETipos.Locacao) {
 			regraLocacao.selecionarPorId(id);
@@ -431,7 +468,7 @@ public class TelaCadastroLocacao extends Tela {
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
-		}else if(tipo == ETipos.Reserva) {
+		} else if (tipo == ETipos.Reserva) {
 			try {
 				ReservaDAO r = new ReservaDAO();
 				setReservaSelecionado(r.selecionar(id));
@@ -479,10 +516,11 @@ public class TelaCadastroLocacao extends Tela {
 	public Locacao getLocacaoSelecionado() {
 		return ((Locacao) comboBoxCodigo.getSelectedItem());
 	}
-	
+
 	public Cliente getClienteSelecionado() {
 		return (Cliente) comboBoxCliente.getModel().getSelectedItem();
 	}
+
 	public void setClienteSelecionado(Cliente cliente) {
 		comboBoxCliente.getModel().setSelectedItem(cliente);
 	}
@@ -490,11 +528,12 @@ public class TelaCadastroLocacao extends Tela {
 	public void setReservaSelecionado(Reserva reserva) {
 		comboBoxReserva.getModel().setSelectedItem(reserva);
 	}
+
 	public Reserva getReservaSelecionado() {
 		return (Reserva) comboBoxReserva.getModel().getSelectedItem();
 	}
 
-	public TipoDeQuarto getReservaTipoDeQuarto() {
+	public TipoDeQuarto getTipoDeQuartoSelecionado() {
 		return ((TipoDeQuarto) comboBoxTipoDeQuarto.getSelectedItem());
 	}
 
@@ -505,8 +544,5 @@ public class TelaCadastroLocacao extends Tela {
 	public void setSelectedComboBoxCodigo(Locacao locacao) {
 		this.comboBoxCodigo.getModel().setSelectedItem(locacao);
 	}
-
-	// GETTER SETTER ITEM COMBOBOX
-
 }
 // Getter and Setter

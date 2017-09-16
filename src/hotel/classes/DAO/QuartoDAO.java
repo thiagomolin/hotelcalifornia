@@ -135,7 +135,7 @@ public class QuartoDAO extends DAO {
 			if (rs.next()) {
 				return parser(rs);
 			}else {
-				JOptionPane.showMessageDialog(null, "Eeeita, nao tem cuarto");
+				JOptionPane.showMessageDialog(null, "Sem quartos disponíveis");
 			}
 
 		} catch (SQLException e) {
