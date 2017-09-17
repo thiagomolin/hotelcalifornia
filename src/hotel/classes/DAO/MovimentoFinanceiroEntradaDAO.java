@@ -60,7 +60,7 @@ public class MovimentoFinanceiroEntradaDAO  extends DAO {
     }
 	
 	public ResultSet listar() throws SQLException, ClassNotFoundException {
-        String sqlQuery = "SELECT financeiro_entrada.id, usuario.ds_usuario, financeiro_entrada.nr_valor, financeiro_entrada.dt_lancamento " + 
+        String sqlQuery = "SELECT financeiro_entrada.id, financeiro_entrada.nr_valor, usuario.ds_usuario , financeiro_entrada.dt_lancamento " + 
         		"FROM financeiro_entrada " + 
         		"INNER JOIN usuario ON usuario.id = financeiro_entrada.fk_usuario";
 
@@ -104,8 +104,8 @@ public class MovimentoFinanceiroEntradaDAO  extends DAO {
 	public Vector<String> getCamposBDAnalitico() {
 		Vector<String> lista = new Vector<String>();
 		lista.add("ID");
-		lista.add("Usuário");
 		lista.add("Valor");
+		lista.add("Usuário");
 		lista.add("Data");
 
 		return lista;
@@ -113,8 +113,9 @@ public class MovimentoFinanceiroEntradaDAO  extends DAO {
 	
 	public Vector<String> getCamposBDSintetico() {
 		Vector<String> lista = new Vector<String>();
-		lista.add("ID");
 		lista.add("Valor");
+		lista.add("ID");
+		
 
 		return lista;
 	}
@@ -127,7 +128,7 @@ public class MovimentoFinanceiroEntradaDAO  extends DAO {
 	
 	public ResultSet listarPorDatasAnalitico(Date dataDe, Date dataAte) throws SQLException {
 		
-        String sqlQuery = "SELECT financeiro_entrada.id, usuario.ds_usuario, financeiro_entrada.nr_valor, financeiro_entrada.dt_lancamento " + 
+        String sqlQuery = "SELECT financeiro_entrada.id, financeiro_entrada.nr_valor, usuario.ds_usuario, financeiro_entrada.dt_lancamento " + 
         		"FROM financeiro_entrada  " + 
         		"INNER JOIN usuario ON usuario.id = financeiro_entrada.fk_usuario " + 
         		"WHERE financeiro_entrada.dt_lancamento <= ? AND financeiro_entrada.dt_lancamento >= ?";

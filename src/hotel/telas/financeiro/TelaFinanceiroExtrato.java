@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
@@ -155,12 +156,15 @@ public class TelaFinanceiroExtrato extends Tela {
 	public void mostrar() {
 		if (comboBoxTipo.getSelectedItem() == "Entradas") {
 			mostrarEntrada();
+			valorTotal();
 		}
 		else if (comboBoxTipo.getSelectedItem() == "Saídas") {
 			mostrarSaida();
+			valorTotal();
 		}
 		else {
 			mostrarTudo();
+			valorTotal();
 		}
 		
 	}
@@ -309,7 +313,15 @@ public class TelaFinanceiroExtrato extends Tela {
 		return tableModel;
 	}
 
-	
+	public void valorTotal() {
+		float soma = 0;
+		for (Vector<Object> lista : listaDados) {
+			soma += (float) lista.get(1);
+		}
+		
+		lblTotal.setText(String.format(Locale.ROOT, "%.2f", soma));
+	}
+
 	public void setConsulta(Long id, ETipo tipo) {
 
 	}

@@ -86,14 +86,6 @@ public class TelaPrincipal extends JFrame {
 		});
 		mnCadastro.add(mntmProduto);
 
-		JMenuItem mntmFuncionario = new JMenuItem("Funcionário");
-		mntmFuncionario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				criarTela(ETipo.Funcionario);
-			}
-		});
-		mnCadastro.add(mntmFuncionario);
-
 		JMenuItem mntmQuarto = new JMenuItem("Quarto");
 		mntmQuarto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

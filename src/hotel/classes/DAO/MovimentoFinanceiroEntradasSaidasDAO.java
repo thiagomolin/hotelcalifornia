@@ -35,7 +35,7 @@ public class MovimentoFinanceiroEntradasSaidasDAO extends DAO{
 	    }
 		
 	public ResultSet listarSintetico() throws SQLException, ClassNotFoundException {
-			String sqlQuery = "SELECT financeiro_entrada.nr_valor, financeiro_entrada.dt_lancamento AS data_l " + 
+			String sqlQuery = "SELECT financeiro_entrada.dt_lancamento AS data_l, financeiro_entrada.nr_valor " + 
 	        		"FROM financeiro_entrada " + 
 	        		"UNION ALL " + 
 	        		"SELECT financeiro_saida.nr_valor, financeiro_saida.dt_atual AS data_l " + 
@@ -65,8 +65,8 @@ public class MovimentoFinanceiroEntradasSaidasDAO extends DAO{
 		
 	public Vector<String> getCamposBDSintetico() {
 			Vector<String> lista = new Vector<String>();
-			lista.add("Valor");
 			lista.add("Data");
+			lista.add("Valor");
 
 			return lista;
 		}
@@ -104,7 +104,7 @@ public class MovimentoFinanceiroEntradasSaidasDAO extends DAO{
 	
 	public ResultSet listarPorDatasSintetico(Date dataDe, Date dataAte) throws SQLException {
 			
-	        String sqlQuery = "SELECT financeiro_entrada.nr_valor, financeiro_entrada.dt_lancamento AS data_l " + 
+	        String sqlQuery = "SELECT financeiro_entrada.dt_lancamento AS data_l, financeiro_entrada.nr_valor " + 
 	        		"FROM financeiro_entrada " + 
 	        		"UNION ALL " + 
 	        		"SELECT financeiro_saida.nr_valor, financeiro_saida.dt_atual AS data_l " + 
