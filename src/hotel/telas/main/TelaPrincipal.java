@@ -22,6 +22,7 @@ import hotel.telas.consulta.TelaConsultaEstoque;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.estoque.TelaAcertoEstoque;
 import hotel.telas.estoque.TelaEntradaEstoque;
+import hotel.telas.financeiro.TelaFinanceiroExtrato;
 import hotel.telas.financeiro.TelaFinanceiroFecharConta;
 import hotel.telas.financeiro.TelaFinanceiroLancamento;
 
@@ -201,6 +202,11 @@ public class TelaPrincipal extends JFrame {
 		mnFinanceiro.add(mntmNovoLancamento);
 
 		JMenuItem mntmExtrato = new JMenuItem("Extrato");
+		mntmExtrato.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				criarTela(ETipo.Extrato);
+			}
+		});
 		mnFinanceiro.add(mntmExtrato);
 		getContentPane().setLayout(null);
 	}
@@ -258,6 +264,10 @@ public class TelaPrincipal extends JFrame {
 			new TelaConsultaEstoque().setVisible(true);;
 		}else if (tipoTela == ETipo.Consulta) {
 			new TelaConsultaGeral().setVisible(true);
+		}else if(tipoTela == ETipo.Extrato) {
+			TelaFinanceiroExtrato tela = new TelaFinanceiroExtrato(this);
+			tabbedPane.addTab("Extrato Financeiro", null, tela, null);
+			tabbedPane.setSelectedComponent(tela);
 		}
 	}
 	// CRIAÇÃO DE TELAS

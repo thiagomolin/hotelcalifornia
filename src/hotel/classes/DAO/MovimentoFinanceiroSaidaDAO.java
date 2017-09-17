@@ -5,10 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
 import hotel.classes.MovimentoFinanceiroSaida;
+import hotel.util.UtilDatas;
 
 public class MovimentoFinanceiroSaidaDAO  extends DAO {
 
@@ -58,7 +60,9 @@ public class MovimentoFinanceiroSaidaDAO  extends DAO {
     }
 	
 	public ResultSet listar() throws SQLException, ClassNotFoundException {
-        String sqlQuery = "SELECT * FROM financeiro_saida ORDER BY id DESC";
+        String sqlQuery = "SELECT financeiro_saida.id, usuario.ds_usuario, financeiro_saida.nr_valor, financeiro_saida.dt_atual " + 
+        		"FROM financeiro_saida " + 
+        		"INNER JOIN usuario ON usuario.id = financeiro_saida.fk_usuario";
 
         try {
             PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);			
@@ -69,6 +73,21 @@ public class MovimentoFinanceiroSaidaDAO  extends DAO {
             throw e;
         }
     }
+	
+	public ResultSet listarSintetico() throws SQLException, ClassNotFoundException {
+		String sqlQuery = "SELECT financeiro_saida.id, usuario.ds_usuario, financeiro_saida.nr_valor, financeiro_saida.dt_atual " + 
+        		"FROM financeiro_saida " + 
+        		"INNER JOIN usuario ON usuario.id = financeiro_saida.fk_usuario";
+
+		try {
+			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+			ResultSet rs = stmt.executeQuery();
+
+			return rs;
+		} catch (SQLException e) {
+			throw e;
+		}
+	}
 
 	private MovimentoFinanceiroSaida parser(ResultSet resultSet) throws SQLException {
 		LocalDate dtAtual = resultSet.getDate("dt_atual").toLocalDate();
@@ -81,10 +100,22 @@ public class MovimentoFinanceiroSaidaDAO  extends DAO {
 		return r;
 	}
 
-	@Override
 	public Vector<String> getCamposBDAnalitico() {
-		// TODO Auto-generated method stub
-		return null;
+		Vector<String> lista = new Vector<String>();
+		lista.add("ID");
+		lista.add("Usuário");
+		lista.add("Valor");
+		lista.add("Data");
+
+		return lista;
+	}
+	
+	public Vector<String> getCamposBDSintetico() {
+		Vector<String> lista = new Vector<String>();
+		lista.add("ID");
+		lista.add("Valor");
+
+		return lista;
 	}
 
 	@Override
@@ -93,6 +124,49 @@ public class MovimentoFinanceiroSaidaDAO  extends DAO {
 		return null;
 	}
 	
+public ResultSet listarPorDatasAnalitico(Date dataDe, Date dataAte) throws SQLException {
+		
+        String sqlQuery = "SELECT financeiro_saida.id, usuario.ds_usuario, financeiro_saida.nr_valor, financeiro_saida.dt_atual " + 
+        		"FROM financeiro_saida " + 
+        		"INNER JOIN usuario ON usuario.id = financeiro_saida.fk_usuario "+ 
+        		"WHERE financeiro_saida.dt_atual <= ? AND financeiro_saida.dt_atual >= ?";
+        		
+
+        try {
+			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+			stmt.setDate(1, UtilDatas.dateToSQLDate(dataAte));
+			stmt.setDate(2, UtilDatas.dateToSQLDate(dataDe));
+
+			
+            ResultSet rs = stmt.executeQuery();
+
+            return rs;
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+	public ResultSet listarPorDatasSintetico(Date dataDe, Date dataAte) throws SQLException {
+		
+        String sqlQuery = "SELECT financeiro_saida.id, financeiro_saida.nr_valor " + 
+        		"FROM financeiro_saida " + 
+        		"INNER JOIN usuario ON usuario.id = financeiro_saida.fk_usuario " + 
+        		"WHERE financeiro_saida.dt_atual <= ? AND financeiro_saida.dt_atual >= ?";
+        		
+
+        try {
+			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+			stmt.setDate(1, UtilDatas.dateToSQLDate(dataAte));
+			stmt.setDate(2, UtilDatas.dateToSQLDate(dataDe));
+
+			
+            ResultSet rs = stmt.executeQuery();
+
+            return rs;
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+		
 	
 	
 	
