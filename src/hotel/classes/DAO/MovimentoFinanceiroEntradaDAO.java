@@ -60,7 +60,7 @@ public class MovimentoFinanceiroEntradaDAO  extends DAO {
     }
 	
 	public ResultSet listar() throws SQLException, ClassNotFoundException {
-        String sqlQuery = "SELECT financeiro_entrada.id, financeiro_entrada.nr_valor, usuario.ds_usuario , financeiro_entrada.dt_lancamento " + 
+        String sqlQuery = "SELECT  usuario.ds_usuario, financeiro_entrada.nr_valor,financeiro_entrada.dt_lancamento " + 
         		"FROM financeiro_entrada " + 
         		"INNER JOIN usuario ON usuario.id = financeiro_entrada.fk_usuario";
 
@@ -75,7 +75,7 @@ public class MovimentoFinanceiroEntradaDAO  extends DAO {
     }
 	
 	public ResultSet listarSintetico() throws SQLException, ClassNotFoundException {
-		String sqlQuery = "SELECT financeiro_entrada.id, financeiro_entrada.nr_valor " + 
+		String sqlQuery = "SELECT financeiro_entrada.dt_lancamento, financeiro_entrada.nr_valor " + 
         		"FROM financeiro_entrada " + 
         		"INNER JOIN usuario ON usuario.id = financeiro_entrada.fk_usuario";
 
@@ -103,9 +103,8 @@ public class MovimentoFinanceiroEntradaDAO  extends DAO {
 	@Override
 	public Vector<String> getCamposBDAnalitico() {
 		Vector<String> lista = new Vector<String>();
-		lista.add("ID");
-		lista.add("Valor");
 		lista.add("Usuário");
+		lista.add("Valor");
 		lista.add("Data");
 
 		return lista;
@@ -113,8 +112,8 @@ public class MovimentoFinanceiroEntradaDAO  extends DAO {
 	
 	public Vector<String> getCamposBDSintetico() {
 		Vector<String> lista = new Vector<String>();
+		lista.add("Data");
 		lista.add("Valor");
-		lista.add("ID");
 		
 
 		return lista;
@@ -128,7 +127,7 @@ public class MovimentoFinanceiroEntradaDAO  extends DAO {
 	
 	public ResultSet listarPorDatasAnalitico(Date dataDe, Date dataAte) throws SQLException {
 		
-        String sqlQuery = "SELECT financeiro_entrada.id, financeiro_entrada.nr_valor, usuario.ds_usuario, financeiro_entrada.dt_lancamento " + 
+        String sqlQuery = "SELECT usuario.ds_usuario, financeiro_entrada.nr_valor, financeiro_entrada.dt_lancamento " + 
         		"FROM financeiro_entrada  " + 
         		"INNER JOIN usuario ON usuario.id = financeiro_entrada.fk_usuario " + 
         		"WHERE financeiro_entrada.dt_lancamento <= ? AND financeiro_entrada.dt_lancamento >= ?";
@@ -149,9 +148,8 @@ public class MovimentoFinanceiroEntradaDAO  extends DAO {
     }
 	public ResultSet listarPorDatasSintetico(Date dataDe, Date dataAte) throws SQLException {
 		
-        String sqlQuery = "SELECT financeiro_entrada.id, financeiro_entrada.nr_valor" + 
+        String sqlQuery = "SELECT financeiro_entrada.dt_lancamento, financeiro_entrada.nr_valor " + 
         		"FROM financeiro_entrada " + 
-        		"INNER JOIN usuario ON usuario.id = financeiro_entrada.fk_usuario " + 
         		"WHERE financeiro_entrada.dt_lancamento <= ? AND financeiro_entrada.dt_lancamento >= ?";
         		
 

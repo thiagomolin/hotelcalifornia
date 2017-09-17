@@ -60,7 +60,7 @@ public class MovimentoFinanceiroSaidaDAO  extends DAO {
     }
 	
 	public ResultSet listar() throws SQLException, ClassNotFoundException {
-        String sqlQuery = "SELECT financeiro_saida.id, financeiro_saida.nr_valor, usuario.ds_usuario, financeiro_saida.dt_atual " + 
+        String sqlQuery = "SELECT usuario.ds_usuario, financeiro_saida.nr_valor, financeiro_saida.dt_atual " + 
         		"FROM financeiro_saida " + 
         		"INNER JOIN usuario ON usuario.id = financeiro_saida.fk_usuario";
 
@@ -75,7 +75,7 @@ public class MovimentoFinanceiroSaidaDAO  extends DAO {
     }
 	
 	public ResultSet listarSintetico() throws SQLException, ClassNotFoundException {
-		String sqlQuery = "SELECT financeiro_saida.id, financeiro_saida.nr_valor, usuario.ds_usuario, financeiro_saida.dt_atual " + 
+		String sqlQuery = "SELECT financeiro_saida.dt_atual, financeiro_saida.nr_valor " + 
         		"FROM financeiro_saida " + 
         		"INNER JOIN usuario ON usuario.id = financeiro_saida.fk_usuario";
 
@@ -100,33 +100,9 @@ public class MovimentoFinanceiroSaidaDAO  extends DAO {
 		return r;
 	}
 
-	public Vector<String> getCamposBDAnalitico() {
-		Vector<String> lista = new Vector<String>();
-		lista.add("ID");
-		lista.add("Valor");
-		lista.add("Usuário");
-		lista.add("Data");
-
-		return lista;
-	}
-	
-	public Vector<String> getCamposBDSintetico() {
-		Vector<String> lista = new Vector<String>();
-		lista.add("ID");
-		lista.add("Valor");
-
-		return lista;
-	}
-
-	@Override
-	public ResultSet listarFiltro(String campo, String busca) throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	public ResultSet listarPorDatasAnalitico(Date dataDe, Date dataAte) throws SQLException {
 		
-        String sqlQuery = "SELECT financeiro_saida.id, financeiro_saida.nr_valor ,usuario.ds_usuario, financeiro_saida.dt_atual " + 
+        String sqlQuery = "SELECT usuario.ds_usuario, financeiro_saida.nr_valor ,financeiro_saida.dt_atual " + 
         		"FROM financeiro_saida " + 
         		"INNER JOIN usuario ON usuario.id = financeiro_saida.fk_usuario "+ 
         		"WHERE financeiro_saida.dt_atual <= ? AND financeiro_saida.dt_atual >= ?";
@@ -145,9 +121,10 @@ public class MovimentoFinanceiroSaidaDAO  extends DAO {
             throw e;
         }
     }
+	
 	public ResultSet listarPorDatasSintetico(Date dataDe, Date dataAte) throws SQLException {
 		
-        String sqlQuery = "SELECT financeiro_saida.id, financeiro_saida.nr_valor " + 
+        String sqlQuery = "SELECT financeiro_saida.dt_atual, financeiro_saida.nr_valor " + 
         		"FROM financeiro_saida " + 
         		"INNER JOIN usuario ON usuario.id = financeiro_saida.fk_usuario " + 
         		"WHERE financeiro_saida.dt_atual <= ? AND financeiro_saida.dt_atual >= ?";
@@ -167,6 +144,31 @@ public class MovimentoFinanceiroSaidaDAO  extends DAO {
         }
     }
 		
+	public Vector<String> getCamposBDAnalitico() {
+		Vector<String> lista = new Vector<String>();
+		lista.add("Usuário");
+		lista.add("Valor");
+		lista.add("Data");
+
+		return lista;
+	}
+	
+	public Vector<String> getCamposBDSintetico() {
+		Vector<String> lista = new Vector<String>();
+		lista.add("Data");
+		lista.add("Valor");
+
+		return lista;
+	}
+
+	@Override
+	public ResultSet listarFiltro(String campo, String busca) throws SQLException, ClassNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
 	
 	
 	
