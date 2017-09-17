@@ -27,7 +27,7 @@ import hotel.telas.consulta.ETipo;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.main.TelaPrincipal;
 import hotel.util.UtilCombobox;
-import hotel.util.UtilCpf;
+import hotel.util.UtilVerificadores;
 import hotel.util.UtilDatas;
 
 public class TelaCadastroReserva extends Tela {
@@ -310,7 +310,7 @@ public class TelaCadastroReserva extends Tela {
 	private void inicializarComboBoxCodigo() {
 		try {
 			ReservaDAO cl = new ReservaDAO();
-			List<Reserva> reservas = cl.getLista();
+			List<Reserva> reservas = cl.getListaAtiva();
 			comboBoxCodigo.setModel(new DefaultComboBoxModel<Object>(reservas.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
 			ex.printStackTrace();
@@ -379,6 +379,8 @@ public class TelaCadastroReserva extends Tela {
 		buttonIncluir.setEnabled(false);
 		buttonCancelar.setEnabled(false);
 		comboBoxCodigo.setEnabled(true);
+		comboBoxStatus.setEnabled(false);
+		comboBoxTipoQuarto.setEnabled(false);
 		buttonNovo.setEnabled(true);
 		buttonConsulta.setEnabled(true);
 		buttonMostrar.setEnabled(true);
@@ -389,10 +391,6 @@ public class TelaCadastroReserva extends Tela {
 		comboBoxCodigo.setSelectedItem(null);
 	}
 
-	public void setConsulta(Long id) {
-		regraReserva.selecionarPorId(id);
-		habilitaCamposEditar();
-	}
 	// Métodos de manipulação de componentes
 	
 	
@@ -403,13 +401,13 @@ public class TelaCadastroReserva extends Tela {
 		LocalDate saida = UtilDatas.dateToLocalDate(dateSaida.getDate());
 		boolean valido = true;
 		valido = (textFieldCliente.getText().isEmpty() && textFieldCpf.getText().isEmpty()) ? false : valido;
-		valido = (!textFieldCpf.getText().isEmpty() && !UtilCpf.isCpfValido(textFieldCpf.getText())) ? false : valido;
+		valido = (!textFieldCpf.getText().isEmpty() && !UtilVerificadores.isCpfValido(textFieldCpf.getText())) ? false : valido;
 		valido = (getSelectedComboBoxStatus() == null) ? false : valido;
 		valido = (dateEntrada.getDate() == null) ? false : valido;
 		valido = (dateSaida.getDate() == null) ? false : valido;
 		valido = (entrada.equals(saida)) ? false : valido;
 		valido = (entrada.isAfter(saida)) ? false : valido;
-		valido = (entrada.isBefore(LocalDate.now()) && entrada.equals(LocalDate.now())) ? false : valido;
+		valido = (entrada.isBefore(LocalDate.now())) ? false : valido;
 		return valido;
 	}
 	// Validação de formulário
@@ -476,6 +474,7 @@ public class TelaCadastroReserva extends Tela {
 	// GETTERS AND SETTERS
 
 	public void setConsulta(Long id, ETipo tipo) {
-
+		regraReserva.selecionarPorId(id);
+		habilitaCamposEditar();
 	}
 }

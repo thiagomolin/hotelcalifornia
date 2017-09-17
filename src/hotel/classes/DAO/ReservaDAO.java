@@ -148,6 +148,25 @@ public class ReservaDAO extends DAO {
 		}
 	}
 	
+	public List<Reserva> getListaAtiva() throws SQLException, ClassNotFoundException {
+		String sqlQuery = "SELECT * FROM reserva WHERE fk_status != 2 ORDER BY id";
+
+		try {
+			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+			ResultSet rs = stmt.executeQuery();
+
+			List<Reserva> reserva = new ArrayList<>();
+
+			while (rs.next()) {
+				reserva.add(parser(rs));
+			}
+
+			return reserva;
+		} catch (SQLException e) {
+			throw e;
+		}
+	}
+	
 	private Reserva parser(ResultSet resultSet) throws SQLException {
 		LocalDate entrada = resultSet.getDate("dt_entrada").toLocalDate();
 		LocalDate saida = resultSet.getDate("dt_saida").toLocalDate();

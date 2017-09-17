@@ -272,8 +272,8 @@ public class TelaCadastroLocacao extends Tela {
 
 	protected void mostrar() {
 		if (comboBoxCodigo.getSelectedItem() == null) {
-			JOptionPane.showMessageDialog(null, "Selecione uma Locação");
-		} else {
+			JOptionPane.showMessageDialog(null, "Selecione uma Locação ou pressione \"Novo\"");
+		} else {			
 			regraLocacao.mostrarLocacao();
 			habilitaCamposEditar();
 		}
@@ -440,6 +440,7 @@ public class TelaCadastroLocacao extends Tela {
 		comboBoxCliente.getModel().setSelectedItem(null);
 		setDataEntrada(null);
 		setDataSaida(null);
+		lblNrQuarto.setText("");
 
 	}
 	// Campos
@@ -498,7 +499,7 @@ public class TelaCadastroLocacao extends Tela {
 		valido = (dateSaida.getDate() == null) ? false : valido;
 		valido = (entrada.equals(saida)) ? false : valido;
 		valido = (entrada.isAfter(saida)) ? false : valido;
-		valido = (entrada.isBefore(LocalDate.now()) && entrada.equals(LocalDate.now())) ? false : valido;
+		valido = (entrada.isBefore(LocalDate.now())) ? false : valido;
 		return valido;
 	}
 	// Validação de formulário
@@ -552,6 +553,14 @@ public class TelaCadastroLocacao extends Tela {
 
 	public void setSelectedComboBoxCodigo(Locacao locacao) {
 		this.comboBoxCodigo.getModel().setSelectedItem(locacao);
+	}
+
+	public JLabel getLblNrQuarto() {
+		return lblNrQuarto;
+	}
+
+	public void setLblNrQuarto(String string) {
+		this.lblNrQuarto.setText(string);
 	}
 }
 // Getter and Setter

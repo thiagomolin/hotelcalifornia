@@ -89,6 +89,11 @@ public class TelaFinanceiroFecharConta extends Tela {
 		panel.add(btnProcessar);
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelar();
+			}
+		});
 		btnCancelar.setBounds(29, 217, 89, 23);
 		panel.add(btnCancelar);
 
@@ -172,6 +177,10 @@ public class TelaFinanceiroFecharConta extends Tela {
 
 	}
 
+	protected void cancelar() {
+		limparCampos();		
+	}
+
 	protected void consultar(ETipo tipo) {
 		TelaConsultaGeral telaConsulta = new TelaConsultaGeral(tipo, this);
 		telaConsulta.setVisible(true);
@@ -190,8 +199,7 @@ public class TelaFinanceiroFecharConta extends Tela {
 			listaColunas = lcdao.getCamposBD();
 			table.setModel(construirTableModel());
 
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+		} catch (ClassNotFoundException | SQLException | NullPointerException e) {
 		}
 
 	}
@@ -252,20 +260,22 @@ public class TelaFinanceiroFecharConta extends Tela {
 	}
 
 	protected void processar() {
-		int result = JOptionPane.showConfirmDialog(null, "Confirmar o pagamento e finalizar locação?", "Confirmar",
-				JOptionPane.OK_CANCEL_OPTION);
-		if (JOptionPane.OK_OPTION == result) {
+		if (listaDados.size() > 0) {
+			int result = JOptionPane.showConfirmDialog(null, "Confirmar o pagamento e finalizar locação?", "Confirmar",
+					JOptionPane.OK_CANCEL_OPTION);
+			if (JOptionPane.OK_OPTION == result) {
 
-			long fk_locacao = getLocacaoSelecionado().getId();
+				long fk_locacao = getLocacaoSelecionado().getId();
 
-			gerarFinanceiroEntrada(fk_locacao);
-			finalizarLocacao(fk_locacao);
-			gerarMovimentoEstoque(fk_locacao);
+				gerarFinanceiroEntrada(fk_locacao);
+				finalizarLocacao(fk_locacao);
+				gerarMovimentoEstoque(fk_locacao);
 
-			JOptionPane.showMessageDialog(null, "Sucesso! Reserva finalizada. Lançamentos de estoque gerados");
+				JOptionPane.showMessageDialog(null, "Sucesso! Locação finalizada. Lançamentos de estoque gerados");
 
-			limparCampos();
+				limparCampos();
 
+			} 
 		}
 	}
 
@@ -351,7 +361,16 @@ public class TelaFinanceiroFecharConta extends Tela {
 
 	@Override
 	public void setConsulta(Long id, ETipo tipo) {
-		// TODO Auto-generated method stub
-
+		try {
+			LocacaoDAO p = new LocacaoDAO();
+			Locacao l = p.selecionar(id);
+			if(l.getFkStatus() != 1) {
+				JOptionPane.showMessageDialog(null, "LOCAÇÃO NÃO ATIVA");
+			}else {
+				comboBoxCodigo.getModel().setSelectedItem(l);				
+			}
+			
+		} catch (ClassNotFoundException | SQLException e) {
+		}
 	}
 }

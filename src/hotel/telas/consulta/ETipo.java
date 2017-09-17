@@ -3,7 +3,6 @@ package hotel.telas.consulta;
 public enum ETipo {	
 	Cliente,
 	Fornecedor,
-	Funcionario,
 	Produto,
 	Quarto,
 	Consulta,

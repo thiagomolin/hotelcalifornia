@@ -35,7 +35,6 @@ import hotel.classes.DAO.ClienteDAO;
 import hotel.classes.DAO.DAO;
 import hotel.classes.DAO.FornecedorDAO;
 import hotel.classes.DAO.LocacaoDAO;
-import hotel.classes.DAO.MovimentoEstoqueDAO;
 import hotel.classes.DAO.ProdutoDAO;
 import hotel.classes.DAO.QuartoDAO;
 import hotel.classes.DAO.ReservaDAO;
@@ -110,7 +109,7 @@ public class TelaConsultaGeral extends JFrame {
 			}
 		});
 		comboBoxTipo.setModel(new DefaultComboBoxModel<ETipo>(new ETipo[] { ETipo.Cliente, ETipo.Fornecedor,
-				ETipo.Funcionario, ETipo.Reserva, ETipo.Locacao, ETipo.Produto, ETipo.Quarto, ETipo.Estoque }));
+				ETipo.Reserva, ETipo.Locacao, ETipo.Produto, ETipo.Quarto}));
 		comboBoxTipo.setBounds(45, 11, 183, 20);
 		panel_1.add(comboBoxTipo);
 
@@ -130,9 +129,9 @@ public class TelaConsultaGeral extends JFrame {
 		lblDe.setBounds(21, 93, 46, 14);
 		panel_1.add(lblDe);
 
-		JLabel lblAt = new JLabel("Até");
-		lblAt.setBounds(225, 93, 30, 14);
-		panel_1.add(lblAt);
+		JLabel lblAte = new JLabel("Até");
+		lblAte.setBounds(225, 93, 30, 14);
+		panel_1.add(lblAte);
 
 		dateChooserAte = new JDateChooser();
 		dateChooserAte.setBounds(265, 93, 87, 20);
@@ -375,6 +374,7 @@ public class TelaConsultaGeral extends JFrame {
 			dateChooserDe.setEnabled(false);
 			dateChooserAte.setEnabled(false);
 			textFieldPalavraChave.setEnabled(false);
+			textFieldPalavraChave.setText("");
 			comboBoxCampo.setEnabled(false);
 			comboBoxTipo.getModel().setSelectedItem(ETipo.Quarto);
 			rdbtnAnalitico.setVisible(false);
@@ -408,21 +408,7 @@ public class TelaConsultaGeral extends JFrame {
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
-		} else if (tipoSelecionado == ETipo.Estoque) {
-			panel.setVisible(false);
-			comboBoxTipo.getModel().setSelectedItem(ETipo.Estoque);
-			textFieldPalavraChave.setEnabled(true);
-			comboBoxCampo.setEnabled(true);
-			rdbtnAnalitico.setVisible(true);
-			rdbtnSintetico.setVisible(true);
-			try {
-				dao = new MovimentoEstoqueDAO();
-				comboBoxCampo.setModel(new DefaultComboBoxModel<Object>(Locacao.getCampos().toArray()));
-			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
+		} 
 	}
 
 

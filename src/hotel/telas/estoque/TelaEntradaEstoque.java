@@ -10,6 +10,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -63,6 +64,11 @@ public class TelaEntradaEstoque extends Tela {
 		panel.add(btnProcessar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cancelar();
+			}
+		});
 		btnCancelar.setBounds(29, 100, 89, 23);
 		panel.add(btnCancelar);
 		
@@ -81,13 +87,13 @@ public class TelaEntradaEstoque extends Tela {
 		panel_1.setBounds(0, 0, 380, 65);
 		getContentPane().add(panel_1);
 		
-		JLabel lblNome = new JLabel("Produto");
-		lblNome.setBounds(69, 87, 63, 14);
-		getContentPane().add(lblNome);
+		JLabel lblProduto = new JLabel("Produto");
+		lblProduto.setBounds(69, 87, 63, 14);
+		getContentPane().add(lblProduto);
 		
-		JLabel lblCpf = new JLabel("Quantidade");
-		lblCpf.setBounds(69, 123, 63, 14);
-		getContentPane().add(lblCpf);
+		JLabel lblQuantidade = new JLabel("Quantidade");
+		lblQuantidade.setBounds(69, 123, 63, 14);
+		getContentPane().add(lblQuantidade);
 		
 		comboBoxProduto = new JComboBox<Object>();
 		comboBoxProduto.setBounds(159, 88, 92, 20);
@@ -109,14 +115,33 @@ public class TelaEntradaEstoque extends Tela {
 
 	}
 
+	protected void cancelar() {
+		resetarCampos();	
+	}
+
 	protected void processar() {
 		if (formularioValido()) {
 			gerarEstoque();
+			JOptionPane.showMessageDialog(null, "Entrada de estoque processada com sucesso!");
+			resetarCampos();
+		}else {
+			JOptionPane.showMessageDialog(null, "Por favor insira dados válidos para a entrada de estoque");
 		}
 	}
 	
+	private void resetarCampos() {
+		comboBoxProduto.getModel().setSelectedItem(null);
+		textFieldQuantidade.setText("");		
+	}
+
 	private boolean formularioValido() {
-		// TODO Auto-generated method stub
+		try {
+			if (getSelectedComboBoxProduto() == null || textFieldQuantidade.getText().isEmpty()) {
+				return false;
+			}
+		} catch (Exception e) {
+			return false;
+		}
 		return true;
 	}
 
@@ -145,7 +170,7 @@ public class TelaEntradaEstoque extends Tela {
 	private void gerarFinanceiro(float total) {
 		long fkProduto = getSelectedComboBoxProduto().getId();
 		long fkUsuario = telaPrincipal.getUsuarioLogado();
-		float nrValor = total;
+		float nrValor = -total;
 		LocalDate dtAtual = LocalDate.now();
 		
 		MovimentoFinanceiroSaida mvmts = new MovimentoFinanceiroSaida(fkProduto, fkUsuario, nrValor, dtAtual);

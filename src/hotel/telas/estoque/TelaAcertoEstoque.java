@@ -10,6 +10,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -63,6 +64,11 @@ public class TelaAcertoEstoque extends Tela {
 		panel.add(btnProcessar);
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelar();
+			}
+		});
 		btnCancelar.setBounds(29, 100, 89, 23);
 		panel.add(btnCancelar);
 
@@ -93,17 +99,17 @@ public class TelaAcertoEstoque extends Tela {
 		comboBoxTipoDaMovimentacao.setModel(new DefaultComboBoxModel<>(tipos));
 		panel_1.add(comboBoxTipoDaMovimentacao);
 
-		JLabel labelAcerto = new JLabel("Tipo do mov.");
-		labelAcerto.setBounds(25, 37, 102, 14);
-		panel_1.add(labelAcerto);
+		JLabel lblTipoMovimento = new JLabel("Tipo do mov.");
+		lblTipoMovimento.setBounds(25, 37, 102, 14);
+		panel_1.add(lblTipoMovimento);
 
-		JLabel lblNome = new JLabel("Produto");
-		lblNome.setBounds(69, 87, 63, 14);
-		getContentPane().add(lblNome);
+		JLabel lblProduto = new JLabel("Produto");
+		lblProduto.setBounds(69, 87, 63, 14);
+		getContentPane().add(lblProduto);
 
-		JLabel lblCpf = new JLabel("Quantidade");
-		lblCpf.setBounds(69, 123, 63, 14);
-		getContentPane().add(lblCpf);
+		JLabel lblQuantidade = new JLabel("Quantidade");
+		lblQuantidade.setBounds(69, 123, 63, 14);
+		getContentPane().add(lblQuantidade);
 
 		comboBoxProduto = new JComboBox<Object>();
 		comboBoxProduto.setBounds(159, 88, 92, 20);
@@ -125,14 +131,33 @@ public class TelaAcertoEstoque extends Tela {
 
 	}
 
+	protected void cancelar() {
+		resetarCampos();	
+	}
+
 	protected void processar() {
 		if (formularioValido()) {
 			gerarEstoque();
+			JOptionPane.showMessageDialog(null, "Movimento de estoque processado com sucesso!");
+			resetarCampos();
+		}else {
+			JOptionPane.showMessageDialog(null, "Por favor insira dados válidos para o movimento de estoque");
 		}
+	}
+	
+	private void resetarCampos() {
+		comboBoxProduto.getModel().setSelectedItem(null);
+		textFieldQuantidade.setText("");		
 	}
 
 	private boolean formularioValido() {
-		// TODO Auto-generated method stub
+		try {
+			if (getSelectedComboBoxProduto() == null || textFieldQuantidade.getText().isEmpty()) {
+				return false;
+			}
+		} catch (Exception e) {
+			return false;
+		}
 		return true;
 	}
 
