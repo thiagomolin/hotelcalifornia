@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Locale;
 import java.util.Vector;
 
@@ -12,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,6 +28,7 @@ import hotel.classes.DAO.MovimentoFinanceiroSaidaDAO;
 import hotel.telas.cadastro.Tela;
 import hotel.telas.consulta.ETipo;
 import hotel.telas.main.TelaPrincipal;
+import hotel.util.UtilDatas;
 import hotel.util.UtilVector;
 
 public class TelaFinanceiroExtrato extends Tela {
@@ -148,27 +151,50 @@ public class TelaFinanceiroExtrato extends Tela {
 	}
 
 	private void cancelar() {
+		limpaCampos();
+	}
+	public void limpaCampos() {
+		chckbxSintetico.setSelected(false);
 		dataAte.setDate(null);
 		dataDe.setDate(null);
 		lblTotal.setText("");
+		DefaultTableModel tableModel = new DefaultTableModel();
+		table.setModel(tableModel);
 	}
-
 	public void mostrar() {
-		if (comboBoxTipo.getSelectedItem() == "Entradas") {
-			mostrarEntrada();
-			valorTotal();
+		if(isFormularioValido()) {
+			if (comboBoxTipo.getSelectedItem() == "Entradas") {
+				mostrarEntrada();
+				valorTotal();
+			}
+			else if (comboBoxTipo.getSelectedItem() == "Saídas") {
+				mostrarSaida();
+				valorTotal();
+			}
+			else {
+				mostrarTudo();
+				valorTotal();
+			}
+		}else {
+			limpaCampos();
+			JOptionPane.showMessageDialog(null, "Confira as datas!!");
 		}
-		else if (comboBoxTipo.getSelectedItem() == "Saídas") {
-			mostrarSaida();
-			valorTotal();
-		}
-		else {
-			mostrarTudo();
-			valorTotal();
-		}
+
 		
 	}
-
+	
+	public boolean isFormularioValido() {
+		
+		boolean valida = true;
+		valida = (dataAte.getDate() != null && dataDe.getDate() == null)? false:valida;
+		valida = (dataAte.getDate() == null && dataDe.getDate() != null)?false: valida;
+		if(dataDe.getDate() != null && dataAte.getDate() != null) {
+			LocalDate ate = UtilDatas.dateToLocalDate(dataAte.getDate());
+			LocalDate de = UtilDatas.dateToLocalDate(dataDe.getDate());
+			valida =(ate.isBefore(de)) ? false : valida;
+		}
+		return valida;
+	}
 	public void mostrarEntrada() {
 		if (!chckbxSintetico.isSelected()) {
 			if(dataDe.getDate() == null && dataAte.getDate() == null) {

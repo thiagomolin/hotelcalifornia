@@ -109,7 +109,7 @@ public class MovimentoFinanceiroEntradasSaidasDAO extends DAO{
 	        		"FROM financeiro_entrada " +
 	        		"WHERE financeiro_entrada.dt_lancamento <= ? AND financeiro_entrada.dt_lancamento >= ? " +
 	        		"UNION ALL " + 
-	        		"SELECT financeiro_saida.nr_valor, financeiro_saida.dt_atual AS data_l " + 
+	        		"SELECT financeiro_saida.dt_atual AS data_l, financeiro_saida.nr_valor " + 
 	        		"FROM financeiro_saida " + 
 	        		"WHERE financeiro_saida.dt_atual <= ? AND financeiro_saida.dt_atual >= ? " +  
 	        		"ORDER BY data_l";
