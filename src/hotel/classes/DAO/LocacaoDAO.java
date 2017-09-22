@@ -5,10 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
 import hotel.classes.Locacao;
+import hotel.util.UtilDatas;
 
 public class LocacaoDAO extends DAO {
 
@@ -128,6 +130,30 @@ public class LocacaoDAO extends DAO {
 		}
 	}
 
+	public ResultSet listarPorDatas(Date dataDe, Date dataAte) throws SQLException {
+		
+        String sqlQuery = "SELECT locacao.id, cliente.nm_cliente, quarto.nr_quarto, locacao.dt_entrada, locacao.dt_saida, status.ds_status "
+				+ "FROM locacao "
+				+ "INNER JOIN cliente ON cliente.id = locacao.fk_cliente "
+				+ "INNER JOIN quarto ON quarto.id = locacao.fk_quarto "
+				+ "INNER JOIN status ON status.id = locacao.fk_status "
+        		+	"WHERE locacao.dt_entrada >= ? AND locacao.dt_saida <= ?";
+        		
+
+        try {
+			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+			stmt.setDate(1, UtilDatas.dateToSQLDate(dataDe));
+			stmt.setDate(2, UtilDatas.dateToSQLDate(dataAte));
+
+			
+            ResultSet rs = stmt.executeQuery();
+
+            return rs;
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+	
 	public List<Locacao> getLista() throws SQLException, ClassNotFoundException {
 		String sqlQuery = "SELECT * FROM locacao ORDER BY id";
 

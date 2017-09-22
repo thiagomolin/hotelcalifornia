@@ -5,10 +5,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import hotel.classes.Locacao;
 import hotel.classes.Reserva;
+import hotel.util.UtilDatas;
 
 public class ReservaDAO extends DAO {
 
@@ -112,6 +115,29 @@ public class ReservaDAO extends DAO {
 		}
 	}
 	
+	public ResultSet listarPorDatas(Date dataDe, Date dataAte) throws SQLException {
+		
+        String sqlQuery = "SELECT reserva.id, nm_cliente, nr_cpf, quarto.nr_quarto, dt_entrada, dt_saida, status.ds_status "
+				+"FROM reserva "
+				+"INNER JOIN quarto ON quarto.id = reserva.fk_quarto "
+				+"INNER JOIN status ON status.id = reserva.fk_status "
+        		+"WHERE reserva.dt_entrada >= ? AND reserva.dt_saida <= ?";
+        		
+
+        try {
+			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+			stmt.setDate(1, UtilDatas.dateToSQLDate(dataDe));
+			stmt.setDate(2, UtilDatas.dateToSQLDate(dataAte));
+
+			
+            ResultSet rs = stmt.executeQuery();
+
+            return rs;
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+	
 	public void alterarStatusReserva(long id, long status) throws SQLException {
 		String sqlQuery = "UPDATE reserva SET fk_status = ? WHERE id = ?";
 
@@ -191,8 +217,35 @@ public class ReservaDAO extends DAO {
 
 	@Override
 	public ResultSet listarFiltro(String campo, String busca) throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		if (campo == Locacao.getCampos().get(0)) {
+			String sqlQuery = "SELECT reserva.id, nm_cliente, nr_cpf, quarto.nr_quarto, dt_entrada, dt_saida, status.ds_status "
+					+"FROM reserva "
+					+"INNER JOIN quarto ON quarto.id = reserva.fk_quarto "
+					+"INNER JOIN status ON status.id = reserva.fk_status "
+					+ "WHERE nm_cliente LIKE ?";
+			try {
+				PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+				stmt.setString(1, "%" + busca + "%");
+				ResultSet rs = stmt.executeQuery();
+				return rs;
+			} catch (SQLException e) {
+				throw e;
+			} 
+		}else{
+			String sqlQuery = "SELECT reserva.id, nm_cliente, nr_cpf, quarto.nr_quarto, dt_entrada, dt_saida, status.ds_status "
+					+"FROM reserva "
+					+"INNER JOIN quarto ON quarto.id = reserva.fk_quarto "
+					+"INNER JOIN status ON status.id = reserva.fk_status "
+					+ "WHERE quarto.nr_quarto LIKE ?";
+			try {
+				PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+				stmt.setString(1, "%" + busca + "%");
+				ResultSet rs = stmt.executeQuery();
+				return rs;
+			} catch (SQLException e) {
+				throw e;
+			} 
+		}
 	}
 
 }
