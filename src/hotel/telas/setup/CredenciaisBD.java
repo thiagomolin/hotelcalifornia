@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.swing.JButton;
@@ -39,9 +40,9 @@ public final class CredenciaisBD extends JFrame {
 	public CredenciaisBD(TelaPrincipal tela) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.tela = tela;
-		usuarioDB = "";
-		senhaDB = "";
-		db = "   ";
+		usuarioDB = "asd";
+		senhaDB = "asd";
+		db = "asd";
 		String[] lines = UtilCredenciaisBD.lerArquivoIni();
 		usuarioDB = lines[0];
 		senhaDB = lines[1];
@@ -125,10 +126,13 @@ public final class CredenciaisBD extends JFrame {
 
 	private boolean isConexãoValida() {
 		try {
-			ConexaoJDBC con = new ConexaoMariaDBJDBC(usuarioDB, senhaDB, db);
+			ConexaoJDBC con = new ConexaoMariaDBJDBC(usuarioDB,senhaDB,db);
 			Statement stmt = con.getConnection().createStatement();
-			stmt.getConnection();
-			con.close();
+			ResultSet result =stmt.executeQuery("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '"+ db+"'");
+			con.commit();
+			if(!result.next()) {
+				throw new Exception();
+			}
 			gravarArquivoIni();
 			return true;
 		} catch (Exception e) {
