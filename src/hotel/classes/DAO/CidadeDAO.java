@@ -80,5 +80,18 @@ public class CidadeDAO extends DAO{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public long getNumRegistros() throws SQLException, ClassNotFoundException {
+		String sqlQuery = "SELECT COUNT(*) as total FROM cidade";
 
+		try {
+			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			return rs.getLong("total");
+		} catch (SQLException e) {
+			throw e;
+		}
+	}
+	
 }

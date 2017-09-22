@@ -273,6 +273,8 @@ public class TelaPrincipal extends JFrame {
 				cbd.setVisible(true);
 				cbd.testeDeConexao();
 				
+				
+				
 			}
 		});
 	}

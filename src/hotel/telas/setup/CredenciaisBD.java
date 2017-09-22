@@ -30,32 +30,43 @@ public final class CredenciaisBD extends JFrame {
 
 	private String usuarioDB;
 	private String senhaDB;
+	private String db;
 
 	private TelaPrincipal tela;
+	private JTextField textFieldDB;
 
 	public CredenciaisBD(TelaPrincipal tela) {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.tela = tela;
 		usuarioDB = "";
 		senhaDB = "";
+		db = "";
 		String[] lines = UtilCredenciaisBD.lerArquivoIni();
 		usuarioDB = lines[0];
 		senhaDB = lines[1];
-
+		db = lines[2];
+		
 		inicializarLayoutEEventos();
+
+		textFieldUsuario.setText(usuarioDB);
+		textFieldSenha.setText(senhaDB);
+		textFieldDB.setText(db);
 	}
 
 	public void testeDeConexao() {
 		if (isConexãoValida()) {
 			tela.setEnabled(true);
+			//inicializarBD();
 			this.dispose();
 		}
 	}
 
-	protected void testeDeConexaoOK() {
-		if (isConexãoValidaOK()) {
-			tela.setEnabled(true);
-			this.dispose();
+	private void inicializarBD() {
+		InicializaBD initbd = new InicializaBD(usuarioDB, senhaDB, db);
+		if (!initbd.isBDValido()) {
+			JOptionPane.showMessageDialog(null,
+					"BD não inicializado ou inexistente. O software vai configurar agorao seu BD");
+			initbd.inicializarBD();
 		}
 	}
 
@@ -72,59 +83,65 @@ public final class CredenciaisBD extends JFrame {
 		getContentPane().add(panelInfo);
 
 		textFieldUsuario = new JTextField();
-		textFieldUsuario.setBounds(208, 70, 86, 20);
+		textFieldUsuario.setBounds(209, 70, 86, 20);
 		textFieldUsuario.setText("");
 		getContentPane().add(textFieldUsuario);
 		textFieldUsuario.setColumns(10);
 
 		textFieldSenha = new JTextField();
 		textFieldSenha.setColumns(10);
-		textFieldSenha.setBounds(208, 106, 86, 20);
+		textFieldSenha.setBounds(209, 106, 86, 20);
 		textFieldSenha.setText("");
 		getContentPane().add(textFieldSenha);
 
 		JLabel lblUsuario = new JLabel("Usuario:");
-		lblUsuario.setBounds(114, 73, 46, 14);
+		lblUsuario.setBounds(94, 73, 86, 14);
 		getContentPane().add(lblUsuario);
 
 		JLabel lblSenha = new JLabel("Senha:");
-		lblSenha.setBounds(114, 109, 46, 14);
+		lblSenha.setBounds(94, 109, 86, 14);
 		getContentPane().add(lblSenha);
 
 		JButton btnOK = new JButton("OK");
 		btnOK.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				testeDeConexaoOK();
+				setarCampos();
+				testeDeConexao();
 			}
 		});
 		btnOK.setBounds(161, 172, 89, 23);
 		getContentPane().add(btnOK);
 
+		JLabel labelBD = new JLabel("Nome BD:");
+		labelBD.setBounds(94, 144, 86, 14);
+		getContentPane().add(labelBD);
+
+		textFieldDB = new JTextField();
+		textFieldDB.setText("");
+		textFieldDB.setColumns(10);
+		textFieldDB.setBounds(209, 141, 86, 20);
+		getContentPane().add(textFieldDB);
+
+	}
+
+	protected void setarCampos() {
+		usuarioDB = textFieldUsuario.getText();
+		senhaDB = textFieldSenha.getText();
+		db = textFieldDB.getText();
 	}
 
 	private boolean isConexãoValida() {
 		try {
-
-			ConexaoJDBC con = new ConexaoMariaDBJDBC(usuarioDB, senhaDB);
+			ConexaoJDBC con = new ConexaoMariaDBJDBC(usuarioDB, senhaDB, db);
+			String dbName = con.getConnection().getMetaData().getDatabaseProductName();
+			//TODO: carai
+			if (dbName.equals("MySQL")) {
+				System.out.println(dbName);
+				throw new Exception();
+			}
+			//TODO: carai
 			con.close();
-			gravarArquivoIni();
-
-			return true;
-
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Credenciais do BD incorretas ou serviço de BD não inicializado!");
-		}
-		return false;
-	}
-
-	private boolean isConexãoValidaOK() {
-		try {
-
-			usuarioDB = textFieldUsuario.getText();
-			senhaDB = textFieldSenha.getText();
-
-			ConexaoJDBC con = new ConexaoMariaDBJDBC(usuarioDB, senhaDB);
-			con.close();
+			
 			gravarArquivoIni();
 
 			return true;
@@ -144,6 +161,8 @@ public final class CredenciaisBD extends JFrame {
 			bw.write(usuarioDB);
 			bw.newLine();
 			bw.write(senhaDB);
+			bw.newLine();
+			bw.write(db);
 
 			bw.close();
 
@@ -151,5 +170,4 @@ public final class CredenciaisBD extends JFrame {
 			JOptionPane.showMessageDialog(null, "ERRO DE gravação");
 		}
 	}
-
 }
