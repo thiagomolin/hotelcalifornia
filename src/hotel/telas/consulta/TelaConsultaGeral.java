@@ -71,6 +71,7 @@ public class TelaConsultaGeral extends JFrame {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	public TelaConsultaGeral() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		inicializarLayoutEEventos();
 		comboBoxTipo.getModel().setSelectedItem(null);
 		panel.setVisible(false);

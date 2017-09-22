@@ -25,17 +25,18 @@ import hotel.telas.estoque.TelaEntradaEstoque;
 import hotel.telas.financeiro.TelaFinanceiroExtrato;
 import hotel.telas.financeiro.TelaFinanceiroFecharConta;
 import hotel.telas.financeiro.TelaFinanceiroLancamento;
+import hotel.telas.setup.CredenciaisBD;
 
 public class TelaPrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JTabbedPane tabbedPane;
-	
+
 	private long usuarioLogado;
 
 	public TelaPrincipal() {
 		super();
-		usuarioLogado = 1; //TODO: Alterar para valor dinamico
+		usuarioLogado = 1; // TODO: Alterar para valor dinamico
 		inicializarLayoutEEventos();
 	}
 
@@ -104,14 +105,14 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		mnConsulta.add(mntmConsultaGeral);
-		
+
 		JMenu mnReserva = new JMenu("Reserva");
 		menuBar.add(mnReserva);
-		
+
 		JMenuItem mntmGerenciarReserva = new JMenuItem("Gerenciar");
 		mntmGerenciarReserva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				criarTela(ETipo.Reserva);				
+				criarTela(ETipo.Reserva);
 			}
 		});
 		mnReserva.add(mntmGerenciarReserva);
@@ -133,7 +134,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmGerenciarEstoque = new JMenuItem("Entrada");
 		mntmGerenciarEstoque.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				criarTela(ETipo.Estoque);			
+				criarTela(ETipo.Estoque);
 			}
 		});
 		mnEstoque.add(mntmGerenciarEstoque);
@@ -141,15 +142,15 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmConsultarEstoque = new JMenuItem("Acerto");
 		mntmConsultarEstoque.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				criarTela(ETipo.Acerto);						
+				criarTela(ETipo.Acerto);
 			}
 		});
 		mnEstoque.add(mntmConsultarEstoque);
-		
+
 		JMenuItem mntmConsulta = new JMenuItem("Consulta");
 		mntmConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				criarTela(ETipo.EstoqueConsulta);					
+				criarTela(ETipo.EstoqueConsulta);
 			}
 		});
 		mnEstoque.add(mntmConsulta);
@@ -160,7 +161,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmFecharConta = new JMenuItem("Fechar Conta");
 		mntmFecharConta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				criarTela(ETipo.FinanceiroFecharConta);				
+				criarTela(ETipo.FinanceiroFecharConta);
 			}
 		});
 		mnFinanceiro.add(mntmFecharConta);
@@ -168,7 +169,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmNovoLancamento = new JMenuItem("Novo Lançamento");
 		mntmNovoLancamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				criarTela(ETipo.FinanceiroLancamento);				
+				criarTela(ETipo.FinanceiroLancamento);
 			}
 		});
 		mnFinanceiro.add(mntmNovoLancamento);
@@ -208,7 +209,7 @@ public class TelaPrincipal extends JFrame {
 			TelaFinanceiroFecharConta tela = new TelaFinanceiroFecharConta(this);
 			tabbedPane.addTab("Fechar conta", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
-		}  else if (tipoTela == ETipo.Produto) {
+		} else if (tipoTela == ETipo.Produto) {
 			TelaCadastroProduto tela = new TelaCadastroProduto(this);
 			tabbedPane.addTab("Cadastro Produto", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
@@ -224,19 +225,20 @@ public class TelaPrincipal extends JFrame {
 			TelaCadastroReserva tela = new TelaCadastroReserva(this);
 			tabbedPane.addTab("Cadastro Reserva", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
-		}else if (tipoTela == ETipo.Estoque) {
+		} else if (tipoTela == ETipo.Estoque) {
 			TelaEntradaEstoque tela = new TelaEntradaEstoque(this);
 			tabbedPane.addTab("Entrada de estoque", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
-		}else if (tipoTela == ETipo.Acerto) {
+		} else if (tipoTela == ETipo.Acerto) {
 			TelaAcertoEstoque tela = new TelaAcertoEstoque(this);
 			tabbedPane.addTab("Acerto de estoque", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
-		}else if (tipoTela == ETipo.EstoqueConsulta) {
-			new TelaConsultaEstoque().setVisible(true);;
-		}else if (tipoTela == ETipo.Consulta) {
+		} else if (tipoTela == ETipo.EstoqueConsulta) {
+			new TelaConsultaEstoque().setVisible(true);
+			;
+		} else if (tipoTela == ETipo.Consulta) {
 			new TelaConsultaGeral().setVisible(true);
-		}else if(tipoTela == ETipo.Extrato) {
+		} else if (tipoTela == ETipo.Extrato) {
 			TelaFinanceiroExtrato tela = new TelaFinanceiroExtrato(this);
 			tabbedPane.addTab("Extrato Financeiro", null, tela, null);
 			tabbedPane.setSelectedComponent(tela);
@@ -254,19 +256,23 @@ public class TelaPrincipal extends JFrame {
 		return usuarioLogado;
 	}
 
-
 	public void setUsuarioLogado(long usuarioLogado) {
 		this.usuarioLogado = usuarioLogado;
 	}
+
 	// MAIN
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
-					TelaPrincipal tela = new TelaPrincipal();
-					tela.setVisible(true);
-				} catch (Exception e) {
-				}
+
+				TelaPrincipal tela = new TelaPrincipal();
+				tela.setVisible(true);
+				tela.setEnabled(false);
+				
+				CredenciaisBD cbd = new CredenciaisBD(tela);
+				cbd.setVisible(true);
+				cbd.testeDeConexao();
+				
 			}
 		});
 	}

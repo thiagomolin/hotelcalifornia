@@ -9,8 +9,8 @@ import java.util.logging.Logger;
 public class ConexaoMariaDBJDBC implements ConexaoJDBC {
 
     private Connection connection = null;
-
-    public ConexaoMariaDBJDBC() throws SQLException, ClassNotFoundException {
+    
+    public ConexaoMariaDBJDBC(String usuario, String senha) throws SQLException, ClassNotFoundException {
         try {
             Class.forName("org.mariadb.jdbc.Driver").newInstance();
         } catch (InstantiationException ex) {
@@ -19,7 +19,7 @@ public class ConexaoMariaDBJDBC implements ConexaoJDBC {
             Logger.getLogger(ConexaoMariaDBJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        this.connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/hotelcalifornia", "root", "");
+        this.connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/hotelcalifornia", usuario, senha);
         this.connection.setAutoCommit(false);
     }
 
