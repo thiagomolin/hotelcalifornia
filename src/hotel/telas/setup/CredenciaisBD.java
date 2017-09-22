@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Statement;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -40,7 +41,7 @@ public final class CredenciaisBD extends JFrame {
 		this.tela = tela;
 		usuarioDB = "";
 		senhaDB = "";
-		db = "";
+		db = "   ";
 		String[] lines = UtilCredenciaisBD.lerArquivoIni();
 		usuarioDB = lines[0];
 		senhaDB = lines[1];
@@ -61,14 +62,6 @@ public final class CredenciaisBD extends JFrame {
 		}
 	}
 
-	private void inicializarBD() {
-		InicializaBD initbd = new InicializaBD(usuarioDB, senhaDB, db);
-		if (!initbd.isBDValido()) {
-			JOptionPane.showMessageDialog(null,
-					"BD não inicializado ou inexistente. O software vai configurar agorao seu BD");
-			initbd.inicializarBD();
-		}
-	}
 
 	private void inicializarLayoutEEventos() {
 		setTitle("Configuração");
@@ -124,7 +117,7 @@ public final class CredenciaisBD extends JFrame {
 
 	}
 
-	protected void setarCampos() {
+	private void setarCampos() {
 		usuarioDB = textFieldUsuario.getText();
 		senhaDB = textFieldSenha.getText();
 		db = textFieldDB.getText();
@@ -133,19 +126,11 @@ public final class CredenciaisBD extends JFrame {
 	private boolean isConexãoValida() {
 		try {
 			ConexaoJDBC con = new ConexaoMariaDBJDBC(usuarioDB, senhaDB, db);
-			String dbName = con.getConnection().getMetaData().getDatabaseProductName();
-			//TODO: carai
-			if (dbName.equals("MySQL")) {
-				System.out.println(dbName);
-				throw new Exception();
-			}
-			//TODO: carai
+			Statement stmt = con.getConnection().createStatement();
+			stmt.getConnection();
 			con.close();
-			
 			gravarArquivoIni();
-
 			return true;
-
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Credenciais do BD incorretas ou serviço de BD não inicializado!");
 		}

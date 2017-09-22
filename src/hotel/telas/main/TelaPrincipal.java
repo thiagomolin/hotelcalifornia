@@ -272,9 +272,6 @@ public class TelaPrincipal extends JFrame {
 				CredenciaisBD cbd = new CredenciaisBD(tela);
 				cbd.setVisible(true);
 				cbd.testeDeConexao();
-				
-				
-				
 			}
 		});
 	}

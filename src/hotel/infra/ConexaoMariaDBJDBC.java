@@ -10,6 +10,7 @@ public class ConexaoMariaDBJDBC implements ConexaoJDBC {
 
     private Connection connection = null;
     
+    
     public ConexaoMariaDBJDBC(String usuario, String senha, String db) throws SQLException, ClassNotFoundException {
         try {
             Class.forName("org.mariadb.jdbc.Driver").newInstance();
