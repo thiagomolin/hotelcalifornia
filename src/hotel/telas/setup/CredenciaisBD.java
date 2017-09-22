@@ -40,9 +40,9 @@ public final class CredenciaisBD extends JFrame {
 	public CredenciaisBD(TelaPrincipal tela) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.tela = tela;
-		usuarioDB = "asd";
-		senhaDB = "asd";
-		db = "asd";
+		usuarioDB = "";
+		senhaDB = "";
+		db = "";
 		String[] lines = UtilCredenciaisBD.lerArquivoIni();
 		usuarioDB = lines[0];
 		senhaDB = lines[1];
