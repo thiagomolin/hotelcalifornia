@@ -149,8 +149,33 @@ public class ProdutoDAO extends DAO {
 
 	@Override
 	public ResultSet listarFiltro(String campo, String busca) throws SQLException, ClassNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		if (campo == Produto.getCampos().get(0)) {
+			String sqlQuery = "SELECT produto.id, produto.ds_produto, fornecedor.nm_fornecedor, nr_valor_compra, nr_valor_venda, vf_consumivel, fk_fornecedor "
+					+ "FROM produto "
+					+ "INNER JOIN fornecedor ON fornecedor.id = produto.fk_fornecedor " 
+					+ "WHERE produto.ds_produto LIKE ?";
+			try {
+				PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+				stmt.setString(1, "%" + busca + "%");
+				ResultSet rs = stmt.executeQuery();
+				return rs;
+			} catch (SQLException e) {
+				throw e;
+			} 
+		}else{
+			String sqlQuery = "SELECT produto.id, ds_produto, fornecedor.nm_fornecedor, nr_valor_compra, nr_valor_venda, vf_consumivel, fk_fornecedor"
+					+ " FROM produto"
+					+ " INNER JOIN fornecedor ON fornecedor.id = produto.fk_fornecedor "
+					+ "WHERE fornecedor.nm_fornecedor LIKE ?";
+			try {
+				PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
+				stmt.setString(1, "%" + busca + "%");
+				ResultSet rs = stmt.executeQuery();
+				return rs;
+			} catch (SQLException e) {
+				throw e;
+			} 
+		}
 	}
 
 }
