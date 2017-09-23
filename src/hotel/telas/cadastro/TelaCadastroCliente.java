@@ -428,10 +428,11 @@ public class TelaCadastroCliente extends Tela {
 	
 	//Validação de formulário
 	protected boolean isFormularioValido() {
-		textFieldCpf.setText(textFieldCpf.getText().replaceAll("[^0-9]+", ""));
+		String cpf = textFieldCpf.getText().replaceAll("[^0-9]+", "");
 		boolean valido = true;
+		valido = (textFieldCpf.getText().isEmpty() || !UtilVerificadores.isCpfValido(cpf)) ? false: valido;
+		textFieldCpf.setText(valido?cpf:"");
 		valido = (textFieldNome.getText().isEmpty()) ? false : valido;
-		valido = (textFieldCpf.getText().isEmpty() || !UtilVerificadores.isCpfValido(textFieldCpf.getText())) ? false : valido;
 		valido = (textFieldEmail.getText().isEmpty()) ? false : valido;
 		valido = (textFieldEndereco.getText().isEmpty()) ? false : valido;
 		valido = (textFieldTelefone.getText().isEmpty()) ? false : valido;

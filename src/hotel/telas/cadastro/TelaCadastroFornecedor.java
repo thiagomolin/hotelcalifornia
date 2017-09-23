@@ -24,6 +24,7 @@ import hotel.telas.consulta.ETipo;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.main.TelaPrincipal;
 import hotel.util.UtilCombobox;
+import hotel.util.UtilVerificadores;
 
 public class TelaCadastroFornecedor extends Tela {
 	private static final long serialVersionUID = 1L;
@@ -429,10 +430,11 @@ public class TelaCadastroFornecedor extends Tela {
 	
 	//Validação de formulário
 	protected boolean isFormularioValido() {
-		textFieldCnpj.setText(textFieldCnpj.getText().replaceAll("[^0-9]+", ""));
+		String cnpj = textFieldCnpj.getText().replaceAll("[^0-9]+", "");
 		boolean valido = true;
+		valido = (textFieldCnpj.getText().isEmpty() || !UtilVerificadores.isCnpjValido(cnpj)) ? false: valido;
+		textFieldCnpj.setText(valido?cnpj:"");
 		valido = (textFieldNome.getText().isEmpty()) ? false : valido;
-		valido = (textFieldCnpj.getText().isEmpty()) ? false : valido;
 		valido = (textFieldEmail.getText().isEmpty()) ? false : valido;
 		valido = (textFieldEndereco.getText().isEmpty()) ? false : valido;
 		valido = (textFieldTelefone.getText().isEmpty()) ? false : valido;
