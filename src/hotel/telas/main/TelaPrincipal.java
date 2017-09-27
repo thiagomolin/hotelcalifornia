@@ -26,6 +26,9 @@ import hotel.telas.financeiro.TelaFinanceiroExtrato;
 import hotel.telas.financeiro.TelaFinanceiroFecharConta;
 import hotel.telas.financeiro.TelaFinanceiroLancamento;
 import hotel.telas.setup.CredenciaisBD;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class TelaPrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -36,6 +39,7 @@ public class TelaPrincipal extends JFrame {
 
 	public TelaPrincipal() {
 		super();
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Thiago Vinícius\\Downloads\\0faeae08-00ea-4d43-b001-9d1c35405402.png"));
 		usuarioLogado = 1; // TODO: Alterar para valor dinamico
 		inicializarLayoutEEventos();
 	}
@@ -46,11 +50,17 @@ public class TelaPrincipal extends JFrame {
 		setResizable(false);
 		setBounds(100, 100, 550, 520);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(null);
 		// Frame
 		// Tabbed Pane
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 0, 537, 462);
 		getContentPane().add(tabbedPane);
+		
+		JLabel lblLogo = new JLabel("");
+		lblLogo.setIcon(new ImageIcon("C:\\Users\\Thiago Vinícius\\Downloads\\0faeae08-00ea-4d43-b001-9d1c35405402.png"));
+		lblLogo.setBounds(300, 100, 300, 200);
+		tabbedPane.addTab("Home", null, lblLogo, null);
 		// Tabbed Pane
 
 		criarMenus();
@@ -181,7 +191,6 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		mnFinanceiro.add(mntmExtrato);
-		getContentPane().setLayout(null);
 	}
 	// LAYOUT E EVENTOS
 
