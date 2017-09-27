@@ -42,6 +42,7 @@ public class TelaConsultaEstoque extends JFrame {
 
 	public TelaConsultaEstoque() {
 		super();
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		inicializarLayoutEEventos();
 		inicializarComboBoxCampo();

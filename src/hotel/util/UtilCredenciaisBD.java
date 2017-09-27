@@ -25,9 +25,7 @@ public class UtilCredenciaisBD {
 				i++;
 			}
 			
-			b.close();
-					
-			
+			b.close();			
 			
 		}catch (FileNotFoundException e) {
 			JOptionPane.showMessageDialog(null, "Arquivo de configuração não encontrado");

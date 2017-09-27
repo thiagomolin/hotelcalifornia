@@ -19,8 +19,8 @@ import hotel.classes.Fornecedor;
 import hotel.classes.Produto;
 import hotel.classes.DAO.FornecedorDAO;
 import hotel.classes.DAO.ProdutoDAO;
+import hotel.enums.ETipo;
 import hotel.regras.cadastro.RegraCadastroProduto;
-import hotel.telas.consulta.ETipo;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.main.TelaPrincipal;
 

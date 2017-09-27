@@ -39,6 +39,7 @@ import hotel.classes.DAO.LocacaoDAO;
 import hotel.classes.DAO.ProdutoDAO;
 import hotel.classes.DAO.QuartoDAO;
 import hotel.classes.DAO.ReservaDAO;
+import hotel.enums.ETipo;
 import hotel.telas.cadastro.Tela;
 import hotel.util.UtilDatas;
 import hotel.util.UtilVector;
@@ -71,6 +72,7 @@ public class TelaConsultaGeral extends JFrame {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	public TelaConsultaGeral() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		inicializarLayoutEEventos();
 		comboBoxTipo.getModel().setSelectedItem(null);

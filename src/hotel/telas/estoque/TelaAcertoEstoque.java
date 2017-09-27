@@ -20,8 +20,8 @@ import hotel.classes.Produto;
 import hotel.classes.TipoDeMovimento;
 import hotel.classes.DAO.MovimentoEstoqueDAO;
 import hotel.classes.DAO.ProdutoDAO;
+import hotel.enums.ETipo;
 import hotel.telas.cadastro.Tela;
-import hotel.telas.consulta.ETipo;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.main.TelaPrincipal;
 

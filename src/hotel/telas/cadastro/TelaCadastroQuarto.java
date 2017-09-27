@@ -19,8 +19,8 @@ import hotel.classes.Quarto;
 import hotel.classes.TipoDeQuarto;
 import hotel.classes.DAO.QuartoDAO;
 import hotel.classes.DAO.TipoDeQuartoDAO;
+import hotel.enums.ETipo;
 import hotel.regras.cadastro.RegraCadastroQuarto;
-import hotel.telas.consulta.ETipo;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.main.TelaPrincipal;
 

@@ -11,13 +11,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 
+import hotel.enums.ETipo;
 import hotel.telas.cadastro.TelaCadastroCliente;
 import hotel.telas.cadastro.TelaCadastroFornecedor;
 import hotel.telas.cadastro.TelaCadastroLocacao;
 import hotel.telas.cadastro.TelaCadastroProduto;
 import hotel.telas.cadastro.TelaCadastroQuarto;
 import hotel.telas.cadastro.TelaCadastroReserva;
-import hotel.telas.consulta.ETipo;
 import hotel.telas.consulta.TelaConsultaEstoque;
 import hotel.telas.consulta.TelaConsultaGeral;
 import hotel.telas.estoque.TelaAcertoEstoque;
@@ -264,7 +264,7 @@ public class TelaPrincipal extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-
+				
 				TelaPrincipal tela = new TelaPrincipal();
 				tela.setVisible(true);
 				tela.setEnabled(false);
@@ -272,6 +272,7 @@ public class TelaPrincipal extends JFrame {
 				CredenciaisBD cbd = new CredenciaisBD(tela);
 				cbd.setVisible(true);
 				cbd.testeDeConexao();
+
 			}
 		});
 	}

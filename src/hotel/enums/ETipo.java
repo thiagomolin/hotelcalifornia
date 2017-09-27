@@ -1,4 +1,4 @@
-package hotel.telas.consulta;
+package hotel.enums;
 
 public enum ETipo {	
 	Cliente,

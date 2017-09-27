@@ -21,6 +21,7 @@ import hotel.infra.ConexaoJDBC;
 import hotel.infra.ConexaoMariaDBJDBC;
 import hotel.telas.main.TelaPrincipal;
 import hotel.util.UtilCredenciaisBD;
+import javax.swing.JCheckBox;
 
 public final class CredenciaisBD extends JFrame {
 
@@ -36,6 +37,7 @@ public final class CredenciaisBD extends JFrame {
 
 	private TelaPrincipal tela;
 	private JTextField textFieldDB;
+	private JCheckBox deveCriarBD;
 
 	public CredenciaisBD(TelaPrincipal tela) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,27 +49,53 @@ public final class CredenciaisBD extends JFrame {
 		usuarioDB = lines[0];
 		senhaDB = lines[1];
 		db = lines[2];
-		
+
 		inicializarLayoutEEventos();
 
 		textFieldUsuario.setText(usuarioDB);
 		textFieldSenha.setText(senhaDB);
 		textFieldDB.setText(db);
+
+		deveCriarBD = new JCheckBox("");
+		deveCriarBD.setBounds(209, 185, 56, 23);
+		deveCriarBD.setSelected(false);
+		getContentPane().add(deveCriarBD);
+
+		JLabel lblCriarTabelasmockData = new JLabel("Criar novo BD:");
+		lblCriarTabelasmockData.setBounds(94, 194, 150, 14);
+		getContentPane().add(lblCriarTabelasmockData);
 	}
 
 	public void testeDeConexao() {
 		if (isConexãoValida()) {
+
+			if (deveCriarBD.isSelected() || deveCriarTabelas()) {
+				CriadorBD c = new CriadorBD(deveCriarBD.isSelected(), deveCriarTabelas());
+				c.setVisible(true);
+				c.executar();
+			}
 			tela.setEnabled(true);
-			//inicializarBD();
 			this.dispose();
 		}
 	}
 
+	private boolean deveCriarTabelas() {
+		try {
+			ConexaoJDBC con = new ConexaoMariaDBJDBC(usuarioDB, senhaDB, db);
+			Statement stmt = con.getConnection().createStatement();
+			ResultSet result = stmt.executeQuery("SELECT * " + "FROM information_schema.tables "
+					+ "WHERE table_schema = '" + db + "' " + "AND table_name = 'cidade' " + "LIMIT 1");
+
+			return !result.next();
+		} catch (Exception e) {
+		}
+		return true;
+	}
 
 	private void inicializarLayoutEEventos() {
 		setTitle("Configuração");
 		getContentPane().setLayout(null);
-		setBounds(250, 250, 467, 280);
+		setBounds(250, 250, 467, 355);
 		JTextPane panelInfo = new JTextPane();
 		panelInfo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panelInfo.setEditable(false);
@@ -103,7 +131,7 @@ public final class CredenciaisBD extends JFrame {
 				testeDeConexao();
 			}
 		});
-		btnOK.setBounds(161, 172, 89, 23);
+		btnOK.setBounds(157, 240, 89, 23);
 		getContentPane().add(btnOK);
 
 		JLabel labelBD = new JLabel("Nome BD:");
@@ -126,13 +154,20 @@ public final class CredenciaisBD extends JFrame {
 
 	private boolean isConexãoValida() {
 		try {
-			ConexaoJDBC con = new ConexaoMariaDBJDBC(usuarioDB,senhaDB,db);
+			ConexaoJDBC con = new ConexaoMariaDBJDBC(usuarioDB, senhaDB);
 			Statement stmt = con.getConnection().createStatement();
-			ResultSet result =stmt.executeQuery("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '"+ db+"'");
-			con.commit();
-			if(!result.next()) {
+			ResultSet result;
+			if (!deveCriarBD.isSelected()) {
+				result = stmt.executeQuery(
+						"SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '" + db + "'");
+			} else {
+				result = stmt.executeQuery("SHOW DATABASES");
+			}
+
+			if (!result.next()) {
 				throw new Exception();
 			}
+
 			gravarArquivoIni();
 			return true;
 		} catch (Exception e) {
