@@ -274,6 +274,7 @@ public class TelaCadastroCliente extends Tela {
 			regraCliente.mostrarCliente();
 			habilitaCamposEditar();
 		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Selecione um Cliente!");
 		}		
 	}
 	

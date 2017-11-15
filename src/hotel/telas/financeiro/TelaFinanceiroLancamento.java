@@ -135,7 +135,7 @@ public class TelaFinanceiroLancamento extends Tela {
 	}
 
 	protected void processar() {
-		if (!textFieldQuantidade.getText().isEmpty()) {
+		if (!textFieldQuantidade.getText().isEmpty() && comboBoxProduto.getSelectedItem() != null && comboBoxCodigo.getSelectedItem() != null) {
 			try {
 				LocacaoConsumoDAO lcdao = new LocacaoConsumoDAO();
 
@@ -156,7 +156,7 @@ public class TelaFinanceiroLancamento extends Tela {
 				ex.printStackTrace();
 			}
 		}else {
-			JOptionPane.showMessageDialog(null, "Insira a quantidade");			
+			JOptionPane.showMessageDialog(null, "Insira todos os dados!");			
 		}
 	}
 

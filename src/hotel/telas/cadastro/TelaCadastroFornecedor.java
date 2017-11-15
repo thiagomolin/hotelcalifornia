@@ -273,9 +273,10 @@ public class TelaCadastroFornecedor extends Tela {
 			if(comboBoxCodigo.getModel().getSelectedItem() != null) {
 				regraFornecedor.mostrarFornecedor();
 				habilitaCamposEditar();
+			}else {
+				JOptionPane.showMessageDialog(null, "Selecione um Fornecedor!");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 		}		
 	}
 	

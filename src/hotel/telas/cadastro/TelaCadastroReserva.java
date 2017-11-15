@@ -252,11 +252,10 @@ public class TelaCadastroReserva extends Tela {
 
 	protected void mostrar() {
 		try {
-			if (getReservaSelecionado() != null) {
-				regraReserva.mostrarReserva();
-				habilitaCamposEditar();
-			}
+			regraReserva.mostrarReserva();
+			habilitaCamposEditar();
 		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Selecione uma Reserva!");
 		}
 	}
 
@@ -345,6 +344,9 @@ public class TelaCadastroReserva extends Tela {
 		buttonIncluir.setEnabled(false);
 		buttonCancelar.setEnabled(false);
 		comboBoxStatus.setEnabled(false);
+		comboBoxStatus.setSelectedItem(null);
+		comboBoxTipoQuarto.setEnabled(false);
+		comboBoxTipoQuarto.setSelectedItem(null);
 		comboBoxCodigo.getModel().setSelectedItem(null);
 		buttonMostrar.setEnabled(true);
 	}
@@ -379,8 +381,11 @@ public class TelaCadastroReserva extends Tela {
 		buttonIncluir.setEnabled(false);
 		buttonCancelar.setEnabled(false);
 		comboBoxCodigo.setEnabled(true);
+		comboBoxCodigo.setSelectedItem(null);
 		comboBoxStatus.setEnabled(false);
+		comboBoxStatus.setSelectedItem(null);
 		comboBoxTipoQuarto.setEnabled(false);
+		comboBoxTipoQuarto.setSelectedItem(null);
 		buttonNovo.setEnabled(true);
 		buttonConsulta.setEnabled(true);
 		buttonMostrar.setEnabled(true);
@@ -388,7 +393,7 @@ public class TelaCadastroReserva extends Tela {
 
 	public void limpaCampos() {
 		desabilitaCampos();
-		comboBoxCodigo.setSelectedItem(null);
+		
 	}
 
 	// Métodos de manipulação de componentes

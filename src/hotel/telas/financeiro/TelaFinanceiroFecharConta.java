@@ -45,6 +45,12 @@ public class TelaFinanceiroFecharConta extends Tela {
 	private JLabel lblDtInicial;
 	private JLabel lblDtFinal;
 	private JLabel lblTotal;
+	
+	private JButton btnProcessar;
+	private JButton btnCancelar;
+	private JButton btnSair;
+	private JButton buttonMostrar;
+	private JButton buttonConsulta;
 
 	private Vector<Vector<Object>> listaDados;
 	private Vector<String> listaColunas;
@@ -54,6 +60,7 @@ public class TelaFinanceiroFecharConta extends Tela {
 		this.telaPrincipal = telaPrincipal;
 		inicializarLayoutEEventos();
 		inicializarComboBoxCodigo();
+		btnProcessar.setEnabled(false);
 	}
 
 	private void inicializarComboBoxCodigo() {
@@ -79,7 +86,7 @@ public class TelaFinanceiroFecharConta extends Tela {
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
-		JButton btnProcessar = new JButton("Processar");
+		btnProcessar = new JButton("Processar");
 		btnProcessar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				processar();
@@ -88,7 +95,7 @@ public class TelaFinanceiroFecharConta extends Tela {
 		btnProcessar.setBounds(29, 155, 89, 23);
 		panel.add(btnProcessar);
 
-		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cancelar();
@@ -97,7 +104,7 @@ public class TelaFinanceiroFecharConta extends Tela {
 		btnCancelar.setBounds(29, 217, 89, 23);
 		panel.add(btnCancelar);
 
-		JButton btnSair = new JButton("Sair");
+		btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				sair();
@@ -106,7 +113,7 @@ public class TelaFinanceiroFecharConta extends Tela {
 		btnSair.setBounds(29, 365, 89, 23);
 		panel.add(btnSair);
 
-		JButton buttonMostrar = new JButton("Mostrar");
+		buttonMostrar = new JButton("Mostrar");
 		buttonMostrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				mostrar();
@@ -129,7 +136,7 @@ public class TelaFinanceiroFecharConta extends Tela {
 		comboBoxCodigo.setBounds(160, 27, 92, 20);
 		panel_1.add(comboBoxCodigo);
 
-		JButton buttonConsulta = new JButton("...");
+		buttonConsulta = new JButton("...");
 		buttonConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				consultar(ETipo.Locacao);
@@ -185,7 +192,7 @@ public class TelaFinanceiroFecharConta extends Tela {
 		TelaConsultaGeral telaConsulta = new TelaConsultaGeral(tipo, this);
 		telaConsulta.setVisible(true);
 	}
-
+	
 	protected void mostrar() {
 		try {
 			LocacaoConsumoDAO lcdao = new LocacaoConsumoDAO();
@@ -198,8 +205,9 @@ public class TelaFinanceiroFecharConta extends Tela {
 
 			listaColunas = lcdao.getCamposBD();
 			table.setModel(construirTableModel());
-
+			btnProcessar.setEnabled(true);
 		} catch (ClassNotFoundException | SQLException | NullPointerException e) {
+			JOptionPane.showMessageDialog(null, "Selecione uma locação!", "Locação não encontrada", JOptionPane.INFORMATION_MESSAGE);
 		}
 
 	}
@@ -213,6 +221,8 @@ public class TelaFinanceiroFecharConta extends Tela {
 
 		lblTotal.setText(String.format(Locale.ROOT, "%.2f", acumulador));
 	}
+	
+
 
 	private void adicionarTotalPernoites(long fk_locacao) {
 		try {
@@ -260,7 +270,7 @@ public class TelaFinanceiroFecharConta extends Tela {
 	}
 
 	protected void processar() {
-		if (listaDados.size() > 0) {
+		if (!listaDados.isEmpty()) {
 			int result = JOptionPane.showConfirmDialog(null, "Confirmar o pagamento e finalizar locação?", "Confirmar",
 					JOptionPane.OK_CANCEL_OPTION);
 			if (JOptionPane.OK_OPTION == result) {

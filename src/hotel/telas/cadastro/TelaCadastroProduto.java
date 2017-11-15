@@ -246,6 +246,7 @@ public class TelaCadastroProduto extends Tela {
 			regraProduto.mostrarProduto();
 			habilitaCamposEditar();
 		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Selecione um Produto!");
 		}
 	}
 
