@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,9 +20,8 @@ import javax.swing.JTextPane;
 
 import hotel.infra.ConexaoJDBC;
 import hotel.infra.ConexaoMariaDBJDBC;
-import hotel.telas.main.TelaPrincipal;
+import hotel.telas.main.TelaLogin;
 import hotel.util.UtilCredenciaisBD;
-import javax.swing.JCheckBox;
 
 public final class CredenciaisBD extends JFrame {
 
@@ -34,40 +34,44 @@ public final class CredenciaisBD extends JFrame {
 	private String usuarioDB;
 	private String senhaDB;
 	private String db;
+	private String ip;
+	private String porta;
 
-	private TelaPrincipal tela;
+	private TelaLogin tela;
 	private JTextField textFieldDB;
 	private JCheckBox deveCriarBD;
+	private JTextField txtIp;
+	private JTextField txtPorta;
 
-	public CredenciaisBD(TelaPrincipal tela) {
+	public CredenciaisBD(TelaLogin tela2) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.tela = tela;
+		this.tela = tela2;
 		usuarioDB = "";
 		senhaDB = "";
 		db = "";
+		ip = "";
+		porta = "";
 		String[] lines = UtilCredenciaisBD.lerArquivoIni();
 		usuarioDB = lines[0];
 		senhaDB = lines[1];
 		db = lines[2];
+		ip = lines[3];
+		porta = lines[4];
 
 		inicializarLayoutEEventos();
 
 		textFieldUsuario.setText(usuarioDB);
 		textFieldSenha.setText(senhaDB);
 		textFieldDB.setText(db);
+		ip = ip.isEmpty()?"localhost":ip;
+		porta = porta.isEmpty()?"3306":porta;
+		txtIp.setText(ip);
+		txtPorta.setText(porta);
 
-		deveCriarBD = new JCheckBox("");
-		deveCriarBD.setBounds(209, 185, 56, 23);
-		deveCriarBD.setSelected(false);
-		getContentPane().add(deveCriarBD);
-
-		JLabel lblCriarTabelasmockData = new JLabel("Criar novo BD:");
-		lblCriarTabelasmockData.setBounds(94, 194, 150, 14);
-		getContentPane().add(lblCriarTabelasmockData);
 	}
 
 	public void testeDeConexao() {
-		if (isConexãoValida()) {
+		if (isConexaoValida()) {
 
 			if (deveCriarBD.isSelected() || deveCriarTabelas()) {
 				CriadorBD c = new CriadorBD(deveCriarBD.isSelected(), deveCriarTabelas());
@@ -81,7 +85,7 @@ public final class CredenciaisBD extends JFrame {
 
 	private boolean deveCriarTabelas() {
 		try {
-			ConexaoJDBC con = new ConexaoMariaDBJDBC(usuarioDB, senhaDB, db);
+			ConexaoJDBC con = new ConexaoMariaDBJDBC(usuarioDB, senhaDB, db, ip, porta);
 			Statement stmt = con.getConnection().createStatement();
 			ResultSet result = stmt.executeQuery("SELECT * " + "FROM information_schema.tables "
 					+ "WHERE table_schema = '" + db + "' " + "AND table_name = 'cidade' " + "LIMIT 1");
@@ -115,6 +119,27 @@ public final class CredenciaisBD extends JFrame {
 		textFieldSenha.setBounds(209, 106, 86, 20);
 		textFieldSenha.setText("");
 		getContentPane().add(textFieldSenha);
+		
+		txtIp = new JTextField();
+		txtIp.setText("");
+		txtIp.setColumns(10);
+		txtIp.setBounds(209, 172, 86, 20);
+		getContentPane().add(txtIp);
+		
+		txtPorta = new JTextField();
+		txtPorta.setText("");
+		txtPorta.setColumns(10);
+		txtPorta.setBounds(209, 200, 86, 20);
+		getContentPane().add(txtPorta);
+		
+		deveCriarBD = new JCheckBox("");
+		deveCriarBD.setBounds(209, 240, 56, 23);
+		deveCriarBD.setSelected(false);
+		getContentPane().add(deveCriarBD);
+		
+		JLabel lblPorta = new JLabel("Porta:");
+		lblPorta.setBounds(94, 203, 86, 14);
+		getContentPane().add(lblPorta);
 
 		JLabel lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setBounds(94, 73, 86, 14);
@@ -131,12 +156,20 @@ public final class CredenciaisBD extends JFrame {
 				testeDeConexao();
 			}
 		});
-		btnOK.setBounds(157, 240, 89, 23);
+		btnOK.setBounds(155, 270, 89, 23);
 		getContentPane().add(btnOK);
 
 		JLabel labelBD = new JLabel("Nome BD:");
 		labelBD.setBounds(94, 144, 86, 14);
 		getContentPane().add(labelBD);
+		
+		JLabel lblCriarTabelasmockData = new JLabel("Criar novo BD:");
+		lblCriarTabelasmockData.setBounds(94, 245, 150, 14);
+		getContentPane().add(lblCriarTabelasmockData);
+		
+		JLabel lblIp = new JLabel("Ip:");
+		lblIp.setBounds(94, 175, 86, 14);
+		getContentPane().add(lblIp);
 
 		textFieldDB = new JTextField();
 		textFieldDB.setText("");
@@ -150,11 +183,13 @@ public final class CredenciaisBD extends JFrame {
 		usuarioDB = textFieldUsuario.getText();
 		senhaDB = textFieldSenha.getText();
 		db = textFieldDB.getText();
+		ip = txtIp.getText();
+		porta = txtPorta.getText();
 	}
 
-	private boolean isConexãoValida() {
+	private boolean isConexaoValida() {
 		try {
-			ConexaoJDBC con = new ConexaoMariaDBJDBC(usuarioDB, senhaDB);
+			ConexaoJDBC con = new ConexaoMariaDBJDBC(usuarioDB, senhaDB, ip, porta);
 			Statement stmt = con.getConnection().createStatement();
 			ResultSet result;
 			if (!deveCriarBD.isSelected()) {
@@ -179,7 +214,6 @@ public final class CredenciaisBD extends JFrame {
 	public void gravarArquivoIni() {
 		try {
 			FileWriter fw = new FileWriter(NOME_ARQUIVO_INI);
-
 			BufferedWriter bw = new BufferedWriter(fw);
 
 			bw.write(usuarioDB);
@@ -187,6 +221,10 @@ public final class CredenciaisBD extends JFrame {
 			bw.write(senhaDB);
 			bw.newLine();
 			bw.write(db);
+			bw.newLine();
+			bw.write(ip);
+			bw.newLine();
+			bw.write(porta);
 
 			bw.close();
 

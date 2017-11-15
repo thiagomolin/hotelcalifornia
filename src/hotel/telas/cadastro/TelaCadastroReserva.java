@@ -312,8 +312,8 @@ public class TelaCadastroReserva extends Tela {
 			List<Reserva> reservas = cl.getListaAtiva();
 			comboBoxCodigo.setModel(new DefaultComboBoxModel<Object>(reservas.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
-			ex.printStackTrace();
-			ex.printStackTrace();
+//
+//
 		}
 	}
 	// Eventos de ComboBox
@@ -329,8 +329,8 @@ public class TelaCadastroReserva extends Tela {
 			List<Status> status = st.getLista();
 			comboBoxStatus.setModel(new DefaultComboBoxModel<Object>(status.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
-			ex.printStackTrace();
-			ex.printStackTrace();
+//
+//
 		}
 	}
 

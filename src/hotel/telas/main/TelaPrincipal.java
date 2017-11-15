@@ -1,11 +1,13 @@
 package hotel.telas.main;
 
-import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -25,10 +27,6 @@ import hotel.telas.estoque.TelaEntradaEstoque;
 import hotel.telas.financeiro.TelaFinanceiroExtrato;
 import hotel.telas.financeiro.TelaFinanceiroFecharConta;
 import hotel.telas.financeiro.TelaFinanceiroLancamento;
-import hotel.telas.setup.CredenciaisBD;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import java.awt.Toolkit;
 
 public class TelaPrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -40,7 +38,7 @@ public class TelaPrincipal extends JFrame {
 	public TelaPrincipal() {
 		super();
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Thiago Vinícius\\Downloads\\0faeae08-00ea-4d43-b001-9d1c35405402.png"));
-		usuarioLogado = 1; // TODO: Alterar para valor dinamico
+		usuarioLogado = getUsuarioLogado();
 		inicializarLayoutEEventos();
 	}
 
@@ -270,7 +268,7 @@ public class TelaPrincipal extends JFrame {
 	}
 
 	// MAIN
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				
@@ -284,7 +282,7 @@ public class TelaPrincipal extends JFrame {
 
 			}
 		});
-	}
+	}*/
 	// MAIN
 
 }

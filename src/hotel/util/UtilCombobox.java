@@ -25,9 +25,9 @@ public class UtilCombobox {
 			comboBox.setModel(new DefaultComboBoxModel<Object>(paises.toArray()));
 
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+//
 		} catch (SQLException e) {
-			e.printStackTrace();
+//
 		}
 
 		return comboBox;
@@ -42,10 +42,10 @@ public class UtilCombobox {
 
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//
 		}
 
 		return comboBox;
@@ -60,10 +60,10 @@ public class UtilCombobox {
 
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+//
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+//
 			}
 		} else {
 			return;
@@ -77,8 +77,8 @@ public class UtilCombobox {
 			List<TipoDeQuarto> tipoDeQuarto = tdq.getLista();
 			comboBox.setModel(new DefaultComboBoxModel<Object>(tipoDeQuarto.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
-			ex.printStackTrace();
-			ex.printStackTrace();
+//
+//
 		}
 	}
 }

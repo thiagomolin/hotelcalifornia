@@ -264,8 +264,8 @@ public class TelaCadastroQuarto extends Tela {
 			List<Quarto> clientes = cl.getLista();
 			comboBoxCodigo.setModel(new DefaultComboBoxModel<Object>(clientes.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
-			ex.printStackTrace();
-			ex.printStackTrace();
+//
+//
 		}
 	}
 
@@ -275,8 +275,8 @@ public class TelaCadastroQuarto extends Tela {
 			List<TipoDeQuarto> tipoQuarto = cl.getLista();
 			comboBoxTipoQuarto.setModel(new DefaultComboBoxModel<Object>(tipoQuarto.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
-			ex.printStackTrace();
-			ex.printStackTrace();
+//
+//
 		}
 	}
 	// Eventos de ComboBox

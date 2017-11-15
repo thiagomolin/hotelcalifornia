@@ -333,8 +333,8 @@ public class TelaCadastroFornecedor extends Tela {
 			List<Fornecedor> fornecedors = cl.getLista();
 			comboBoxCodigo.setModel(new DefaultComboBoxModel<Object>(fornecedors.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
-			ex.printStackTrace();
-			ex.printStackTrace();
+//
+//
 		}
 	}
 
@@ -432,6 +432,7 @@ public class TelaCadastroFornecedor extends Tela {
 	//Validação de formulário
 	protected boolean isFormularioValido() {
 		String cnpj = textFieldCnpj.getText().replaceAll("[^0-9]+", "");
+		System.out.println(cnpj);
 		boolean valido = true;
 		valido = (textFieldCnpj.getText().isEmpty() || !UtilVerificadores.isCnpjValido(cnpj)) ? false: valido;
 		textFieldCnpj.setText(valido?cnpj:"");

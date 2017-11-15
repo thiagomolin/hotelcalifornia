@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Vector;
 
-import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,7 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -58,8 +56,6 @@ public class TelaConsultaGeral extends JFrame {
 	private JButton btnSelecionar;
 	private JButton btnCancelar;
 
-	private JPanel panel;
-
 	private DAO dao;
 	private Tela telaCadastro;
 
@@ -69,14 +65,12 @@ public class TelaConsultaGeral extends JFrame {
 	private ETipo tipoSelecionado = null;
 	private JTable table;
 
-	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	public TelaConsultaGeral() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		inicializarLayoutEEventos();
 		comboBoxTipo.getModel().setSelectedItem(null);
-		panel.setVisible(false);
 		btnCancelar.setVisible(true);
 	}
 
@@ -85,7 +79,6 @@ public class TelaConsultaGeral extends JFrame {
 		this.telaCadastro = telaCadastro;
 		inicializarLayoutEEventos();
 		mostrarCampos();
-		panel.setVisible(false);
 		btnCancelar.setVisible(false);
 	}
 
@@ -166,27 +159,6 @@ public class TelaConsultaGeral extends JFrame {
 		btnMostrar.setBounds(625, 58, 89, 23);
 		panel_1.add(btnMostrar);
 
-		panel = new JPanel();
-		panel.setBounds(501, 73, 114, 80);
-		panel_1.add(panel);
-		panel.setLayout(null);
-		panel.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
-
-		JRadioButton rdbtnAtiva = new JRadioButton("Ativa");
-		buttonGroup.add(rdbtnAtiva);
-		rdbtnAtiva.setBounds(6, 7, 102, 23);
-		panel.add(rdbtnAtiva);
-
-		JRadioButton rdbtnInativa = new JRadioButton("Inativa");
-		buttonGroup.add(rdbtnInativa);
-		rdbtnInativa.setBounds(6, 30, 102, 23);
-		panel.add(rdbtnInativa);
-
-		JRadioButton rdbtnFinalizada = new JRadioButton("Finalizada");
-		buttonGroup.add(rdbtnFinalizada);
-		rdbtnFinalizada.setBounds(6, 51, 102, 23);
-		panel.add(rdbtnFinalizada);
-
 		btnSelecionar = new JButton("Selecionar");
 		btnSelecionar.setEnabled(false);
 		btnSelecionar.addActionListener(new ActionListener() {
@@ -256,7 +228,7 @@ public class TelaConsultaGeral extends JFrame {
 						table.setModel(construirTableModel());
 						statusBtnSelecionar();
 					} catch (ClassNotFoundException | SQLException e) {
-						e.printStackTrace();
+//
 					}
 				}
 			}
@@ -269,7 +241,7 @@ public class TelaConsultaGeral extends JFrame {
 				table.setModel(construirTableModel());
 				statusBtnSelecionar();
 			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
+//
 			}
 		}
 	}
@@ -282,7 +254,7 @@ public class TelaConsultaGeral extends JFrame {
 				listaColunas = dao.getCamposBDAnalitico();
 				table.setModel(construirTableModel());
 			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
+//
 			}
 		} else if (dataDe.getDate() != null && dataAte.getDate() != null) {
 			try {
@@ -291,7 +263,7 @@ public class TelaConsultaGeral extends JFrame {
 				listaColunas = dao.getCamposBDAnalitico();
 				table.setModel(construirTableModel());
 			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
+//
 			}
 		}
 	}
@@ -304,7 +276,7 @@ public class TelaConsultaGeral extends JFrame {
 				listaColunas = dao.getCamposBDAnalitico();
 				table.setModel(construirTableModel());
 			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
+//
 			}
 		} else if (dataDe.getDate() != null && dataAte.getDate() != null) {
 			try {
@@ -313,7 +285,7 @@ public class TelaConsultaGeral extends JFrame {
 				listaColunas = dao.getCamposBDAnalitico();
 				table.setModel(construirTableModel());
 			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
+//
 			}
 		}
 	}
@@ -377,7 +349,6 @@ public class TelaConsultaGeral extends JFrame {
 		if (tipoSelecionado == ETipo.Cliente) {
 			dataDe.setEnabled(false);
 			dataAte.setEnabled(false);
-			panel.setVisible(false);
 			textFieldPalavraChave.setEnabled(true);
 			comboBoxCampo.setEnabled(true);
 			comboBoxTipo.getModel().setSelectedItem(ETipo.Cliente);
@@ -386,11 +357,10 @@ public class TelaConsultaGeral extends JFrame {
 				dao = new ClienteDAO();
 				comboBoxCampo.setModel(new DefaultComboBoxModel<Object>(Cliente.getCampos().toArray()));
 			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
+//
 			}
 
 		} else if (tipoSelecionado == ETipo.Fornecedor) {
-			panel.setVisible(false);
 			dataDe.setEnabled(false);
 			dataAte.setEnabled(false);
 			textFieldPalavraChave.setEnabled(true);
@@ -401,10 +371,9 @@ public class TelaConsultaGeral extends JFrame {
 				dao = new FornecedorDAO();
 				comboBoxCampo.setModel(new DefaultComboBoxModel<Object>(Fornecedor.getCampos().toArray()));
 			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
+//
 			}
 		} else if (tipoSelecionado == ETipo.Produto) {
-			panel.setVisible(false);
 			dataDe.setEnabled(false);
 			dataAte.setEnabled(false);
 			textFieldPalavraChave.setEnabled(true);
@@ -415,11 +384,10 @@ public class TelaConsultaGeral extends JFrame {
 				dao = new ProdutoDAO();
 				comboBoxCampo.setModel(new DefaultComboBoxModel<Object>(Produto.getCampos().toArray()));
 			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
+//
 			}
 
 		} else if (tipoSelecionado == ETipo.Quarto) {
-			panel.setVisible(false);
 			dataDe.setEnabled(false);
 			dataAte.setEnabled(false);
 			textFieldPalavraChave.setEnabled(false);
@@ -431,10 +399,9 @@ public class TelaConsultaGeral extends JFrame {
 				dao = new QuartoDAO();
 				comboBoxCampo.setModel(new DefaultComboBoxModel<Object>(Quarto.getCampos().toArray()));
 			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
+//
 			}
 		} else if (tipoSelecionado == ETipo.Reserva) {
-			panel.setVisible(true);
 			comboBoxTipo.getModel().setSelectedItem(ETipo.Reserva);
 			textFieldPalavraChave.setEnabled(true);
 			comboBoxCampo.setEnabled(true);
@@ -443,7 +410,7 @@ public class TelaConsultaGeral extends JFrame {
 				dao = new ReservaDAO();
 				comboBoxCampo.setModel(new DefaultComboBoxModel<Object>(Locacao.getCampos().toArray()));
 			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
+//
 			}
 		} else if (tipoSelecionado == ETipo.Locacao) {
 			comboBoxTipo.getModel().setSelectedItem(ETipo.Locacao);
@@ -453,7 +420,7 @@ public class TelaConsultaGeral extends JFrame {
 				dao = new LocacaoDAO();
 				comboBoxCampo.setModel(new DefaultComboBoxModel<Object>(Locacao.getCampos().toArray()));
 			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
+//
 			}
 		}
 	}

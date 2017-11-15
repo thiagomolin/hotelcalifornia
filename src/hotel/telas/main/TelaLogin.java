@@ -1,5 +1,6 @@
 package hotel.telas.main;
 
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -13,6 +14,7 @@ import javax.swing.JTextField;
 
 import hotel.classes.Usuario;
 import hotel.classes.DAO.UsuarioDAO;
+import hotel.telas.setup.CredenciaisBD;
 
 public class TelaLogin extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -71,7 +73,7 @@ public class TelaLogin extends JFrame{
 			JOptionPane.showMessageDialog(null, "Usuario ou senha incorreto");
 		}else if(usuario.getDsSenha().equals(String.copyValueOf(textFieldSenha.getPassword()))) {
 			TelaPrincipal tela = new TelaPrincipal();
-			tela.setUsuarioLogado(1); //ALTERAR PARA tela.setUsuarioLogado(usuario.getId()); 
+			tela.setUsuarioLogado(usuario.getId()); 
 			tela.setVisible(true);	
 			this.dispose();
 		}else {
@@ -83,24 +85,25 @@ public class TelaLogin extends JFrame{
 	
 	
 	
-	
-	
-	/*
 	// MAIN
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					TelaLogin tela = new TelaLogin();
+					tela.setEnabled(false);
 					tela.setVisible(true);
+					
+					CredenciaisBD cbd = new CredenciaisBD(tela);
+					cbd.setVisible(true);
+					cbd.testeDeConexao();
 				} catch (Exception e) {
 				}
 			}
 		});
 	}
 	// MAIN
-	
-	*/
+
 	
 	
 	

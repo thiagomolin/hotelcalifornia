@@ -26,7 +26,7 @@ public class RegraCadastroQuarto {
 			QuartoDAO quartoDao = new QuartoDAO();
 			quartoDao.inserir(quarto);
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+//
 		}
 
 	}
@@ -41,7 +41,7 @@ public class RegraCadastroQuarto {
 			QuartoDAO quartoDao = new QuartoDAO();
 			quartoDao.alterar(quarto);
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+//
 		}
 
 	}
@@ -58,7 +58,7 @@ public class RegraCadastroQuarto {
 				JOptionPane.showMessageDialog(tela, "Excluido com sucesso!", "Sucesso",
 						JOptionPane.INFORMATION_MESSAGE);
 			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
+//
 			}
 		}
 
@@ -73,7 +73,7 @@ public class RegraCadastroQuarto {
 			tela.setTipoQuarto(tipoDeQuartoDao.listarPorID(quarto.getFkTipoQuarto()));
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//
 		}
 		
 	}
@@ -85,7 +85,7 @@ public class RegraCadastroQuarto {
 			tela.setSelectedComboBoxCodigo(dao.selecionar(id));
 			mostrarQuarto();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+//
 		}
 
 	}

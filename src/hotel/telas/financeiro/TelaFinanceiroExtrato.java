@@ -204,7 +204,7 @@ public class TelaFinanceiroExtrato extends Tela {
 					listaColunas = dao.getCamposBDAnalitico();
 					table.setModel(construirTableModel());
 				} catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
+//
 				}
 			}else if(dataDe.getDate() != null && dataAte.getDate() != null){
 				try {
@@ -213,7 +213,7 @@ public class TelaFinanceiroExtrato extends Tela {
 					listaColunas = dao.getCamposBDAnalitico();
 					table.setModel(construirTableModel());
 				} catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
+//
 				}
 			}
 		} else {
@@ -224,7 +224,7 @@ public class TelaFinanceiroExtrato extends Tela {
 					listaColunas = dao.getCamposBDSintetico();
 					table.setModel(construirTableModel());
 				} catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
+//
 				}
 			}else if(dataDe.getDate() != null && dataAte.getDate() != null){
 				try {
@@ -233,7 +233,7 @@ public class TelaFinanceiroExtrato extends Tela {
 					listaColunas = dao.getCamposBDSintetico();
 					table.setModel(construirTableModel());
 				} catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
+//
 				}
 			}
 		}
@@ -248,7 +248,7 @@ public class TelaFinanceiroExtrato extends Tela {
 					listaColunas = dao.getCamposBDAnalitico();
 					table.setModel(construirTableModel());
 				} catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
+//
 				}
 			}else if(dataDe.getDate() != null && dataAte.getDate() != null){
 				try {
@@ -257,7 +257,7 @@ public class TelaFinanceiroExtrato extends Tela {
 					listaColunas = dao.getCamposBDAnalitico();
 					table.setModel(construirTableModel());
 				} catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
+//
 				}
 			}
 		} else {
@@ -268,7 +268,7 @@ public class TelaFinanceiroExtrato extends Tela {
 					listaColunas = dao.getCamposBDSintetico();
 					table.setModel(construirTableModel());
 				} catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
+//
 				}
 			}else if(dataDe.getDate() != null && dataAte.getDate() != null){
 				try {
@@ -277,7 +277,7 @@ public class TelaFinanceiroExtrato extends Tela {
 					listaColunas = dao.getCamposBDSintetico();
 					table.setModel(construirTableModel());
 				} catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
+//
 				}
 			}
 		}
@@ -292,7 +292,7 @@ public class TelaFinanceiroExtrato extends Tela {
 					listaColunas = dao.getCamposBDAnalitico();
 					table.setModel(construirTableModel());
 				} catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
+//
 				}
 			}else if(dataDe.getDate() != null && dataAte.getDate() != null){
 				try {
@@ -301,7 +301,7 @@ public class TelaFinanceiroExtrato extends Tela {
 					listaColunas = dao.getCamposBDAnalitico();
 					table.setModel(construirTableModel());
 				} catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
+//
 				}
 			}
 		} else {
@@ -312,7 +312,7 @@ public class TelaFinanceiroExtrato extends Tela {
 					listaColunas = dao.getCamposBDSintetico();
 					table.setModel(construirTableModel());
 				} catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
+//
 				}
 			}else if(dataDe.getDate() != null && dataAte.getDate() != null){
 				try {
@@ -321,7 +321,7 @@ public class TelaFinanceiroExtrato extends Tela {
 					listaColunas = dao.getCamposBDSintetico();
 					table.setModel(construirTableModel());
 				} catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
+//
 				}
 			}
 		}

@@ -300,8 +300,8 @@ public class TelaCadastroProduto extends Tela {
 			List<Produto> produtos = cl.getLista();
 			comboBoxCodigo.setModel(new DefaultComboBoxModel<Object>(produtos.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
-			ex.printStackTrace();
-			ex.printStackTrace();
+//
+//
 		}
 	}
 
@@ -312,8 +312,8 @@ public class TelaCadastroProduto extends Tela {
 			comboBoxFornecedor.setModel(new DefaultComboBoxModel<Object>(fornecedores.toArray()));
 			comboBoxFornecedor.getModel().setSelectedItem(null);
 		} catch (ClassNotFoundException | SQLException ex) {
-			ex.printStackTrace();
-			ex.printStackTrace();
+//
+//
 		}
 	}
 	// Eventos de ComboBox
@@ -385,7 +385,7 @@ public class TelaCadastroProduto extends Tela {
 				comboBoxFornecedor.getModel().setSelectedItem(f.selecionar(id));
 			} catch (ClassNotFoundException | SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+//
 			}
 		}
 	}

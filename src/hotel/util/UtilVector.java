@@ -19,7 +19,7 @@ public class UtilVector {
 				dados.add(vector);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+//
 		}
 		
 		return dados;

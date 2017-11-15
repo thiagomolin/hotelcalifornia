@@ -10,29 +10,29 @@ public class ConexaoMariaDBJDBC implements ConexaoJDBC {
 
 	private Connection connection = null;
 	
-	public ConexaoMariaDBJDBC(String usuario, String senha) throws SQLException, ClassNotFoundException {
+	public ConexaoMariaDBJDBC(String usuario, String senha, String ip, String porta) throws SQLException, ClassNotFoundException {
 		try {
-			Class.forName("org.mariadb.jdbc.Driver").newInstance();
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		} catch (InstantiationException ex) {
 			Logger.getLogger(ConexaoMariaDBJDBC.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (IllegalAccessException ex) {
 			Logger.getLogger(ConexaoMariaDBJDBC.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
-		this.connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/", usuario, senha);
+		this.connection = DriverManager.getConnection("jdbc:mysql://"+ip+":"+porta+"/", usuario, senha);
 		this.connection.setAutoCommit(false);
 	}
 	
-	public ConexaoMariaDBJDBC(String usuario, String senha, String db) throws SQLException, ClassNotFoundException {
+	public ConexaoMariaDBJDBC(String usuario, String senha, String db, String ip, String porta) throws SQLException, ClassNotFoundException {
 		try {
-			Class.forName("org.mariadb.jdbc.Driver").newInstance();
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		} catch (InstantiationException ex) {
 			Logger.getLogger(ConexaoMariaDBJDBC.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (IllegalAccessException ex) {
 			Logger.getLogger(ConexaoMariaDBJDBC.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
-		this.connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/" + db, usuario, senha);
+		this.connection = DriverManager.getConnection("jdbc:mysql://"+ip+":"+porta+"/" + db, usuario, senha);
 		this.connection.setAutoCommit(false);
 	}
 

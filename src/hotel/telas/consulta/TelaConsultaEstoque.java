@@ -157,7 +157,7 @@ public class TelaConsultaEstoque extends JFrame {
 				table.setModel(construirTableModel());
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+//
 		}
 	}
 
@@ -166,9 +166,9 @@ public class TelaConsultaEstoque extends JFrame {
 	private void mostrarSintetico() {
 		try {
 			MovimentoEstoqueDAO dao = new MovimentoEstoqueDAO();
-			listaColunas = dao.getCamposBDSintetico();
+			listaColunas = dao.getCamposBDSintetico(comboBoxCampo.getModel().getSelectedItem().equals("Usuario"));
 			if (textFieldPalavraChave.getText().isEmpty()) {
-				listaDados = UtilVector.rsParaVector(dao.listarSintetico());
+				listaDados = UtilVector.rsParaVector(dao.listarSintetico(comboBoxCampo.getModel().getSelectedItem().equals("Usuario")));
 				table.setModel(construirTableModel());
 			} else {
 				ResultSet rs = dao.listarFiltro(((String) comboBoxCampo.getModel().getSelectedItem()),
@@ -178,7 +178,7 @@ public class TelaConsultaEstoque extends JFrame {
 				table.setModel(construirTableModel());
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+//
 		}
 	}
 

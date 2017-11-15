@@ -17,7 +17,9 @@ public abstract class DAO {
 		String usuarioDB = lines[0];
 		String senhaDB = lines[1];
 		String db = lines[2];
-		this.conexao = new ConexaoMariaDBJDBC(usuarioDB, senhaDB, db);
+		String ip = lines[3];
+		String porta = lines[4];
+		this.conexao = new ConexaoMariaDBJDBC(usuarioDB, senhaDB, db, ip, porta);
 	}
 	
 	public abstract ResultSet listar() throws SQLException, ClassNotFoundException;

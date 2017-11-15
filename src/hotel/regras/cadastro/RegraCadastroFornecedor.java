@@ -35,7 +35,7 @@ public class RegraCadastroFornecedor{
 			FornecedorDAO fornecedorDao = new FornecedorDAO();
 			fornecedorDao.inserir(fornecedor);
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+//
 		}
 
 	}
@@ -55,7 +55,7 @@ public class RegraCadastroFornecedor{
 			FornecedorDAO fornecedorDao = new FornecedorDAO();
 			fornecedorDao.alterar(fornecedor);
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+//
 		}
 
 	}
@@ -71,7 +71,7 @@ public class RegraCadastroFornecedor{
 				fornecedorDao.excluir(fornecedor);
 				JOptionPane.showMessageDialog(tela, "Excluido com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
+//
 			}
 		}
 
@@ -96,7 +96,7 @@ public class RegraCadastroFornecedor{
 				UtilCombobox.inicializarComboBoxCidade(tela.getComboBoxCidade(), fornecedor.getFkEstado());
 				tela.setSelectedComboBoxCidade(c.listarPorId(fornecedor.getFkCidade()));
 			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
+//
 			}
 		} catch (Exception e) {
 		}
@@ -111,7 +111,7 @@ public class RegraCadastroFornecedor{
 			mostrarFornecedor();
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//
 		}
 
 		

@@ -135,10 +135,12 @@ public class MovimentoEstoqueDAO extends DAO {
 		return lista;
 	}
 	
-	public Vector<String> getCamposBDSintetico() {
+	public Vector<String> getCamposBDSintetico(boolean inUsuario) {
 		Vector<String> lista = new Vector<String>();
+		String holder = "";
 		lista.add("Produto");
-		lista.add("Quantidade");
+		holder = inUsuario?"Usuário":"Quantidade";
+		lista.add(holder);
 
 		return lista;
 	}
@@ -162,12 +164,15 @@ public class MovimentoEstoqueDAO extends DAO {
 	}
 
 	
-	public ResultSet listarSintetico() throws SQLException, ClassNotFoundException {
+	public ResultSet listarSintetico(boolean inUsuario) throws SQLException, ClassNotFoundException {
 		String sqlQuery = "SELECT ds_produto, SUM(nr_quantidade) "
 				+ "FROM movimento_estoque " 
 				+ "INNER JOIN produto ON produto.id = movimento_estoque.fk_produto "
 				+ "GROUP BY ds_produto";
-
+		sqlQuery = !inUsuario?sqlQuery:"SELECT produto.ds_produto, usuario.ds_usuario " + 
+				"FROM movimento_estoque " + 
+				"INNER JOIN produto ON produto.id = movimento_estoque.fk_produto " + 
+				"INNER JOIN usuario ON usuario.id = movimento_estoque.fk_usuario ";
 		try {
 			PreparedStatement stmt = this.conexao.getConnection().prepareStatement(sqlQuery);
 			ResultSet rs = stmt.executeQuery();

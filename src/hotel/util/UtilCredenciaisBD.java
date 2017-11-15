@@ -11,7 +11,7 @@ import hotel.telas.setup.CredenciaisBD;
 
 public class UtilCredenciaisBD {
 	public static String[] lerArquivoIni() {
-		String[] lines = {"", "", ""};
+		String[] lines = {"", "", "", "", ""};
 		try {
 			FileReader f = new FileReader(CredenciaisBD.NOME_ARQUIVO_INI);
 			

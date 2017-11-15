@@ -69,8 +69,8 @@ public class TelaFinanceiroFecharConta extends Tela {
 			List<Locacao> locacoes = cl.getListaAtiva();
 			comboBoxCodigo.setModel(new DefaultComboBoxModel<Object>(locacoes.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
-			ex.printStackTrace();
-			ex.printStackTrace();
+//
+//
 		}
 	}
 
@@ -252,7 +252,7 @@ public class TelaFinanceiroFecharConta extends Tela {
 
 			listaDados.add(pernoites);
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+//
 		}
 
 	}
@@ -299,7 +299,7 @@ public class TelaFinanceiroFecharConta extends Tela {
 
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//
 		} // status 2, finalizada
 
 	}
@@ -335,12 +335,12 @@ public class TelaFinanceiroFecharConta extends Tela {
 					
 					movest.inserir(mov);
 				} catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
+//
 				}
 				
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+//
 		}
 	}
 
@@ -357,7 +357,7 @@ public class TelaFinanceiroFecharConta extends Tela {
 			movdao.inserir(mov);
 
 		} catch (NumberFormatException | ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+//
 		}
 	}
 

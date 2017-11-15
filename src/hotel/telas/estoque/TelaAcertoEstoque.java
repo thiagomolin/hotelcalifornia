@@ -176,7 +176,7 @@ public class TelaAcertoEstoque extends Tela {
 			MovimentoEstoqueDAO mdao = new MovimentoEstoqueDAO();
 			mdao.inserir(m);
 		} catch (Exception e) {
-			e.printStackTrace();
+//
 		}
 	}
 
@@ -190,8 +190,8 @@ public class TelaAcertoEstoque extends Tela {
 			List<Produto> produtos = cl.getLista();
 			comboBoxProduto.setModel(new DefaultComboBoxModel<Object>(produtos.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
-			ex.printStackTrace();
-			ex.printStackTrace();
+//
+//
 		}
 	}
 
@@ -218,7 +218,7 @@ public class TelaAcertoEstoque extends Tela {
 			ProdutoDAO p = new ProdutoDAO();
 			comboBoxProduto.getModel().setSelectedItem(p.selecionar(id));
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+//
 		}
 	}
 

@@ -30,7 +30,7 @@ public class RegraCadastroProduto {
 			ProdutoDAO produtoDao = new ProdutoDAO();
 			produtoDao.inserir(produto);
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+//
 		}
 
 	}
@@ -47,7 +47,7 @@ public class RegraCadastroProduto {
 			ProdutoDAO produtoDao = new ProdutoDAO();
 			produtoDao.alterar(produto);
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+//
 		}
 
 	}
@@ -64,7 +64,7 @@ public class RegraCadastroProduto {
 				JOptionPane.showMessageDialog(tela, "Excluido com sucesso!", "Sucesso",
 						JOptionPane.INFORMATION_MESSAGE);
 			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
+//
 			}
 		}
 
@@ -80,7 +80,7 @@ public class RegraCadastroProduto {
 			dao = new FornecedorDAO();
 			tela.setSelectedComboBoxFornecedor(dao.selecionar(produto.getFkFornecedor()));
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+//
 		}
 		tela.setCheckBoxConsumivel(produto.isConsumivel());
 	}
@@ -92,7 +92,7 @@ public class RegraCadastroProduto {
 			tela.setSelectedComboBoxCodigo(dao.selecionar(id));
 			mostrarProduto();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+//
 		}
 
 	}

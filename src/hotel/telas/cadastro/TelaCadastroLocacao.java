@@ -346,7 +346,7 @@ public class TelaCadastroLocacao extends Tela {
 			comboBoxReserva.setModel(new DefaultComboBoxModel<Object>(reservas.toArray()));
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//
 		}
 
 	}
@@ -357,8 +357,8 @@ public class TelaCadastroLocacao extends Tela {
 			List<Locacao> locacaos = cl.getLista();
 			comboBoxCodigo.setModel(new DefaultComboBoxModel<Object>(locacaos.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
-			ex.printStackTrace();
-			ex.printStackTrace();
+//
+//
 		}
 	}
 
@@ -368,8 +368,8 @@ public class TelaCadastroLocacao extends Tela {
 			List<Cliente> clientes = cl.getLista();
 			comboBoxCliente.setModel(new DefaultComboBoxModel<Object>(clientes.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
-			ex.printStackTrace();
-			ex.printStackTrace();
+//
+//
 		}
 	}
 	// Eventos de ComboBox
@@ -472,7 +472,7 @@ public class TelaCadastroLocacao extends Tela {
 				ClienteDAO c = new ClienteDAO();
 				setClienteSelecionado(c.selecionar(id));
 			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
+//
 			}
 		} else if (tipo == ETipo.Reserva) {
 			try {
@@ -484,7 +484,7 @@ public class TelaCadastroLocacao extends Tela {
 				}
 
 			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
+//
 			}
 		}
 	}

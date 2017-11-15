@@ -153,7 +153,7 @@ public class TelaFinanceiroLancamento extends Tela {
 				limpaCampos();
 
 			} catch (ClassNotFoundException | SQLException ex) {
-				ex.printStackTrace();
+//
 			}
 		}else {
 			JOptionPane.showMessageDialog(null, "Insira todos os dados!");			
@@ -172,7 +172,7 @@ public class TelaFinanceiroLancamento extends Tela {
 			List<Produto> produtos = cl.getLista();
 			comboBoxProduto.setModel(new DefaultComboBoxModel<Object>(produtos.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
-			ex.printStackTrace();
+//
 		}
 	}
 
@@ -199,8 +199,8 @@ public class TelaFinanceiroLancamento extends Tela {
 			List<Locacao> locacoes = cl.getListaAtiva();
 			comboBoxCodigo.setModel(new DefaultComboBoxModel<Object>(locacoes.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
-			ex.printStackTrace();
-			ex.printStackTrace();
+//
+//
 		}
 	}
 

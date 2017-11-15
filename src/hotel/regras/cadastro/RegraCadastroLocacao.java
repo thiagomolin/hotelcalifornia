@@ -57,7 +57,7 @@ public class RegraCadastroLocacao {
 			}
 
 		} catch (ClassNotFoundException | SQLException e1) {
-			e1.printStackTrace();
+//
 		}
 
 	}
@@ -93,7 +93,7 @@ public class RegraCadastroLocacao {
 			LocacaoDAO reservaDao = new LocacaoDAO();
 			reservaDao.alterarStatusLocacao(id, fkStatus);
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+//
 		}
 	}
 
@@ -155,7 +155,7 @@ public class RegraCadastroLocacao {
 
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//
 		}
 
 		return t;
@@ -168,7 +168,7 @@ public class RegraCadastroLocacao {
 			q = qDao.selecionar(reserva.getFkQuarto());
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//
 		}
 
 		return q;

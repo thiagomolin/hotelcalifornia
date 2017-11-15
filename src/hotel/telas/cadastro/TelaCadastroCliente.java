@@ -331,8 +331,8 @@ public class TelaCadastroCliente extends Tela {
 			List<Cliente> clientes = cl.getLista();
 			comboBoxCodigo.setModel(new DefaultComboBoxModel<Object>(clientes.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
-			ex.printStackTrace();
-			ex.printStackTrace();
+//
+//
 		}
 	}
 

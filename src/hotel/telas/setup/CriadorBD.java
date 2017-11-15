@@ -39,6 +39,8 @@ public final class CriadorBD extends JFrame {
 	private String usuarioDB;
 	private String senhaDB;
 	private String db;
+	private String ip;
+	private String porta;
 
 	public CriadorBD(boolean deveCriarBD, boolean deveCriarTabelas) {
 		super();
@@ -54,6 +56,8 @@ public final class CriadorBD extends JFrame {
 		usuarioDB = credenciais[0];
 		senhaDB = credenciais[1];
 		db = credenciais[2];
+		ip = credenciais[3];
+		porta = credenciais[4];
 	}
 
 	public void executar() {
@@ -70,7 +74,7 @@ public final class CriadorBD extends JFrame {
 
 	private void criarBD() {
 		try {
-			ConexaoJDBC con = new ConexaoMariaDBJDBC(usuarioDB, senhaDB);
+			ConexaoJDBC con = new ConexaoMariaDBJDBC(usuarioDB, senhaDB, ip, porta);
 			Statement stmt = con.getConnection().createStatement();
 			String query = "CREATE DATABASE " + db;
 			stmt.executeQuery(query);
@@ -120,7 +124,7 @@ public final class CriadorBD extends JFrame {
 
 			br.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+//
 		}
 
 	}
@@ -148,7 +152,7 @@ public final class CriadorBD extends JFrame {
 			@Override
 			public void run() {
 				try {
-					ConexaoJDBC con = new ConexaoMariaDBJDBC(usuarioDB, senhaDB, db);
+					ConexaoJDBC con = new ConexaoMariaDBJDBC(usuarioDB, senhaDB, db, ip, porta);
 
 					for (String comando : comandos) {
 						textArea.setText(comando);

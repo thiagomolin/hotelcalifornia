@@ -163,7 +163,7 @@ public class TelaEntradaEstoque extends Tela {
 
 			gerarFinanceiro(total);
 		}catch (Exception e) {
-			e.printStackTrace();
+//
 		}
 	}
 
@@ -180,7 +180,7 @@ public class TelaEntradaEstoque extends Tela {
 			MovimentoFinanceiroSaidaDAO mvmtdao = new MovimentoFinanceiroSaidaDAO();
 			mvmtdao.inserir(mvmts);			
 		}catch (Exception e) {
-			e.printStackTrace();			
+//			
 		}
 	}
 
@@ -197,8 +197,8 @@ public class TelaEntradaEstoque extends Tela {
 			List<Produto> produtos = cl.getLista();
 			comboBoxProduto.setModel(new DefaultComboBoxModel<Object>(produtos.toArray()));
 		} catch (ClassNotFoundException | SQLException ex) {
-			ex.printStackTrace();
-			ex.printStackTrace();
+//
+//
 		}
 	}
 	
@@ -229,7 +229,7 @@ public class TelaEntradaEstoque extends Tela {
 			ProdutoDAO p = new ProdutoDAO();
 			comboBoxProduto.getModel().setSelectedItem(p.selecionar(id));
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+//
 		}
 	}
 
