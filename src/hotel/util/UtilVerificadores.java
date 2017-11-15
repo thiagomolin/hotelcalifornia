@@ -60,8 +60,8 @@ public class UtilVerificadores {
 				j = (j==9)?2:j+1;
 				
 			}
-			int resultado2 = ((resultado1 % 11) == 0 || (resultado1 % 11) == 1) ? 0 : (resultado1 % 11);
-			if ((11-resultado2)== (Character.getNumericValue(cnpjChar[12]))) {
+			int resultado2 = ((resultado1 % 11) == 0 || (resultado1 % 11) == 1) ? 0 : 11-(resultado1 % 11);
+			if ((resultado2)== (Character.getNumericValue(cnpjChar[12]))) {
 				int j2 = 2;
 				int resultado3 = 0;
 				for (int i = 12; i>=0; i--) {
@@ -69,8 +69,8 @@ public class UtilVerificadores {
 					resultado3 += numero * j2;
 					j2 = (j2==9)?2:j2+1;
 				}
-				int resultado4 = (resultado3 % 11 == 0 || resultado3 % 11 == 1) ? 0 : resultado3 % 11;
-				if ((11-resultado4)== (Character.getNumericValue(cnpjChar[13]))) {
+				int resultado4 = (resultado3 % 11 == 0 || resultado3 % 11 == 1) ? 0 : 11-resultado3 % 11;
+				if ((resultado4)== (Character.getNumericValue(cnpjChar[13]))) {
 					return true;
 				} else {
 					return false;

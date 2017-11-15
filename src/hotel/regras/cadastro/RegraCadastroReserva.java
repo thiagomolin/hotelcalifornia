@@ -47,8 +47,8 @@ public class RegraCadastroReserva {
 			ReservaDAO reservaDao = new ReservaDAO();
 			reservaDao.inserir(reserva);
 
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+		} catch (ClassNotFoundException | SQLException | NullPointerException e) {
+			//e.printStackTrace();
 		}
 
 	}
@@ -76,7 +76,7 @@ public class RegraCadastroReserva {
 			reservaDao.alterar(reserva);
 
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
@@ -88,7 +88,7 @@ public class RegraCadastroReserva {
 			ReservaDAO reservaDao = new ReservaDAO();
 			reservaDao.alterarStatusReserva(id, fkStatus);
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 	
@@ -100,7 +100,7 @@ public class RegraCadastroReserva {
 			ReservaDAO reservaDao = new ReservaDAO();
 			reservaDao.alterarStatusReserva(id, fkStatus);
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
