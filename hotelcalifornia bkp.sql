@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 15-Nov-2017 às 20:33
+-- Generation Time: 16-Set-2017 às 23:38
 -- Versão do servidor: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -5635,10 +5635,12 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`id`, `nm_cliente`, `nr_cpf`, `nr_telefone`, `ds_endereco`, `ds_email`, `fk_cidade`, `fk_estado`, `fk_pais`) VALUES
-(1, 'Thiago Molin', '04563314927', '49999469913', 'Rua 2, 392', 'thiago.vm@outlook.com', 4389, 24, 1),
-(2, 'Allan Schussler', '19430826778', '49999291920', 'rua Wunstorf, 106', 'allan@gmail.com', 4348, 24, 1),
-(3, 'José Pereira', '09715342841', '499994846384', 'Rua 8, 823', 'jose@bol.com', 4312, 24, 1),
-(4, 'Marcos Antonio', '54290813704', '48946384684', 'Rua das palmeiras, 872', 'marcosa@yahoo.com.br', 3176, 19, 1);
+(1, 'Pedrinho Jesuss', '064968740', '68746840', 'Rua 1, 222', 'eae@xd.com', 1653, 2, 1),
+(4, 'EAE', '123', '', 'asdawdwa', 'eae', 10301, 30, 2),
+(5, 'eae2', '12314', '1124124', 'asdawdwad', 'asdawdwa', 296, 3, 1),
+(6, 'eae', '123', '123', 'eae', 'eae', 1653, 2, 1),
+(7, '123', '123', '3123123', '12321312', '123', 10301, 30, 2),
+(8, 'Thiago Molin', '04563314927', '4999469913', 'alwidhalwidjawlij', 'thiago@bol.com.br', 4389, 24, 1);
 
 -- --------------------------------------------------------
 
@@ -5706,8 +5708,7 @@ CREATE TABLE `financeiro_entrada` (
 --
 
 INSERT INTO `financeiro_entrada` (`id`, `fk_locacao`, `fk_usuario`, `nr_valor`, `dt_lancamento`) VALUES
-(1, 1, 1, 766.1, '2017-11-15'),
-(2, 2, 1, 96.5, '2017-11-15');
+(7, 13, 1, 117, '2017-09-16');
 
 -- --------------------------------------------------------
 
@@ -5728,19 +5729,9 @@ CREATE TABLE `financeiro_saida` (
 --
 
 INSERT INTO `financeiro_saida` (`id`, `fk_produto`, `fk_usuario`, `nr_valor`, `dt_atual`) VALUES
-(11, 7, 1, -5, '2017-11-15'),
-(12, 2, 1, -48, '2017-11-15'),
-(13, 2, 1, -32, '2017-11-15'),
-(14, 2, 1, -32, '2017-11-15'),
-(15, 3, 1, -175, '2017-11-15'),
-(16, 5, 1, -165, '2017-11-15'),
-(17, 6, 1, -192.5, '2017-11-15'),
-(18, 8, 1, -30, '2017-11-15'),
-(19, 9, 1, -54, '2017-11-15'),
-(20, 10, 1, -133, '2017-11-15'),
-(21, 11, 1, -66.5, '2017-11-15'),
-(22, 10, 1, -63, '2017-11-15'),
-(23, 7, 1, -14, '2017-11-15');
+(4, 2, 1, 6.4, '2017-08-23'),
+(5, 2, 1, 576, '2017-08-23'),
+(6, 2, 1, 604.8, '2017-08-23');
 
 -- --------------------------------------------------------
 
@@ -5767,9 +5758,7 @@ CREATE TABLE `fornecedor` (
 INSERT INTO `fornecedor` (`id`, `nm_fornecedor`, `nr_cnpj`, `nr_telefone`, `ds_email`, `ds_endereco`, `fk_cidade`, `fk_estado`, `fk_pais`) VALUES
 (3, 'Aguas de Blumenau', '123456789', '99845678', 'aguas@blumenau.com.br', 'Rua 2, 291', 4348, 24, 1),
 (4, 'Cacau Show', '45678975678', '79879879597', 'cacau@show.com.br', 'Rua 2, 0192', 4314, 24, 1),
-(6, 'Hotel', '', '', '', '', 53, 29, 1),
-(7, 'Coca Cola', '5648978152', '49994949594', 'coca@coca.com', 'rua1, 321', 4312, 24, 1),
-(8, 'Elma chips', '02726752000240', '49894894898', 'elma@chips.com', 'rua 2, 391', 4348, 24, 1);
+(6, 'Hotel', '', '', '', '', 53, 29, 1);
 
 -- --------------------------------------------------------
 
@@ -5791,10 +5780,7 @@ CREATE TABLE `locacao` (
 --
 
 INSERT INTO `locacao` (`id`, `fk_cliente`, `fk_quarto`, `dt_entrada`, `dt_saida`, `fk_status`) VALUES
-(1, 1, 5, '2017-11-05', '2017-11-16', 2),
-(2, 2, 10, '2017-11-15', '2017-11-16', 2),
-(3, 3, 5, '2017-11-13', '2017-11-16', 1),
-(4, 4, 13, '2017-11-10', '2017-11-16', 1);
+(13, 4, 1, '2017-09-15', '2017-09-16', 2);
 
 -- --------------------------------------------------------
 
@@ -5816,15 +5802,7 @@ CREATE TABLE `locacao_consumo` (
 --
 
 INSERT INTO `locacao_consumo` (`id`, `fk_locacao`, `fk_produto`, `fk_usuario`, `nr_quantidade`, `dt_atual`) VALUES
-(1, 1, 3, 1, 3, '2017-11-15'),
-(2, 1, 5, 1, 1, '2017-11-15'),
-(3, 2, 7, 1, 3, '2017-11-15'),
-(4, 2, 9, 1, 3, '2017-11-15'),
-(5, 2, 11, 1, 1, '2017-11-15'),
-(6, 3, 8, 1, 2, '2017-11-15'),
-(7, 3, 2, 1, 1, '2017-11-15'),
-(8, 4, 11, 1, 5, '2017-11-15'),
-(9, 4, 6, 1, 3, '2017-11-15');
+(9, 13, 2, 1, 12, '2017-09-16');
 
 -- --------------------------------------------------------
 
@@ -5846,33 +5824,16 @@ CREATE TABLE `movimento_estoque` (
 --
 
 INSERT INTO `movimento_estoque` (`id`, `fk_produto`, `fk_usuario`, `fk_tipo_movimento`, `nr_quantidade`, `dt_atual`) VALUES
-(23, 7, 1, 5, 10, '2017-11-15'),
-(24, 2, 1, 5, 15, '2017-11-15'),
-(25, 2, 1, 5, 10, '2017-11-15'),
-(26, 2, 1, 5, 10, '2017-11-15'),
-(27, 3, 1, 5, 50, '2017-11-15'),
-(28, 5, 1, 5, 55, '2017-11-15'),
-(29, 6, 1, 5, 55, '2017-11-15'),
-(30, 8, 1, 5, 10, '2017-11-15'),
-(31, 9, 1, 5, 27, '2017-11-15'),
-(32, 10, 1, 5, 38, '2017-11-15'),
-(33, 11, 1, 5, 19, '2017-11-15'),
-(34, 10, 1, 5, 18, '2017-11-15'),
-(35, 7, 1, 5, 28, '2017-11-15'),
-(36, 2, 1, 1, 50, '2017-11-15'),
-(37, 3, 1, 1, 20, '2017-11-15'),
-(38, 5, 1, 1, 50, '2017-11-15'),
-(39, 6, 1, 1, 30, '2017-11-15'),
-(40, 7, 1, 1, 40, '2017-11-15'),
-(41, 8, 1, 1, 10, '2017-11-15'),
-(42, 9, 1, 1, 20, '2017-11-15'),
-(43, 10, 1, 1, 10, '2017-11-15'),
-(44, 11, 1, 1, 30, '2017-11-15'),
-(45, 3, 1, 2, 3, '2017-11-15'),
-(46, 5, 1, 2, 1, '2017-11-15'),
-(47, 7, 1, 2, 3, '2017-11-15'),
-(48, 9, 1, 2, 3, '2017-11-15'),
-(49, 11, 1, 2, 1, '2017-11-15');
+(1, 2, 1, 5, 2, '2017-08-23'),
+(5, 2, 1, 5, 2, '2017-08-23'),
+(6, 2, 1, 5, 180, '2017-08-23'),
+(7, 2, 1, 5, 189, '2017-08-23'),
+(8, 2, 1, 1, 100, '2017-08-23'),
+(9, 3, 1, 3, 50, '2017-08-23'),
+(10, 3, 1, 4, -20, '2017-08-23'),
+(13, 2, 1, 3, 2, '2017-08-23'),
+(14, 3, 1, 6, -10, '2017-08-23'),
+(15, 2, 1, 2, 12, '2017-09-16');
 
 -- --------------------------------------------------------
 
@@ -5916,15 +5877,8 @@ CREATE TABLE `produto` (
 
 INSERT INTO `produto` (`id`, `ds_produto`, `fk_fornecedor`, `nr_valor_compra`, `nr_valor_venda`, `vf_consumivel`) VALUES
 (2, 'Agua', 3, 3.2, 3.5, 1),
-(3, 'Chocolate', 4, 3.5, 3.7, 1),
-(4, 'Pernoite', 6, 0, 75, 0),
-(5, 'Batata frita', 8, 3, 5, 1),
-(6, 'Baconzitos', 8, 3.5, 5, 1),
-(7, 'Biluzitos', 8, 0.5, 1.5, 1),
-(8, 'Trufa premium', 4, 3, 6, 1),
-(9, 'Coca cola', 7, 2, 4, 1),
-(10, 'Fanta', 7, 3.5, 4.5, 1),
-(11, 'Sprite', 7, 3.5, 5, 1);
+(3, 'Chocolãte', 3, 3.5, 3.7, 1),
+(4, 'Pernoite', 6, 0, 75, 0);
 
 -- --------------------------------------------------------
 
@@ -5944,27 +5898,13 @@ CREATE TABLE `quarto` (
 --
 
 INSERT INTO `quarto` (`id`, `nr_quarto`, `fk_tipo_quarto`, `vf_disponivel`) VALUES
-(1, '100', 1, 0),
+(1, '100', 1, 1),
 (2, '101', 1, 1),
 (3, '102', 1, 1),
 (4, '103', 1, 1),
 (5, '104', 2, 1),
 (6, '105', 1, 0),
-(7, '106', 1, 1),
-(10, '200', 3, 1),
-(11, '201', 3, 1),
-(12, '202', 3, 1),
-(13, '203', 4, 1),
-(14, '204', 4, 1),
-(15, '205', 4, 1),
-(16, '206', 1, 1),
-(17, '300', 1, 1),
-(18, '301', 2, 1),
-(19, '302', 2, 1),
-(20, '303', 2, 1),
-(21, '304', 2, 1),
-(22, '305', 2, 1),
-(23, '306', 2, 1);
+(7, '106', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -6002,17 +5942,6 @@ CREATE TABLE `reserva` (
   `dt_saida` date NOT NULL,
   `fk_status` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `reserva`
---
-
-INSERT INTO `reserva` (`id`, `nm_cliente`, `nr_cpf`, `fk_quarto`, `dt_entrada`, `dt_saida`, `fk_status`) VALUES
-(1, 'Carlos Costa', '', 5, '2017-11-20', '2017-11-24', 1),
-(2, 'Severino Silva', '', 18, '2017-11-22', '2017-11-29', 1),
-(3, 'Marcos Salézio', '', 13, '2017-11-24', '2017-11-29', 1),
-(4, 'Felipe Antunes', '', 2, '2017-11-28', '2017-11-30', 1),
-(5, 'Ricardo Matias', '', 10, '2017-11-28', '2017-11-30', 1);
 
 -- --------------------------------------------------------
 
@@ -6078,7 +6007,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `ds_usuario`, `ds_senha`, `vf_admin`) VALUES
-(1, 'admin', 'admin', 1);
+(1, 'admin', '123', 1);
 
 --
 -- Indexes for dumped tables
@@ -6221,7 +6150,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `estado`
 --
@@ -6231,22 +6160,22 @@ ALTER TABLE `estado`
 -- AUTO_INCREMENT for table `financeiro_entrada`
 --
 ALTER TABLE `financeiro_entrada`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `financeiro_saida`
 --
 ALTER TABLE `financeiro_saida`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `fornecedor`
 --
 ALTER TABLE `fornecedor`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `locacao`
 --
 ALTER TABLE `locacao`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `locacao_consumo`
 --
@@ -6256,7 +6185,7 @@ ALTER TABLE `locacao_consumo`
 -- AUTO_INCREMENT for table `movimento_estoque`
 --
 ALTER TABLE `movimento_estoque`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `pais`
 --
@@ -6266,12 +6195,12 @@ ALTER TABLE `pais`
 -- AUTO_INCREMENT for table `produto`
 --
 ALTER TABLE `produto`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `quarto`
 --
 ALTER TABLE `quarto`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `quarto_tipo`
 --
@@ -6281,7 +6210,7 @@ ALTER TABLE `quarto_tipo`
 -- AUTO_INCREMENT for table `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `status`
 --
